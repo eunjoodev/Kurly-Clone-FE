@@ -17,13 +17,11 @@ function App() {
         >
           Learn React
         </a>
-        <div>
-          프론트엔드 1차 프로젝트 팀 반갑습니다🤓 3차까지 화이팅입니다. ㅎㅎ
-        </div>
+        <div>프론트엔드 1차 프로젝트 팀 반갑습니다🤓 3차까지 화이팅입니다.</div>
+        <div>푸쉬 연습!!</div>
       </header>
     </div>
   );
 }
 
 export default App;
-연습;
