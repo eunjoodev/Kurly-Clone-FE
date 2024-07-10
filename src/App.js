@@ -19,7 +19,7 @@ function App() {
         </a>
         <div>프론트엔드 1차 프로젝트 팀 반갑습니다🤓 3차까지 화이팅입니다.</div>
         <div>푸쉬 연습!!</div>
-        <div>푸쉬 연습!!</div>
+        <div>왜 푸쉬가 안돼지?</div>
       </header>
     </div>
   );
