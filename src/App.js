@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         >
           Learn React
         </a>
+        <div>프론트엔드 1차 프로젝트 팀 반갑습니다🤓 3차까지 화이팅입니다.</div>
       </header>
     </div>
   );
