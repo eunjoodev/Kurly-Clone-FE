@@ -20,7 +20,7 @@ const PaymentAmount = ({ cartDetails }) => {
       <div className="flex justify-between items-center pt-3">
         <div className="text-base">배송비</div>
         <div className="text-lg">
-          {shippingCost === 0 ? "무료" : `+${shippingCost.toLocaleString()}원`}
+          {shippingCost === 0 ? "0원" : `+${shippingCost.toLocaleString()}원`}
         </div>
       </div>
       {discountedPrice < 40000 && (

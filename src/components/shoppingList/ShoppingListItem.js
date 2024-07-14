@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ShoppingListItemInfo from "./ShoppingListItemInfo";
 import ShoppingListCheckBox from "./ShoppingListCheckBox";
+import { down, minusBlack, plus, up, deleted } from "../../assets/icon";
 
 const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
   const [quantity, setQuantity] = useState(1);
   const [isDetailsVisible, setIsDetailsVisible] = useState(true);
-  const { title, price, discount } = item;
+  const { title, price, discount, icon } = item;
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -33,54 +34,15 @@ const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
       >
         <div className="flex justify-start items-center">
           <div className="pr-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-7"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-              />
-            </svg>
+            <img src={icon} alt={title} />
           </div>
           <div className="font-semibold text-[17px]">{title}</div>
         </div>
         <div onClick={toggleDetails} className="cursor-pointer">
           {isDetailsVisible ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m4.5 15.75 7.5-7.5 7.5 7.5"
-              />
-            </svg>
+            <img src={up} alt="리스트 닫기" className="w-6 h-6" />
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m19.5 8.25-7.5 7.5-7.5-7.5"
-              />
-            </svg>
+            <img src={down} alt="리스트 열기" className="w-6 h-6" />
           )}
         </div>
       </div>
@@ -107,18 +69,7 @@ const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
               className="w-7 h-7 flex justify-center items-center"
               onClick={decrementQuantity}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="size-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <img src={minusBlack} alt="minusBlack" />
             </button>
 
             <div className="w-7 h-7 text-sm flex justify-center items-center">
@@ -129,34 +80,14 @@ const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
               className="w-7 h-7 flex justify-center items-center"
               onClick={incrementQuantity}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="size-5"
-              >
-                <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-              </svg>
+              <img src={plus} alt="plus" />
             </button>
           </div>
           <div className="w-[7.9375rem] text-right text-base font-bold">
             {totalCost.toLocaleString()}
           </div>
           <button className="w-[1.875rem] h-[1.875rem] ml-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18 18 6M6 6l12 12"
-              />
-            </svg>
+            <img src={deleted} alt="삭제" />
           </button>
         </div>
       )}

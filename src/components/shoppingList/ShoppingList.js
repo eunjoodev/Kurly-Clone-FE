@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ShoppingListItem from "./ShoppingListItem";
 import ShoppingListCheck from "./ShoppingListCheck";
+import { sun, water } from "../../assets/icon";
+import { cookie, egg, peach } from "../../assets/item";
 
 const ShoppingList = ({ setCartDetails }) => {
   const [isChecked, setIsChecked] = useState(false);
@@ -8,17 +10,30 @@ const ShoppingList = ({ setCartDetails }) => {
   const items = [
     {
       id: 1,
-      title: "냉동 상품",
-      name: "[Kim's Butcher] 돌돌말이 대패 삼겹살 1kg(냉동)",
-      price: 16990,
-      discount: 5100,
+      icon: water,
+      title: "냉장 상품",
+      img: egg,
+      name: "[KF365] 1+등급 무항생제 특란 20구",
+      price: 7390,
+      discount: 1260,
     },
     {
       id: 2,
+      icon: water,
+      title: "냉장 상품",
+      img: peach,
+      name: "백도 복숭아 1.2kg (5~6입)",
+      price: 17900,
+      discount: 2000,
+    },
+    {
+      id: 3,
+      icon: sun,
       title: "상온 상품",
-      name: "[동원참치] 살코기 참치 85g X 6개",
-      price: 9980,
-      discount: 500,
+      img: cookie,
+      name: "[제니쿠키] 마카다미아 코코아 크리스피 255g",
+      price: 36800,
+      discount: 3680,
     },
   ];
 
@@ -26,6 +41,7 @@ const ShoppingList = ({ setCartDetails }) => {
     setIsChecked(!isChecked);
   };
 
+  // reduce함수는 배열을 순회하면서 누적값('acc')를 계산하고 초기값은 '0'으로 설정한다.
   const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
   const totalDiscount = items.reduce((acc, item) => acc + item.discount, 0);
 

@@ -13,7 +13,7 @@ const Payment = ({ cartDetails }) => {
             주문하기
           </button>
           {/* {isLoggedIN ? ( */}
-          <ui className="py-4 w-284 h-[180px] list-none text-[#666]">
+          <ul className="py-4 w-284 h-[180px] list-none text-[#666]">
             <li className="text-xs pt-1 pl-1.5">
               쿠폰/적립금은 주문서에서 사용 가능합니다.
             </li>
@@ -41,7 +41,7 @@ const Payment = ({ cartDetails }) => {
               </li>
             </ui>
             )} */}
-          </ui>
+          </ul>
         </div>
       </div>
     </div>
