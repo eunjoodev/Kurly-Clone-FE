@@ -24,10 +24,10 @@ const PaymentAddress = () => {
           />
         </svg>
 
-        <div className="text-base font-medium">배송지</div>
+        <div className="text-base font-[550]">배송지</div>
       </div>
       <div className="pt-3">
-        <div className="text-base font-medium">
+        <div className="text-base font-medium leading-6">
           서울특별시 강남구 도곡로 1길 10, 프린스타워 9층
         </div>
         <div className="text-sm pt-[7px] pb-3 text-[rgb(102,102,102)]">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShoppingListItemInfo = () => {
+const ShoppingListItemInfo = ({ item }) => {
   return (
     <div className="flex justify-center items-center">
       <div className="w-20 h-20 flex justify-center items-center">
@@ -19,9 +19,7 @@ const ShoppingListItemInfo = () => {
           />
         </svg>
       </div>
-      <p className="text-base font-medium w-[23rem] mr-5">
-        [Kim's Butcher] 돌돌말이 대패 삼겹살 1kg(냉동)
-      </p>
+      <p className="text-base font-medium w-[23rem] mr-5">{item.name}</p>
     </div>
   );
 };

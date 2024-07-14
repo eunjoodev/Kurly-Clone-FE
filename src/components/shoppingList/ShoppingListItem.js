@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import ShoppingListItemName from "./ShoppingListItemInfo";
+import ShoppingListItemInfo from "./ShoppingListItemInfo";
 import ShoppingListCheckBox from "./ShoppingListCheckBox";
 
-const ShoppingListItem = ({ isChecked, onCheckboxChange }) => {
+const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
   const [quantity, setQuantity] = useState(1);
   const [isDetailsVisible, setIsDetailsVisible] = useState(true);
-  const pricePerItem = 11890; // Example price per item
+  const { title, price, discount } = item;
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -18,7 +18,7 @@ const ShoppingListItem = ({ isChecked, onCheckboxChange }) => {
   };
 
   // Calculate total cost based on quantity
-  const totalCost = quantity * pricePerItem;
+  const totalCost = quantity * (price - discount);
 
   // Toggle the visibility of the details and change the icon
   const toggleDetails = () => {
@@ -48,7 +48,7 @@ const ShoppingListItem = ({ isChecked, onCheckboxChange }) => {
               />
             </svg>
           </div>
-          <div className="font-semibold text-[17px]">냉동 상품</div>
+          <div className="font-semibold text-[17px]">{title}</div>
         </div>
         <div onClick={toggleDetails} className="cursor-pointer">
           {isDetailsVisible ? (
@@ -100,7 +100,7 @@ const ShoppingListItem = ({ isChecked, onCheckboxChange }) => {
             />
           </label>
 
-          <ShoppingListItemName />
+          <ShoppingListItemInfo item={item} />
 
           <div className="flex" style={{ border: "1px solid #e2e3e4" }}>
             <button
@@ -140,7 +140,7 @@ const ShoppingListItem = ({ isChecked, onCheckboxChange }) => {
             </button>
           </div>
           <div className="w-[7.9375rem] text-right text-base font-bold">
-            {totalCost.toLocaleString()} {/* Display total cost with commas */}
+            {totalCost.toLocaleString()}
           </div>
           <button className="w-[1.875rem] h-[1.875rem] ml-2">
             <svg
