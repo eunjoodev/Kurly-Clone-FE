@@ -10,3 +10,8 @@ export { default as mustItem02 } from "./mustItem02.png";
 export { default as mustItem03 } from "./mustItem03.png";
 export { default as mustItem04 } from "./mustItem04.png";
 export { default as side } from "./side.png";
+export { default as magnifyingGlass } from "./magnifyingGlass.png";
+export { default as burger } from "./burger.png";
+export { default as chatCenteredDots } from "./chatCenteredDots.png";
+export { default as chicken } from "./chicken.png";
+export { default as beauty } from "./beauty.png";

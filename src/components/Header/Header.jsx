@@ -1,48 +1,52 @@
 import React from "react";
-import { cart, heart, logo, map } from "../../assets/images";
+import { cart, heart, logo, magnifyingGlass, map } from "../../assets/images";
 
 function Header() {
   return (
-    <>
-      <header className="bg-white">
-        <div className="container mx-auto max-w-[1050px]">
-          <ul className="flex justify-end items-center mt-2 mb-4 space-x-1">
-            <li>
-              <a className="text-purple-600 font-semibold text-xs" href="#">
-                회원가입
-              </a>
-            </li>
-            <li className="flex items-center">
-              <span className="mx-1" aria-hidden="true">
-                ㅣ
-              </span>
-              <a
-                href="/login.html"
-                className="text-gray-600 font-semibold text-xs"
-              >
-                로그인
-              </a>
-            </li>
-            <li className="flex items-center">
-              <span className="mx-1" aria-hidden="true">
-                ㅣ
-              </span>
-              <a href="#" className="text-gray-600 font-semibold text-xs">
-                고객센터
-              </a>
-            </li>
-          </ul>
+    <header className="bg-white">
+      <div className="container mx-auto max-w-[1050px]">
+        {/* 상단 회원가입, 로그인, 고객센터 */}
+        <div className="flex justify-between items-center mt-2 mb-3">
+          <div className="flex-grow"></div>
+          <div className="flex space-x-2">
+            <div className="text-xs" style={{ fontSize: "12px" }}>
+              <a href="#">회원가입</a>
+            </div>
+            <span className="" aria-hidden="true">
+              ㅣ
+            </span>
+            <a
+              className="text-xs"
+              href="/login.html"
+              style={{ fontSize: "12px" }}
+            >
+              로그인
+            </a>
+            <span className="" aria-hidden="true">
+              ㅣ
+            </span>
+            <a className="text-xs" href="#" style={{ fontSize: "12px" }}>
+              고객센터
+            </a>
+          </div>
+        </div>
 
-          <div className="flex items-center justify-between mt-2 mb-2">
-            <div className="flex items-center space-x-4">
-              <div className="header__logo">
-                <a href="/">
-                  <img className="w-20" src={logo} alt="마켓컬리 로고" />
-                </a>
-              </div>
-              <ul className="flex">
+        <div className="flex items-center justify-between mt-2 mb-2">
+          <div className="flex items-center">
+            <div className="mr-4">
+              <a href="/">
+                <img className="w-20" src={logo} alt="마켓컬리 로고" />
+              </a>
+            </div>
+
+            <div>
+              <ul className="flex items-center space-x-2">
                 <li>
-                  <a className="text-lg text-purple-600 font-semibold" href="#">
+                  <a
+                    style={{ color: "#5E0080" }}
+                    className="text-lg font-bold"
+                    href="#"
+                  >
                     마켓컬리
                   </a>
                 </li>
@@ -50,47 +54,91 @@ function Header() {
                   <span className="mx-2" aria-hidden="true">
                     ㅣ
                   </span>
-                  <a className="text-lg text-gray-600" href="#">
+                  <a
+                    style={{ color: "#B5B5B5" }}
+                    className="text-lg font-semibold"
+                    href="#"
+                  >
                     뷰티컬리
                   </a>
                 </li>
               </ul>
             </div>
+          </div>
 
-            <form action="/" method="POST" className="flex-grow max-w-md ">
-              <fieldset className="border-none">
-                <legend className="sr-only">검색 폼</legend>
-                <div className="flex items-center">
-                  <label htmlFor="search" className="sr-only">
-                    검색어
-                  </label>
-                  <input
-                    type="search"
-                    id="search"
-                    name="search"
-                    required
-                    className="w-full h-12 px-4 py-4 border-2 border-purple-800 rounded-md"
-                    placeholder="검색어를 입력하세요."
+          {/* 검색 폼 */}
+          <form
+            action="/"
+            method="POST"
+            className="flex-grow flex items-center"
+          >
+            <fieldset className="border-none w-full">
+              <legend className="sr-only">검색 폼</legend>
+              <div
+                className="relative w-full mx-auto"
+                style={{ maxWidth: "400px", marginLeft: "5rem" }}
+              >
+                <label htmlFor="search" className="sr-only">
+                  검색어
+                </label>
+                <input
+                  type="search"
+                  id="search"
+                  name="search"
+                  required
+                  className="border rounded-md w-full pr-12 font-semibold"
+                  placeholder="검색어를 입력해주세요"
+                  style={{
+                    borderColor: "#5E0080",
+                    height: "48px",
+                    paddingLeft: "16px",
+                    paddingRight: "16px"
+                  }} // 보라색 테두리와 높이 48px로 설정, 패딩 추가
+                />
+                <button
+                  type="submit"
+                  className="absolute right-0 top-0 h-full px-4 bg-purple-600 text-white rounded-r-md"
+                >
+                  <img
+                    className="w-10 p-2"
+                    src={magnifyingGlass}
+                    alt="마켓컬리 로고"
                   />
-                </div>
-              </fieldset>
-            </form>
+                </button>
+              </div>
+            </fieldset>
+          </form>
 
-            <div className="flex items-center space-x-6">
-              <a href="/">
-                <img className="w-8" src={map} alt="지도 아이콘" />
-              </a>
-              <a href="/">
-                <img className="w-8" src={heart} alt="하트 아이콘" />
-              </a>
-              <a href="/">
-                <img className="w-8" src={cart} alt="장바구니 아이콘" />
-              </a>
-            </div>
+          {/* 아이콘들 */}
+          <div className="flex items-center space-x-6">
+            <a href="/">
+              <img
+                className="ml-8"
+                src={map}
+                alt="지도 아이콘"
+                style={{ width: "30px" }}
+              />
+            </a>
+            <a href="/">
+              <img
+                className="ml-8"
+                src={heart}
+                alt="하트 아이콘"
+                style={{ width: "30px" }}
+              />
+            </a>
+            <a href="/">
+              <img
+                className="ml-8"
+                src={cart}
+                alt="장바구니 아이콘"
+                style={{ width: "30px" }}
+              />
+            </a>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }
 
