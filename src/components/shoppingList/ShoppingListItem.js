@@ -3,7 +3,13 @@ import ShoppingListItemInfo from "./ShoppingListItemInfo";
 import ShoppingListCheckBox from "./ShoppingListCheckBox";
 import { down, minusBlack, plus, up, deleted } from "../../assets/icon";
 
-const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
+const ShoppingListItem = ({
+  item,
+  isChecked,
+  onCheckboxChange,
+  deleteItem,
+  index,
+}) => {
   const [quantity, setQuantity] = useState(1);
   const [isDetailsVisible, setIsDetailsVisible] = useState(true);
   const { title, price, discount, icon } = item;
@@ -86,7 +92,10 @@ const ShoppingListItem = ({ item, isChecked, onCheckboxChange }) => {
           <div className="w-[7.9375rem] text-right text-base font-bold">
             {totalCost.toLocaleString()}
           </div>
-          <button className="w-[1.875rem] h-[1.875rem] ml-2">
+          <button
+            className="w-[1.875rem] h-[1.875rem] ml-2"
+            onClick={() => deleteItem(index)}
+          >
             <img src={deleted} alt="삭제" />
           </button>
         </div>

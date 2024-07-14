@@ -3,7 +3,7 @@ import React from "react";
 const ShoppingListItemInfo = ({ item }) => {
   return (
     <div className="flex justify-center items-center">
-      <div className="w-20 h-20 flex justify-center items-center">
+      <div className="w-20 h-20 flex justify-start items-center">
         <img
           src={item.img}
           alt={item.name}

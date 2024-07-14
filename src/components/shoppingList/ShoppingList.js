@@ -7,7 +7,7 @@ import { cookie, egg, peach } from "../../assets/item";
 const ShoppingList = ({ setCartDetails }) => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const items = [
+  const [items, setItems] = useState([
     {
       id: 1,
       icon: water,
@@ -35,10 +35,16 @@ const ShoppingList = ({ setCartDetails }) => {
       price: 36800,
       discount: 3680,
     },
-  ];
+  ]);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+  };
+
+  const deleteItem = (index) => {
+    const beforeArray = items.slice(0, index);
+    const afterArray = items.slice(index + 1);
+    setItems([...beforeArray, ...afterArray]);
   };
 
   // reduce함수는 배열을 순회하면서 누적값('acc')를 계산하고 초기값은 '0'으로 설정한다.
@@ -55,12 +61,14 @@ const ShoppingList = ({ setCartDetails }) => {
         isChecked={isChecked}
         onCheckboxChange={handleCheckboxChange}
       />
-      {items.map((item) => (
+      {items.map((item, index) => (
         <ShoppingListItem
           key={item.id}
+          index={index}
           isChecked={isChecked}
           onCheckboxChange={handleCheckboxChange}
           item={item}
+          deleteItem={deleteItem}
         />
       ))}
       <ShoppingListCheck
