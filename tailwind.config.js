@@ -1,9 +1,23 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx}" 
   ],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      purple: '#5F0080',
+      red: '#EE6A7B',
+      darkGray: '#333333',
+      middleGray: '#666666',
+      lightGray: '#dddddd',
+      white: '#FFFFFF',
+
+    },
     extend: {
       fontSize: {
         mySize: '1.75rem',
@@ -26,6 +40,10 @@ module.exports = {
         h4: '4.934rem',  
         h5: '6.184rem',
         h6: '8.542rem',    
+      },
+      padding : {
+        p1: '0.688rem',
+        p2: '0.938rem',
       },
     },
   },

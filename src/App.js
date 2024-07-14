@@ -1,12 +1,11 @@
-
 import "./App.css";
-import CreateAccount from "./pages/CreateAccount";
+import CreateAccount from "./components/CreateAccount";
 
 function App() {
   return (
-    <div>
-    <CreateAccount/>
-    </div>
+    <>
+      <CreateAccount/>
+    </>
   );
 }
 
