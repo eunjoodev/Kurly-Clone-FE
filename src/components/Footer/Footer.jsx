@@ -5,7 +5,7 @@ function Footer() {
     <>
       <footer className="container mx-auto max-w-[1050px] border-t border-gray-00 pt-8">
         <div className="container mx-auto">
-          <div className="flex mb-8 justify-between">
+          <div className="flex mb-4 justify-between">
             <div role="complementary" className="">
               <div className="text-lg font-bold mb-4">고객행복센터</div>
               <div className="flex mb-4">
