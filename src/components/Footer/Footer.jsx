@@ -10,7 +10,7 @@ function Footer() {
               <div className="text-lg font-bold mb-4">고객행복센터</div>
               <div className="flex mb-4">
                 <span className="text-3xl font-semibold">1644-1107</span>
-                <span className="text-gray-600 mt-2 ml-4">
+                <span className="text-gray-600 mt-2 ml-2">
                   월~토요일 오전 7시 - 오후 6시
                 </span>
               </div>
@@ -30,7 +30,7 @@ function Footer() {
                     <span>카카오톡 문의</span>
                   </a>
                 </div>
-                <div className="text-gray-600 ml-4">
+                <div className="text-gray-600 ml-2">
                   <span className="block">월~토요일 | 오전 7시 - 오후 6시</span>
                   <span className="block">일/공휴일 | 오전 7시 - 오후 1시</span>
                 </div>
@@ -52,7 +52,7 @@ function Footer() {
                     <span>1:1 문의</span>
                   </a>
                 </div>
-                <div className="text-gray-600 ml-4">
+                <div className="text-gray-600 ml-2">
                   <span className="block">365일</span>
                   <span className="block">
                     고객센터 운영시간에 순차적으로 답변드리겠습니다.
@@ -76,7 +76,7 @@ function Footer() {
                     <span>대량주문 문의</span>
                   </a>
                 </div>
-                <div className="text-gray-600 ml-4">
+                <div className="text-gray-600 ml-2">
                   <span className="block">월~금요일 | 오전 9시 - 오후 6시</span>
                   <span className="block">점심시간 | 낮 12시 - 오후 1시</span>
                 </div>
