@@ -20,3 +20,5 @@ export { default as mainBanner03 } from "./mainBanner03.png";
 export { default as mainBanner04 } from "./mainBanner04.png";
 export { default as mainBanner05 } from "./mainBanner05.png";
 export { default as mainBanner06 } from "./mainBanner06.png";
+export { default as popup01 } from "./popup01.png";
+export { default as popup02 } from "./popup02.png";

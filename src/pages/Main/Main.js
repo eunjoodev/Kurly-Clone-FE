@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Popup from "../../components/Popup/Popup";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -23,6 +24,12 @@ import {
 } from "../../assets/images";
 
 function Main() {
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+
+  const closePopupHandler = () => {
+    setIsPopupOpen(false);
+  };
+
   const sliderSettings = {
     dots: true,
     arrows: true,
@@ -50,7 +57,8 @@ function Main() {
 
   return (
     <>
-      <nav className="bg-white shadow-md w-full">
+      {isPopupOpen && <Popup onClose={closePopupHandler} />}
+      <nav className="bg-white shadow-md w-full z-40">
         <div className="container mx-auto max-w-[1050px]">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
@@ -512,7 +520,7 @@ function Main() {
             <a href="#">
               <img
                 class="img__detail"
-                src="./assets/image/popup.svg"
+                src={mainBanner01}
                 alt="칼리 뷰티 플랫폼 상세페이지"
               />
             </a>
