@@ -80,6 +80,7 @@ function Header() {
                   maxWidth: "400px",
                   marginLeft: "5rem",
                   borderColor: "#5E0080",
+                  borderWidth: "1.8px",
                   height: "48px"
                 }}
               >
