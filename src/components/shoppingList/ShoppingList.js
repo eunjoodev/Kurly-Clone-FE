@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ShoppingListItem from "./ShoppingListItem";
+import ShoppingListGroup from "./ShoppingListGroup";
 import ShoppingListCheck from "./ShoppingListCheck";
 import { sun, water } from "../../assets/icon";
 import { cookie, egg, peach } from "../../assets/item";
@@ -47,6 +47,14 @@ const ShoppingList = ({ setCartDetails }) => {
     setItems([...beforeArray, ...afterArray]);
   };
 
+  const groupedItems = items.reduce((acc, item) => {
+    if (!acc[item.title]) {
+      acc[item.title] = [];
+    }
+    acc[item.title].push(item);
+    return acc;
+  }, {});
+
   // reduce함수는 배열을 순회하면서 누적값('acc')를 계산하고 초기값은 '0'으로 설정한다.
   const totalPrice = items.reduce((acc, item) => acc + item.price, 0);
   const totalDiscount = items.reduce((acc, item) => acc + item.discount, 0);
@@ -61,13 +69,13 @@ const ShoppingList = ({ setCartDetails }) => {
         isChecked={isChecked}
         onCheckboxChange={handleCheckboxChange}
       />
-      {items.map((item, index) => (
-        <ShoppingListItem
-          key={item.id}
-          index={index}
+      {Object.entries(groupedItems).map(([title, groupedItems], index) => (
+        <ShoppingListGroup
+          key={title}
+          title={title}
+          items={groupedItems}
           isChecked={isChecked}
           onCheckboxChange={handleCheckboxChange}
-          item={item}
           deleteItem={deleteItem}
         />
       ))}
