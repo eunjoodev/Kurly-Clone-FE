@@ -4,11 +4,11 @@ import { cart, heart, logo, magnifyingGlass, map } from "../../assets/images";
 function Header() {
   return (
     <header className="bg-white">
-      <div className="container mx-auto max-w-[1050px]">
+      <div className="container mx-auto max-w-[1050px] mt-16">
         {/* 상단 회원가입, 로그인, 고객센터 */}
         <div className="flex justify-between items-center mt-2 mb-3">
           <div className="flex-grow"></div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 items-center ">
             <div className="text-xs" style={{ fontSize: "12px" }}>
               <a href="#">회원가입</a>
             </div>
@@ -75,34 +75,29 @@ function Header() {
             <fieldset className="border-none w-full">
               <legend className="sr-only">검색 폼</legend>
               <div
-                className="relative w-full mx-auto"
-                style={{ maxWidth: "400px", marginLeft: "5rem" }}
+                className="flex w-full items-center border rounded-md justify-between"
+                style={{
+                  maxWidth: "400px",
+                  marginLeft: "5rem",
+                  borderColor: "#5E0080",
+                  height: "48px"
+                }}
               >
-                <label htmlFor="search" className="sr-only">
-                  검색어
-                </label>
                 <input
                   type="search"
                   id="search"
                   name="search"
                   required
-                  className="border rounded-md w-full pr-12 font-semibold"
+                  className="font-semibold"
                   placeholder="검색어를 입력해주세요"
-                  style={{
-                    borderColor: "#5E0080",
-                    height: "48px",
-                    paddingLeft: "16px",
-                    paddingRight: "16px"
-                  }} // 보라색 테두리와 높이 48px로 설정, 패딩 추가
+                  style={{ paddingLeft: "12px" }}
                 />
-                <button
-                  type="submit"
-                  className="absolute right-0 top-0 h-full px-4 bg-purple-600 text-white rounded-r-md"
-                >
+                <button type="submit" className="items-center">
                   <img
-                    className="w-10 p-2"
+                    className="w-8 h-6"
                     src={magnifyingGlass}
-                    alt="마켓컬리 로고"
+                    alt="검색 아이콘"
+                    style={{ paddingRight: "12px" }}
                   />
                 </button>
               </div>
@@ -110,30 +105,15 @@ function Header() {
           </form>
 
           {/* 아이콘들 */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-2">
             <a href="/">
-              <img
-                className="ml-8"
-                src={map}
-                alt="지도 아이콘"
-                style={{ width: "30px" }}
-              />
+              <img src={map} alt="지도 아이콘" style={{ width: "30px" }} />
             </a>
             <a href="/">
-              <img
-                className="ml-8"
-                src={heart}
-                alt="하트 아이콘"
-                style={{ width: "30px" }}
-              />
+              <img src={heart} alt="하트 아이콘" style={{ width: "30px" }} />
             </a>
             <a href="/">
-              <img
-                className="ml-8"
-                src={cart}
-                alt="장바구니 아이콘"
-                style={{ width: "30px" }}
-              />
+              <img src={cart} alt="장바구니 아이콘" style={{ width: "30px" }} />
             </a>
           </div>
         </div>

@@ -96,7 +96,7 @@ function Footer() {
             </div>
 
             <div role="complementary" className="">
-              <ul className="flex flex-col mb-6">
+              <ul className="flex flex-col mb-6 space-x-2">
                 <li>
                   <a href="#" className="text-gray-600 text-base font-bold ">
                     칼리소개

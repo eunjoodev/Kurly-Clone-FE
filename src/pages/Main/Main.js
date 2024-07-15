@@ -1,4 +1,7 @@
 import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./Main.css";
 import {
   banner,
@@ -6,8 +9,12 @@ import {
   burger,
   chatCenteredDots,
   chicken,
-  mainBanner,
-  meat,
+  mainBanner01,
+  mainBanner02,
+  mainBanner03,
+  mainBanner04,
+  mainBanner05,
+  mainBanner06,
   mustItem01,
   mustItem02,
   mustItem03,
@@ -16,6 +23,31 @@ import {
 } from "../../assets/images";
 
 function Main() {
+  const sliderSettings = {
+    dots: true,
+    arrows: true,
+    prevArrow: <button className="banner_button left_button">Previous</button>,
+    nextArrow: <button className="banner_button right_button">Next</button>,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
+    fade: false,
+    speed: 1000,
+    infinite: true,
+    centerMode: false,
+    centerPadding: "0%",
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    swipe: true,
+    focusOnSelect: false,
+    draggable: true,
+    vertical: false,
+    verticalSwiping: false,
+    initialSlide: 0,
+    cssEase: "cubic-bezier(0.7, 0, 0.3, 1)",
+    variableWidth: false
+  };
+
   return (
     <>
       <nav className="bg-white shadow-md w-full">
@@ -66,11 +98,50 @@ function Main() {
         <section className="mb-20">
           <h2 className="sr-only">메인 이벤트</h2>
           <div className="relative">
-            <img
-              src={mainBanner}
-              alt="컬리 이 주의 특가 한 눈에 보기"
-              className="w-full"
-            />
+            <Slider {...sliderSettings}>
+              <div>
+                <img
+                  src={mainBanner01}
+                  alt="컬리 이 주의 특가 한 눈에 보기"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <img
+                  src={mainBanner02}
+                  alt="컬리 이 주의 특가 한 눈에 보기"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <img
+                  src={mainBanner03}
+                  alt="컬리 이 주의 특가 한 눈에 보기"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <img
+                  src={mainBanner04}
+                  alt="컬리 이 주의 특가 한 눈에 보기"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <img
+                  src={mainBanner05}
+                  alt="컬리 이 주의 특가 한 눈에 보기"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <img
+                  src={mainBanner06}
+                  alt="컬리 이 주의 특가 한 눈에 보기"
+                  className="w-full"
+                />
+              </div>
+            </Slider>
           </div>
         </section>
 
@@ -302,14 +373,13 @@ function Main() {
         </section>
 
         <section className="flex justify-between my-8 max-w-[1050px] mx-auto">
-          <div className="bg-white flex-grow mr-4">
+          <div className="bg-white flex-grow mr-4 w-1/3">
             <h2 className="text-3xl font-bold mb-2">🔔 초복 특가</h2>
             <p className="mb-4 text-gray-600">보양식 미리 준비하세요!</p>
-            <div className="text-red-500 font-bold mb-2">{/* <Timer /> */}</div>
             <p className="text-gray-400">망설이면 늦어요!</p>
           </div>
 
-          <div className="bg-white rounded-md w-full w-2/3 flex-shrink-0">
+          <div className="bg-white rounded-md w-2/3 flex-shrink-0">
             <a
               href="#"
               className="block"
@@ -363,14 +433,14 @@ function Main() {
         </section>
 
         <section className="flex justify-between my-8 max-w-[1050px] mx-auto mb-24">
-          <div className="bg-white flex-grow mr-4">
+          <div className="bg-white flex-grow mr-4 w-1/3">
             <h2 className="text-3xl font-bold mb-2">⏰ 뷰티 특가</h2>
             <p className="mb-4 text-gray-600">지금 가장 인기있어요!</p>
             <div className="text-red-500 font-bold mb-2">{/* <Timer /> */}</div>
             <p className="text-gray-400">망설이면 늦어요!</p>
           </div>
 
-          <div className="bg-white rounded-md w-full w-2/3 flex-shrink-0">
+          <div className="bg-white rounded-md w-2/3 flex-shrink-0">
             <a
               href="#"
               className="block"
