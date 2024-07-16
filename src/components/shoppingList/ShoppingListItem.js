@@ -1,6 +1,6 @@
 import React from "react";
 import ShoppingListItemInfo from "./ShoppingListItemInfo";
-import { minusBlack, plus, deleted } from "../../assets/icon";
+import { minusBlack, plus, deleted, minusGrey } from "../../assets/icon";
 import ShoppingListItemCheck from "./ShoppingListItemCheck";
 
 const ShoppingListItem = ({
@@ -47,7 +47,11 @@ const ShoppingListItem = ({
           className="w-7 h-7 flex justify-center items-center"
           onClick={decrementQuantity}
         >
-          <img src={minusBlack} alt="minusBlack" />
+          {quantity === 0 ? (
+            <img src={minusGrey} alt="minusgrey" />
+          ) : (
+            <img src={minusBlack} alt="minusBlack" />
+          )}
         </button>
 
         <div className="w-7 h-7 text-sm flex justify-center items-center">
