@@ -34,7 +34,9 @@ const ShoppingListItem = ({
       >
         <ShoppingListItemCheck
           isChecked={isChecked}
-          onCheckboxChange={onCheckboxChange}
+          onCheckboxChange={() => {
+            onCheckboxChange(id);
+          }}
         />
       </label>
 

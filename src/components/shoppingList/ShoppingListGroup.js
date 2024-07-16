@@ -40,7 +40,7 @@ const ShoppingListGroup = ({
           <ShoppingListItem
             key={item.id}
             item={item}
-            onCheckboxChange={() => onCheckboxChange(item.id)}
+            onCheckboxChange={onCheckboxChange}
             deleteItem={deleteItem}
             updateQuantity={updateQuantity}
           />

@@ -51,7 +51,6 @@ const ShoppingList = ({ setCartDetails }) => {
 
   const handleAllCheck = (isChecked) => {
     setItems(items.map((item) => ({ ...item, isChecked })));
-    console.log("check");
   };
 
   const deleteItem = (id) => {

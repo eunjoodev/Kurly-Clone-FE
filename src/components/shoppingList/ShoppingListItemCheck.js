@@ -3,13 +3,10 @@ import { checked, unchecked } from "../../assets/icon";
 
 const ShoppingListItemCheck = ({ isChecked, onCheckboxChange }) => {
   return (
-    <div className="flex justify-center items-center pr-3">
-      <input
-        type="checkbox"
-        className="appearance-none"
-        checked={isChecked}
-        onChange={onCheckboxChange}
-      />
+    <div
+      className="flex justify-center items-center pr-3"
+      onClick={onCheckboxChange}
+    >
       {isChecked ? (
         <img src={checked} alt="checked" className="h-6 w-6" />
       ) : (
