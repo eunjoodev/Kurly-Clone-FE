@@ -16,7 +16,7 @@ const ShoppingListItem = ({
   };
 
   const decrementQuantity = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       updateQuantity(id, quantity - 1);
     }
   };
@@ -47,7 +47,7 @@ const ShoppingListItem = ({
           className="w-7 h-7 flex justify-center items-center"
           onClick={decrementQuantity}
         >
-          {quantity === 0 ? (
+          {quantity === 1 ? (
             <img src={minusGrey} alt="minusgrey" />
           ) : (
             <img src={minusBlack} alt="minusBlack" />
@@ -71,7 +71,7 @@ const ShoppingListItem = ({
         </div>
         {discount !== 0 && (
           <div className="w-[7.9375rem] text-right text-sm text-[#b5b5b5] line-through">
-            {`${price.toLocaleString()}원`}
+            {`${(price * quantity).toLocaleString()}원`}
           </div>
         )}
       </div>
