@@ -19,7 +19,7 @@ const ShoppingListGroup = ({
     <div>
       <div
         className="flex justify-between py-4 pr-1 pl-0.5"
-        style={{ borderTop: "1px solid black" }}
+        style={{ borderTop: "1px solid #333333" }}
       >
         <div className="flex justify-start items-center">
           <div className="pr-3">

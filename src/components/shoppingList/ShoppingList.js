@@ -99,16 +99,28 @@ const ShoppingList = ({ setCartDetails }) => {
         onCheckboxChange={(e) => handleAllCheck(e.target.checked)}
         deleteCheckedItems={deleteCheckedItems}
       />
-      {Object.entries(groupedItems).map(([title, groupedItems]) => (
-        <ShoppingListGroup
-          key={title}
-          title={title}
-          items={groupedItems}
-          onCheckboxChange={handleSingleCheck}
-          deleteItem={deleteItem}
-          updateQuantity={updateQuantity}
-        />
-      ))}
+      {items.length === 0 ? (
+        <div
+          className="py-[115px] text-base text-[#b5b5b5] text-center"
+          style={{
+            borderTop: "1px solid #333333",
+            borderBottom: "1px solid #f7f7f7",
+          }}
+        >
+          장바구니에 담긴 상품이 없습니다
+        </div>
+      ) : (
+        Object.entries(groupedItems).map(([title, groupedItems]) => (
+          <ShoppingListGroup
+            key={title}
+            title={title}
+            items={groupedItems}
+            onCheckboxChange={handleSingleCheck}
+            deleteItem={deleteItem}
+            updateQuantity={updateQuantity}
+          />
+        ))
+      )}
       <ShoppingListCheck
         allChecked={allChecked}
         onCheckboxChange={(e) => handleAllCheck(e.target.checked)}

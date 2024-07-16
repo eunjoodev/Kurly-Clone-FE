@@ -23,7 +23,7 @@ const ShoppingListCheck = ({
             <img src={unchecked} alt="unchecked" className="h-6 w-6" />
           )}
         </div>
-        <span className="text-sm">전체선택</span>
+        <span className="text-sm">전체선택 (0/0)</span>
       </label>
       <span className="px-5" style={{ color: "#e5e5e5" }}>
         |
