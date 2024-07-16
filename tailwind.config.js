@@ -2,6 +2,8 @@
 
 const colors = require('tailwindcss/colors')
 
+
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx}" 
@@ -45,6 +47,9 @@ module.exports = {
         p1: '0.688rem',
         p2: '0.938rem',
       },
+      radioButton : {
+        radioColor: '#dddddd',
+    }
     },
   },
   plugins: [],
