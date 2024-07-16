@@ -5,13 +5,12 @@ import { down, up } from "../../assets/icon";
 const ShoppingListGroup = ({
   title,
   items,
-  isChecked,
   onCheckboxChange,
   deleteItem,
+  updateQuantity,
 }) => {
   const [isDetailsVisible, setIsDetailsVisible] = useState(true);
 
-  // Toggle the visibility of the details and change the icon
   const toggleDetails = () => {
     setIsDetailsVisible(!isDetailsVisible);
   };
@@ -37,14 +36,13 @@ const ShoppingListGroup = ({
         </div>
       </div>
       {isDetailsVisible &&
-        items.map((item, index) => (
+        items.map((item) => (
           <ShoppingListItem
             key={item.id}
-            index={index}
-            isChecked={isChecked}
-            onCheckboxChange={onCheckboxChange}
             item={item}
+            onCheckboxChange={() => onCheckboxChange(item.id)}
             deleteItem={deleteItem}
+            updateQuantity={updateQuantity}
           />
         ))}
     </div>

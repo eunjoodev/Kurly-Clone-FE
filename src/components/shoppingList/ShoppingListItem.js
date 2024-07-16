@@ -1,30 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import ShoppingListItemInfo from "./ShoppingListItemInfo";
-import ShoppingListCheckBox from "./ShoppingListCheckBox";
 import { minusBlack, plus, deleted } from "../../assets/icon";
+import ShoppingListItemCheck from "./ShoppingListItemCheck";
 
 const ShoppingListItem = ({
   item,
-  isChecked,
   onCheckboxChange,
   deleteItem,
-  setIsDetailsVisible,
-  index,
+  updateQuantity,
 }) => {
-  const [quantity, setQuantity] = useState(1);
-  const { price, discount } = item;
+  const { id, price, discount, quantity, isChecked } = item;
 
   const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+    updateQuantity(id, quantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity > 0) {
-      setQuantity(quantity - 1);
+      updateQuantity(id, quantity - 1);
     }
   };
 
-  // Calculate total cost based on quantity
   const totalCost = quantity * (price - discount);
 
   return (
@@ -32,8 +28,11 @@ const ShoppingListItem = ({
       className="py-5 pl-0.5 h-28 flex items-center"
       style={{ borderBottom: "1px solid #f7f7f7" }}
     >
-      <label htmlFor="checkbox" className="cursor-pointer flex items-center">
-        <ShoppingListCheckBox
+      <label
+        htmlFor={`checkbox-${id}`}
+        className="cursor-pointer flex items-center"
+      >
+        <ShoppingListItemCheck
           isChecked={isChecked}
           onCheckboxChange={onCheckboxChange}
         />
@@ -65,7 +64,7 @@ const ShoppingListItem = ({
       </div>
       <button
         className="w-[1.875rem] h-[1.875rem] ml-2"
-        onClick={() => deleteItem(index)}
+        onClick={() => deleteItem(id)}
       >
         <img src={deleted} alt="삭제" />
       </button>

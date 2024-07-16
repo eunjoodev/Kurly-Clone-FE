@@ -1,12 +1,11 @@
 import React from "react";
 import { checked, unchecked } from "../../assets/icon";
 
-const ShoppingListCheckBox = ({ isChecked, onCheckboxChange }) => {
+const ShoppingListItemCheck = ({ isChecked, onCheckboxChange }) => {
   return (
     <div className="flex justify-center items-center pr-3">
       <input
         type="checkbox"
-        id="checkbox"
         className="appearance-none"
         checked={isChecked}
         onChange={onCheckboxChange}
@@ -20,4 +19,4 @@ const ShoppingListCheckBox = ({ isChecked, onCheckboxChange }) => {
   );
 };
 
-export default ShoppingListCheckBox;
+export default ShoppingListItemCheck;
