@@ -25,7 +25,7 @@ const ShoppingListGroup = ({
           <div className="pr-3">
             <img src={items[0].icon} alt={title} />
           </div>
-          <div className="font-semibold text-[17px]">{title}</div>
+          <div className="font-medium text-[17px]">{title}</div>
         </div>
         <div onClick={toggleDetails} className="cursor-pointer">
           {isDetailsVisible ? (
