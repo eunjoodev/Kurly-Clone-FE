@@ -57,6 +57,10 @@ const ShoppingList = ({ setCartDetails }) => {
     setItems(items.filter((item) => item.id !== id));
   };
 
+  const deleteCheckedItems = () => {
+    setItems(items.filter((item) => !item.isChecked));
+  };
+
   const updateQuantity = (id, quantity) => {
     setItems(
       items.map((item) => (item.id === id ? { ...item, quantity } : item))
@@ -91,6 +95,7 @@ const ShoppingList = ({ setCartDetails }) => {
       <ShoppingListCheck
         allChecked={allChecked}
         onCheckboxChange={(e) => handleAllCheck(e.target.checked)}
+        deleteCheckedItems={deleteCheckedItems}
       />
       {Object.entries(groupedItems).map(([title, groupedItems]) => (
         <ShoppingListGroup
@@ -105,6 +110,7 @@ const ShoppingList = ({ setCartDetails }) => {
       <ShoppingListCheck
         allChecked={allChecked}
         onCheckboxChange={(e) => handleAllCheck(e.target.checked)}
+        deleteCheckedItems={deleteCheckedItems}
       />
     </div>
   );

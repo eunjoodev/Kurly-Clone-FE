@@ -1,7 +1,11 @@
 import React from "react";
 import { checked, unchecked } from "../../assets/icon";
 
-const ShoppingListCheck = ({ allChecked, onCheckboxChange }) => {
+const ShoppingListCheck = ({
+  allChecked,
+  onCheckboxChange,
+  deleteCheckedItems,
+}) => {
   return (
     <div className="flex justify-start items-center py-4 pl-0.5 pr-2.5">
       <label htmlFor="checkbox" className="cursor-pointer flex items-center">
@@ -24,7 +28,9 @@ const ShoppingListCheck = ({ allChecked, onCheckboxChange }) => {
       <span className="px-5" style={{ color: "#e5e5e5" }}>
         |
       </span>
-      <button className="text-sm">선택삭제</button>
+      <button className="text-sm" onClick={deleteCheckedItems}>
+        선택삭제
+      </button>
     </div>
   );
 };
