@@ -58,7 +58,7 @@ function Main() {
   return (
     <>
       {isPopupOpen && <Popup onClose={closePopupHandler} />}
-      <nav className="bg-white shadow-md w-full z-40">
+      <nav className="bg-white shadow-sm w-full z-40">
         <div className="container mx-auto max-w-[1050px]">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">

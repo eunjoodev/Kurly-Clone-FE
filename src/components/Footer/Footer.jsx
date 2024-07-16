@@ -85,10 +85,7 @@ function Footer() {
               <div className="text-gray-600 space-y-2 mt-4">
                 <span>
                   비회원 문의:{" "}
-                  <a
-                    href="mailto:help@karlycorp.com"
-                    className="text-purple-600"
-                  >
+                  <a href="mailto:help@karlycorp.com" className="">
                     help@karlycorp.com
                   </a>
                 </span>
@@ -96,64 +93,45 @@ function Footer() {
             </div>
 
             <div role="complementary" className="">
-              <ul className="flex flex-col mb-6 space-x-2">
-                <li>
-                  <a href="#" className="text-gray-600 text-base font-bold ">
+              <ul className="flex flex-row mb-6">
+                <li style={{ margin: "0 0.5rem 0 0" }}>
+                  <a href="#" className="text-gray-600 text-base font-bold">
                     칼리소개
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 text-base font-bold ml-4"
-                  >
+                <li style={{ margin: "0 0.5rem 0 0" }}>
+                  <a href="#" className="text-gray-600 text-base font-bold">
                     칼리소개영상
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 text-base font-bold ml-4"
-                  >
+                <li style={{ margin: "0 0.5rem 0 0" }}>
+                  <a href="#" className="text-gray-600 text-base font-bold">
                     인재채용
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 text-base font-bold ml-4"
-                  >
+                <li style={{ margin: "0 0.5rem 0 0" }}>
+                  <a href="#" className="text-gray-600 text-base font-bold">
                     이용약관
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 text-base font-bold ml-4"
-                  >
+                <li style={{ margin: "0 0.5rem 0 0" }}>
+                  <a href="#" className="text-gray-600 text-base font-bold">
                     개인정보처리방침
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 text-base font-bold ml-4"
-                  >
+                <li style={{ margin: "0 0.5rem 0 0" }}>
+                  <a href="#" className="text-gray-600 text-base font-bold">
                     이용안내
                   </a>
                 </li>
               </ul>
+
               <address className="text-gray-600 text-sm">
                 <p>
                   <span>법인명 (상호) : 주식회사 컬리</span> |{" "}
                   <span>사업자등록번호 : 261-81-23567</span> |{" "}
                   <span>
-                    <a
-                      href="#"
-                      className="text-purple-600"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
+                    <a href="#" target="_blank" rel="noreferrer noopener">
                       사업자정보 확인
                     </a>
                   </span>
@@ -170,16 +148,12 @@ function Footer() {
                 </p>
                 <p>
                   <span>
-                    입점문의 :{" "}
-                    <span className="text-purple-600">입점문의하기</span>
+                    입점문의 : <span>입점문의하기</span>
                   </span>{" "}
                   |{" "}
                   <span>
                     제휴문의 :{" "}
-                    <a
-                      href="mailto:business@karlycorp.com"
-                      className="text-purple-600"
-                    >
+                    <a href="mailto:business@karlycorp.com">
                       business@karlycorp.com
                     </a>
                   </span>
@@ -187,10 +161,7 @@ function Footer() {
                 <p>
                   <span>
                     채용문의 :{" "}
-                    <a
-                      href="mailto:recruit@karlycorp.com"
-                      className="text-purple-600"
-                    >
+                    <a href="mailto:recruit@karlycorp.com">
                       recruit@karlycorp.com
                     </a>
                   </span>
