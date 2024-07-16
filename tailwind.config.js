@@ -41,6 +41,9 @@ module.exports = {
       "-0.4px": "-0.4px",
       "-0.8px": "-0.8px",
     },
+    backgroundImage: {
+      emptyImg: "url('./Empty.svg')",
+    },
   },
   plugins: [],
 };
