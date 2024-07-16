@@ -44,7 +44,7 @@ const ShoppingList = ({ setCartDetails }) => {
       icon: sun,
       title: "상온 상품",
       img: basilPesto,
-      name: "[파토니움브레] 바질베스토",
+      name: "[파토니움브레] 바질페스토",
       price: 4980,
       discount: 0,
       quantity: 1,
