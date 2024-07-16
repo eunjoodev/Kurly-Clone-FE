@@ -5,6 +5,8 @@ const ShoppingListCheck = ({
   allChecked,
   onCheckboxChange,
   deleteCheckedItems,
+  checkedItemsCount,
+  itemsCount,
 }) => {
   return (
     <div className="flex justify-start items-center py-4 pl-0.5 pr-2.5">
@@ -23,7 +25,9 @@ const ShoppingListCheck = ({
             <img src={unchecked} alt="unchecked" className="h-6 w-6" />
           )}
         </div>
-        <span className="text-sm">전체선택 (0/0)</span>
+        <span className="text-sm">
+          전체선택 ({checkedItemsCount}/{itemsCount})
+        </span>
       </label>
       <span className="px-5" style={{ color: "#e5e5e5" }}>
         |

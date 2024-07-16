@@ -20,7 +20,9 @@ const PaymentAmount = ({ cartDetails }) => {
       </div>
       <div className="flex justify-between items-center pt-3">
         <div className="text-base">상품할인금액</div>
-        <div className="text-lg">-{totalDiscount.toLocaleString()}원</div>
+        <div className="text-lg">
+          {totalDiscount === 0 ? "0원" : `-${totalDiscount.toLocaleString()}원`}
+        </div>
       </div>
       <div className="flex justify-between items-center pt-3">
         <div className="text-base">배송비</div>

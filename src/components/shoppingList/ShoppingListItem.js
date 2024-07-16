@@ -65,8 +65,15 @@ const ShoppingListItem = ({
           <img src={plus} alt="plus" />
         </button>
       </div>
-      <div className="w-[7.9375rem] text-right text-base font-bold">
-        {totalCost.toLocaleString()}
+      <div className="flex flex-col ">
+        <div className="w-[7.9375rem] text-right text-base font-bold">
+          {`${totalCost.toLocaleString()}원`}
+        </div>
+        {discount !== 0 && (
+          <div className="w-[7.9375rem] text-right text-sm text-[#b5b5b5] line-through">
+            {`${price.toLocaleString()}원`}
+          </div>
+        )}
       </div>
       <button
         className="w-[1.875rem] h-[1.875rem] ml-2"

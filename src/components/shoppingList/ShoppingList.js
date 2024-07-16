@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ShoppingListGroup from "./ShoppingListGroup";
 import ShoppingListCheck from "./ShoppingListCheck";
 import { sun, water } from "../../assets/icon";
-import { cookie, egg, peach } from "../../assets/item";
+import { basilPesto, cookie, egg, peach } from "../../assets/item";
 
 const ShoppingList = ({ setCartDetails }) => {
   const [items, setItems] = useState([
@@ -36,6 +36,17 @@ const ShoppingList = ({ setCartDetails }) => {
       name: "[제니쿠키] 마카다미아 코코아 크리스피 255g",
       price: 36800,
       discount: 3680,
+      quantity: 1,
+      isChecked: false,
+    },
+    {
+      id: 4,
+      icon: sun,
+      title: "상온 상품",
+      img: basilPesto,
+      name: "[파토니움브레] 바질베스토",
+      price: 4980,
+      discount: 0,
       quantity: 1,
       isChecked: false,
     },
@@ -77,6 +88,8 @@ const ShoppingList = ({ setCartDetails }) => {
   );
 
   const hasCheckedItems = items.some((item) => item.isChecked);
+  const checkedItemsCount = items.filter((item) => item.isChecked).length;
+  const itemsCount = items.length;
 
   useEffect(() => {
     setCartDetails({ totalPrice, totalDiscount, hasCheckedItems });
@@ -98,6 +111,8 @@ const ShoppingList = ({ setCartDetails }) => {
         allChecked={allChecked}
         onCheckboxChange={(e) => handleAllCheck(e.target.checked)}
         deleteCheckedItems={deleteCheckedItems}
+        checkedItemsCount={checkedItemsCount}
+        itemsCount={itemsCount}
       />
       {items.length === 0 ? (
         <div
@@ -125,6 +140,8 @@ const ShoppingList = ({ setCartDetails }) => {
         allChecked={allChecked}
         onCheckboxChange={(e) => handleAllCheck(e.target.checked)}
         deleteCheckedItems={deleteCheckedItems}
+        checkedItemsCount={checkedItemsCount}
+        itemsCount={itemsCount}
       />
     </div>
   );
