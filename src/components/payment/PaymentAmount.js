@@ -1,9 +1,14 @@
 import React from "react";
 
 const PaymentAmount = ({ cartDetails }) => {
-  const { totalPrice, totalDiscount } = cartDetails;
+  const { totalPrice, totalDiscount, hasCheckedItems } = cartDetails;
   const discountedPrice = totalPrice - totalDiscount;
-  const shippingCost = discountedPrice >= 40000 ? 0 : 3000;
+
+  let shippingCost = 0;
+  if (hasCheckedItems) {
+    shippingCost = discountedPrice >= 40000 ? 0 : 3000;
+  }
+
   const finalAmount = discountedPrice + shippingCost;
   const freeShippingAmount = 40000 - discountedPrice;
 
@@ -23,7 +28,7 @@ const PaymentAmount = ({ cartDetails }) => {
           {shippingCost === 0 ? "0원" : `+${shippingCost.toLocaleString()}원`}
         </div>
       </div>
-      {discountedPrice < 40000 && (
+      {hasCheckedItems && discountedPrice < 40000 && (
         <p className="text-xs text-right text-[rgb(95,0,128)] pt-0.5">
           {freeShippingAmount.toLocaleString()}원 추가주문 시,{" "}
           <strong>무료배송</strong>

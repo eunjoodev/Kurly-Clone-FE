@@ -6,6 +6,7 @@ const ShoppingCart = () => {
   const [cartDetails, setCartDetails] = useState({
     totalPrice: 0,
     totalDiscount: 0,
+    hasCheckedItems: false,
   });
 
   return (

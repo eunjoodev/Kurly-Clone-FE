@@ -68,17 +68,19 @@ const ShoppingList = ({ setCartDetails }) => {
   };
 
   const totalPrice = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => (item.isChecked ? acc + item.price * item.quantity : acc),
     0
   );
   const totalDiscount = items.reduce(
-    (acc, item) => acc + item.discount * item.quantity,
+    (acc, item) => (item.isChecked ? acc + item.discount * item.quantity : acc),
     0
   );
 
+  const hasCheckedItems = items.some((item) => item.isChecked);
+
   useEffect(() => {
-    setCartDetails({ totalPrice, totalDiscount });
-  }, [totalPrice, totalDiscount, setCartDetails]);
+    setCartDetails({ totalPrice, totalDiscount, hasCheckedItems });
+  }, [totalPrice, totalDiscount, hasCheckedItems, setCartDetails]);
 
   const groupedItems = items.reduce((acc, item) => {
     if (!acc[item.title]) {
