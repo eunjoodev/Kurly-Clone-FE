@@ -31,7 +31,7 @@ const Payment = ({ cartDetails }) => {
             </li>
             <li className="text-xs pt-1 pl-1.5 before:overflow-hidden before:absolute before:w-px before:h-px before:mt-1.5 before:-ml-1.5 before:bg-[#999999] before:align-top before:rounded-[50%] before:content-['']">
               상품별로 적립금 지급 기준이 다를 수 있습니다.(상품 상세 페이지에서
-              확인 가능합니다.)
+              확인 가능합니다)
             </li>
           </ul>
           {/* ) : (

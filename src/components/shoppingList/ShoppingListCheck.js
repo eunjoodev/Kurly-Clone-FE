@@ -34,14 +34,14 @@ const ShoppingListCheck = ({
             <img src={unchecked} alt="unchecked" className="h-6 w-6" />
           )}
         </div>
-        <span className="text-sm">
+        <span className="text-sm font-medium">
           전체선택 ({checkedItemsCount}/{itemsCount})
         </span>
       </label>
       <span className="px-5" style={{ color: "#e5e5e5" }}>
         |
       </span>
-      <button className="text-sm" onClick={deleteCheckedItems}>
+      <button className="text-sm font-medium" onClick={deleteCheckedItems}>
         선택삭제
       </button>
     </div>
