@@ -13,6 +13,10 @@ const FormInput = () => {
 
     const [userIdValid, setUserIdValid] = useState(false);
     const [userPasswordValid, setUserPasswordValid] = useState(false);
+    const [userPasswordLengthValid, setUserPasswordLengthValid] = useState(false);
+    const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
+
+    
 
 
     //onChangeHandler
@@ -28,7 +32,14 @@ const FormInput = () => {
 
     const userPasswordHandler = (e) => {
         setUserPassword(e.target.value);
-        const userPasswordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/;
+
+        if (e.target.value.length >= 10) {
+            setUserPasswordLengthValid(true);
+        }else {
+            setUserPasswordLengthValid(false);
+        }
+
+        const userPasswordRegex = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{9,16}$/;
         if(userPasswordRegex.test(userPassword)){
             setUserPasswordValid(true);
         }else {
@@ -36,9 +47,24 @@ const FormInput = () => {
         }
     };
 
-
+    const confirmPasswordHandler = (e) => {
+        setConfirmPassword(e.target.value);
         
+        if (userPassword && e.target.value !== userPassword) {
+            setConfirmPasswordValid(false);
+        } else {
+            setConfirmPasswordValid(true);
+        }
 
+        if (e.target.value.length === 0) {
+            setConfirmPasswordValid(true);
+          }
+    };
+
+
+    const userNumberHandler = (e) => {
+        setUserNumber(e.target.value);
+    }
 
     
     return (
@@ -55,7 +81,7 @@ const FormInput = () => {
                             class="w-w3 h-h1 pl-3.5 border border-lightGray focus:outline rounded text-sm placeholder-middleGray" 
                             name="userId" 
                             type="text"
-                            maxlength="16"
+                            maxLength="16"
                             value={userId}
                             onChange={userIdHandler}
                             placeholder="아이디를 입력해주세요"
@@ -79,15 +105,16 @@ const FormInput = () => {
                             name="userPassword" 
                             type="password"
                             value={userPassword}
+                            maxLength="16"
                             onChange={userPasswordHandler}
                             placeholder="비밀번호를 입력해주세요"
                         />
-                        {!userPasswordValid && userPassword.length > 0 && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        {userPasswordLengthValid && !userPasswordValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합
                         </div>)} 
-                        <div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        {!userPasswordLengthValid && userPassword.length > 0 && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             최소 10자 이상 입력
-                        </div>
+                        </div>)}
                     </div>
                 </div>
 
@@ -101,11 +128,15 @@ const FormInput = () => {
                             name="confirmPassword" 
                             type="password" 
                             value={confirmPassword}
+                            onChange={confirmPasswordHandler}
                             placeholder="비밀번호를 한번 더 입력해주세요"
                         />
-                        <div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        {confirmPasswordValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             비밀번호를 한번 더 입력해주세요
-                        </div>
+                        </div>)}
+                        {!confirmPasswordValid && confirmPassword.length > 0 && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                            동일한 비밀번호를 입력
+                        </div>)}
                     </div>
                 </div>
 
@@ -160,7 +191,9 @@ const FormInput = () => {
                             name="userNumber" 
                             type="number" 
                             value={userNumber}
+                            maxLength="11"
                             placeholder="숫자만 입력해주세요" 
+                            onChange={userNumberHandler}
                             onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
                         />
                         <div class="text-red w-w7 h-h3 py-2.5 text-xs">
