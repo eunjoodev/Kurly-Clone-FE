@@ -3,15 +3,17 @@ import PaymentAddress from "./PaymentAddress";
 import PaymentAmount from "./PaymentAmount";
 
 const Payment = ({ cartDetails }) => {
+  // const context = useContext(AuthContext); // 임포트 해주기
+
   return (
     <div className="w-284 h-942 absolute right-0">
       <div className="h-[753px] pt-[60px] sticky top-[60px]">
-        {/* {isLoggedIN && */}
+        {/* {context.isLoggedIn && */}
         <PaymentAddress />
         {/* } */}
         <PaymentAmount cartDetails={cartDetails} />
         <div className="w-284 h-[256px] pt-5 flex flex-col">
-          {/* {isLoggedIN ? ( */}
+          {/* {context.isLoggedIn ? ( */}
           <button className="w-284 h-[56px] text-white bg-[#5f0080] rounded">
             주문하기
           </button>

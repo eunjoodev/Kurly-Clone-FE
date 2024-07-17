@@ -19,7 +19,12 @@ const PaymentAddress = () => {
           className="w-60 h-9 px-2.5 mt-4 flex justify-center items-center text-[#5f0080] rounded"
           style={{ border: "1px solid #5f0080" }}
         >
-          <span className="text-xs font-semibold">배송지 변경</span>
+          <a
+            href="/"
+            /*"마이페이지의 배송지관리로 연결 또는 팝업창 뜨기"*/ className="text-xs font-semibold"
+          >
+            배송지 변경
+          </a>
         </button>
       </div>
     </div>
