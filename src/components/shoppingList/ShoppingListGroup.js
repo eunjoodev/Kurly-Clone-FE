@@ -22,10 +22,10 @@ const ShoppingListGroup = ({
         style={{ borderTop: "1px solid #333333" }}
       >
         <div className="flex justify-start items-center">
-          <div className="pr-3">
+          <span className="mr-2">
             <img src={items[0].icon} alt={title} />
-          </div>
-          <div className="font-medium text-lg">{title}</div>
+          </span>
+          <span className="font-medium text-lg">{title}</span>
         </div>
         <div onClick={toggleDetails} className="cursor-pointer">
           {isDetailsVisible ? (
