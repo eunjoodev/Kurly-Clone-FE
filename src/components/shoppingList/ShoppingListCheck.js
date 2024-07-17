@@ -1,5 +1,5 @@
 import React from "react";
-import { checked, unchecked } from "../../assets/icon";
+import { checked, uncheckable, unchecked } from "../../assets/icon";
 
 const ShoppingListCheck = ({
   allChecked,
@@ -10,16 +10,25 @@ const ShoppingListCheck = ({
 }) => {
   return (
     <div className="flex justify-start items-center py-4 pl-0.5 pr-2.5">
-      <label htmlFor="checkbox" className="cursor-pointer flex items-center">
+      <label
+        htmlFor="checkbox"
+        className={`flex items-center ${
+          itemsCount > 0 ? "cursor-pointer" : ""
+        }`}
+      >
         <div className="flex justify-center items-center pr-3">
-          <input
-            type="checkbox"
-            id="checkbox"
-            className="appearance-none"
-            checked={allChecked}
-            onChange={onCheckboxChange}
-          />
-          {allChecked ? (
+          {itemsCount === 0 ? (
+            <img src={uncheckable} alt="uncheckable" className="h-6 w-6" />
+          ) : (
+            <input
+              type="checkbox"
+              id="checkbox"
+              className="appearance-none"
+              checked={allChecked}
+              onChange={onCheckboxChange}
+            />
+          )}
+          {itemsCount === 0 ? null : allChecked ? (
             <img src={checked} alt="checked" className="h-6 w-6" />
           ) : (
             <img src={unchecked} alt="unchecked" className="h-6 w-6" />

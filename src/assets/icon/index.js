@@ -6,6 +6,7 @@ export { default as sun } from "./sun.svg";
 export { default as water } from "./water.svg";
 export { default as checked } from "./checked.svg";
 export { default as unchecked } from "./unchecked.svg";
+export { default as uncheckable } from "./uncheckable.svg";
 export { default as deleted } from "./deleted.svg";
 export { default as plus } from "./plus.svg";
 export { default as minusBlack } from "./minus-black.svg";

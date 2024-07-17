@@ -6,7 +6,7 @@ const PaymentAddress = () => {
     <div className="p-5" style={{ border: "1px solid #f5f5f5" }}>
       <div className="flex justify-start items-center">
         <img src={map} alt="배송지" className="h-5 pr-1" />
-        <div className="text-base font-[550]">배송지</div>
+        <div className="text-base font-medium">배송지</div>
       </div>
       <div className="pt-3">
         <div className="text-base font-medium leading-6">
