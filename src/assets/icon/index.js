@@ -1,7 +1,7 @@
 export { default as down } from "./chevron-down.svg";
 export { default as up } from "./chevron-up.svg";
 export { default as ice } from "./ice.svg";
-export { default as map } from "./map-pin.svg";
+export { default as location } from "./location.svg";
 export { default as sun } from "./sun.svg";
 export { default as water } from "./water.svg";
 export { default as checked } from "./checked.svg";

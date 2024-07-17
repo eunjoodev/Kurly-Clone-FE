@@ -11,7 +11,7 @@ const ShoppingCart = () => {
 
   return (
     <>
-      <div className="w-1050 h-1075 mx-auto min-w-1050 min-h-1075 flex flex-col relative font-[NotoSansKR] tracking-[-0.5px]">
+      <div className="w-1050 h-[1155px] mx-auto min-w-1050 min-h-1075 flex flex-col relative font-[NotoSansKR] tracking-[-0.5px] pb-20">
         <h2
           style={{ fontSize: "1.75rem" }}
           className="text-center py-12 font-medium"

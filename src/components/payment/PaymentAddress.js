@@ -1,11 +1,11 @@
 import React from "react";
-import { map } from "../../assets/icon";
+import { location } from "../../assets/icon";
 
 const PaymentAddress = () => {
   return (
     <div className="p-5" style={{ border: "1px solid #f5f5f5" }}>
       <div className="flex justify-start items-center">
-        <img src={map} alt="배송지" className="h-5 pr-1" />
+        <img src={location} alt="배송지" className="h-5 pr-1" />
         <div className="text-base font-medium">배송지</div>
       </div>
       <div className="pt-3">
