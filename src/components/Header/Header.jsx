@@ -81,7 +81,7 @@ function Header() {
                   marginLeft: "5rem",
                   borderColor: "#5E0080",
                   borderWidth: "1.8px",
-                  height: "48px"
+                  height: "48px",
                 }}
               >
                 <input
@@ -113,7 +113,7 @@ function Header() {
             <a href="/">
               <img src={heart} alt="하트 아이콘" style={{ width: "30px" }} />
             </a>
-            <a href="/">
+            <a href="/cart">
               <img src={cart} alt="장바구니 아이콘" style={{ width: "30px" }} />
             </a>
           </div>
