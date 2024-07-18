@@ -3,8 +3,8 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <footer className="container mx-auto max-w-[1050px] border-t border-gray-00 pt-8">
-        <div className="container mx-auto">
+      <footer className="w-full border-t border-gray-200 pt-8">
+        <div className="container mx-auto max-w-[1050px]">
           <div className="flex mb-4 justify-between">
             <div role="complementary" className="">
               <div className="text-lg font-bold mb-4">고객행복센터</div>
@@ -172,43 +172,6 @@ function Footer() {
               </address>
             </div>
           </div>
-          {/* 
-          <div className="space-y-2 mb-12 text-sm  ">
-            <ul className="flex space-x-4 text-sm">
-              <li>
-                <a href="#" target="_blank" rel="noreferrer noopener">
-                  <img
-                    src="/assets/icons/footer1.svg"
-                    alt="정보보호 관리체계 인증마크"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank" rel="noreferrer noopener">
-                  <img
-                    src="/assets/icons/footer2.svg"
-                    alt="개인정보처리시스템 인증마크"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank" rel="noreferrer noopener">
-                  <img
-                    src="/assets/icons/footer3.svg"
-                    alt="토스페이먼츠 구매안전 인증서"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank" rel="noreferrer noopener">
-                  <img
-                    src="/assets/icons/footer4.svg"
-                    alt="우리은행 안전거래 인증서"
-                  />
-                </a>
-              </li>
-            </ul>
-          </div> */}
         </div>
       </footer>
       <div

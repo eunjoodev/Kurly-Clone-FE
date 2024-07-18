@@ -22,6 +22,11 @@ import {
   mustItem04,
   side
 } from "../../assets/images";
+import Timer from "./Timer";
+
+const timeInDay = 2;
+const currentTime = Date.parse(new Date());
+const deadline1 = new Date(currentTime + timeInDay * 12 * 60 * 60 * 1000);
 
 function Main() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
@@ -58,49 +63,6 @@ function Main() {
   return (
     <>
       {isPopupOpen && <Popup onClose={closePopupHandler} />}
-      <nav className="bg-white shadow-sm w-full z-40">
-        <div className="container mx-auto max-w-[1050px]">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-2">
-              <img className="w-6 h-6" src={burger} alt="햄버거 버튼" />
-              <span className="text-lg font-semibold">카테고리</span>
-            </div>
-            <ul className="flex space-x-24">
-              <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
-                  신상품
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
-                  베스트
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
-                  알뜰쇼핑
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
-                  특가/혜택
-                </a>
-              </li>
-            </ul>
-            <div>
-              <a
-                href="#"
-                className="text-sm text-purple-500 border border-gray-200 p-2 rounded-3xl"
-              >
-                <span style={{ color: "#5E0080" }} className="font-semibold ">
-                  샛별·하루
-                </span>
-                <span className="font-semibold text-black"> 배송안내</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       <main>
         <section className="mb-20">
@@ -383,7 +345,8 @@ function Main() {
         <section className="flex justify-between my-8 max-w-[1050px] mx-auto">
           <div className="bg-white flex-grow mr-4 w-1/3">
             <h2 className="text-3xl font-bold mb-2">🔔 초복 특가</h2>
-            <p className="mb-4 text-gray-600">보양식 미리 준비하세요!</p>
+            <p className="mb-6 text-gray-500">보양식 미리 준비하세요!</p>
+            <Timer deadline={deadline1} />
             <p className="text-gray-400">망설이면 늦어요!</p>
           </div>
 
@@ -443,7 +406,8 @@ function Main() {
         <section className="flex justify-between my-8 max-w-[1050px] mx-auto mb-24">
           <div className="bg-white flex-grow mr-4 w-1/3">
             <h2 className="text-3xl font-bold mb-2">⏰ 뷰티 특가</h2>
-            <p className="mb-4 text-gray-600">지금 가장 인기있어요!</p>
+            <p className="mb-6 text-gray-500">지금 가장 인기있어요!</p>
+            <Timer deadline={deadline1} />
             <div className="text-red-500 font-bold mb-2">{/* <Timer /> */}</div>
             <p className="text-gray-400">망설이면 늦어요!</p>
           </div>
