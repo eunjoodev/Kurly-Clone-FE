@@ -15,11 +15,17 @@ const FormInput = () => {
     const [userPasswordValid, setUserPasswordValid] = useState(false);
     const [userPasswordLengthValid, setUserPasswordLengthValid] = useState(false);
     const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
+    const [userNameValid, setUserNameValid] = useState(true);
+    const [userEmailValid, setUserEmailValid] = useState(false);
+    const [userEmailFormatValid, setUserEmailFormatValid] = useState(true);
+    const [userEmailTouched, setUserEmailTouched] = useState(false);
+    const [userNumberValid, setUserNumberValid] = useState(true);
+    const [userNumberTouched, setUserNumberTouched] = useState(false);
 
-    
 
 
     //onChangeHandler
+    
     const userIdHandler = (e) => {
         setUserId(e.target.value);
         const userIdRegex = /^[a-z0-9!~@#$%^&*()?+=\/]{6,16}$/; 
@@ -61,10 +67,52 @@ const FormInput = () => {
           }
     };
 
+    const userNameHandler = (e) => {
+        setUserName(e.target.value);
+        if (e.target.value.length === 0) {
+            setUserNameValid(false);
+        } else {
+            setUserNameValid(true);
+        }
+    };
+
+
+    const userEmailHandler = (e) => {
+        setUserEmail(e.target.value);
+        setUserEmailTouched(true);
+        
+        const userEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (e.target.value.length === 0) {
+            setUserEmailValid(false);
+            setUserEmailFormatValid(true);
+        } else if (!userEmailRegex.test(e.target.value)) {
+            setUserEmailValid(true);
+            setUserEmailFormatValid(false);
+        } else {
+            setUserEmailValid(true);
+            setUserEmailFormatValid(true);
+        }
+    };
+
+    
 
     const userNumberHandler = (e) => {
         setUserNumber(e.target.value);
-    }
+        setUserNumberTouched(true);
+
+        // 숫자만 입력되었는지 확인하는 정규표현식
+        const numberRegex = /^[0-9]*$/;
+
+        // 입력된 값이 숫자로만 구성되어 있는지 검사
+        setUserNumberValid(numberRegex.test(e.target.value));
+
+        // 입력값이 비워졌을 때 오류 메시지 표시 여부
+        if (e.target.value === '') {
+            setUserNumberValid(false); // 입력값이 비워져 있으면 오류 메시지 표시
+        }
+    };
+
+    
 
     
     return (
@@ -131,7 +179,7 @@ const FormInput = () => {
                             onChange={confirmPasswordHandler}
                             placeholder="비밀번호를 한번 더 입력해주세요"
                         />
-                        {confirmPasswordValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        {confirmPassword.length === 0 && userPassword.length > 0 && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             비밀번호를 한번 더 입력해주세요
                         </div>)}
                         {!confirmPasswordValid && confirmPassword.length > 0 && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
@@ -149,12 +197,14 @@ const FormInput = () => {
                         <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
                             name="userName" 
                             type="text"
+                            maxLength="20"
                             value={userName}
+                            onChange={userNameHandler}
                             placeholder="이름을 입력해주세요"
                         />
-                        <div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        {!userNameValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             이름을 입력해주세요
-                        </div>
+                        </div>)}
                     </div>
                 </div>
 
@@ -167,14 +217,15 @@ const FormInput = () => {
                         <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
                             type="email"
                             value={userEmail}
+                            onChange={userEmailHandler}
                             placeholder="예: marketkurly@kurly.com"
                         />
-                        <div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        {userEmailTouched && !userEmailValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             이메일을 입력해주세요
-                        </div>
-                        <div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                        </div>)}
+                        {userEmailTouched && !userEmailFormatValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             이메일 형식으로 입력해주세요
-                        </div>
+                        </div>)}
                     </div>
                     <div class="inline-block ml-2">  
                         <button class="border font-bold w-w4 h-h2 border-purple text-purple rounded">중복확인</button>
@@ -189,16 +240,16 @@ const FormInput = () => {
                     <div class="inline-block">
                         <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
                             name="userNumber" 
-                            type="number" 
+                            type="text" 
                             value={userNumber}
                             maxLength="11"
                             placeholder="숫자만 입력해주세요" 
                             onChange={userNumberHandler}
                             onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
                         />
-                        <div class="text-red w-w7 h-h3 py-2.5 text-xs">
+                         {userNumberTouched && !userNumberValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             휴대폰 번호를 입력해주세요
-                        </div>
+                        </div>)}
                     </div>
                 </div>
 
