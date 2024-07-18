@@ -31,7 +31,7 @@ function Timer({ deadline }) {
   }, [deadline]);
 
   return (
-    <div className="flex items-center text-2xl md:text-4xl mb-10">
+    <div className="flex items-center text-2xl md:text-4xl mb-8">
       <div className="mr-2">
         <img
           className="w-10 h-10 md:w-10 md:h-10"
