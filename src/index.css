@@ -12,4 +12,12 @@
     }
   }
 
-  
+
+@font-face {
+  font-family: "NotoSansKR";
+  src: url(./assets/fonts/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf);
+}
+
+:root {
+  --font-NotoSansKR: "" NotoSansKR;
+}
