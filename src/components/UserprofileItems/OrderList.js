@@ -38,7 +38,6 @@ const OrderList = () => {
         break;
     }
 
-    // const filtered = props.orders.filter((order) => {
     const filtered = orders.filter((order) => {
       const orderDate = new Date(order.date);
       return orderDate >= startDate && orderDate <= now;
@@ -49,7 +48,7 @@ const OrderList = () => {
   };
 
   let orderDatas = (
-    <div className="flex justify-center items-center w-full h-[700px]">
+    <div className="flex justify-center items-center w-full h-[700px] bg-white">
       <div className="flex flex-col items-center">
         <p className="mt-2 mx-0 mb-6 text-base text-[#b5b5b5] text-center">
           {selectedPeriod}간의 주문내역이 없습니다
@@ -65,32 +64,70 @@ const OrderList = () => {
 
   if (filteredOrders.length > 0) {
     orderDatas = (
-      <div className="flex justify-center items-start w-full h-[700px]">
-        <div className="flex flex-col items-center">
-          {filteredOrders.map((order, index) => (
-            <div
-              key={index}
-              className="mb-2 flex justify-between items-center w-[600px] h-[100px] border border-solid border-[#eeeeee] rounded-xl cursor-pointer"
-            >
-              <p className="font-bold text-[20px] mx-5">{order.title}</p>
-              <p className="mx-5 text-[#999999]">
-                {order.date.toLocaleDateString("en-US")}
-              </p>
+      <div className="rounded-b-2xl overflow-hidden mt-[-10px]">
+        {filteredOrders.map((order, index) => (
+          <div className="flex flex-col justify-center items-start w-full h-[200px] mt-2.5 px-5 bg-white">
+            <div key={index} className="flex flex-col items-start">
+              <div className="mb-2 flex justify-between items-start w-[600px] h-[40px] border-b border-solid border-[#eeeeee] cursor-pointer">
+                <p className="text-[16px] font-bold">
+                  {order.date.toLocaleDateString().replace(/.$/, "")}&nbsp;(
+                  {order.date.getHours()}시 {order.date.getMinutes()}분)
+                </p>
+                <p className="font-bold text-[14px] text-[#999999] mx-5">
+                  주문 상세
+                </p>
+              </div>
+              <div className="flex flex-col justify-start">
+                <div className="flex justify-start items-start">
+                  <div className="font-medium text-[16px] text-[#999999] my-1 mr-3 w-[80px]">
+                    상품명
+                  </div>
+                  <div className="font-semibold text-[16px] my-1 mx-2">
+                    {order.title}
+                  </div>
+                </div>
+                <div className="flex justify-start items-center">
+                  <div className="font-medium text-[16px] text-[#999999] my-1 mr-3 w-[80px]">
+                    결제 방법
+                  </div>
+                  <div className="font-semibold text-[16px] my-1 mx-2">
+                    {order.payment}
+                  </div>
+                </div>
+                <div className="flex justify-start items-center">
+                  <div className="font-medium text-[16px] text-[#999999] my-1 mr-3 w-[80px]">
+                    결제 금액
+                  </div>
+                  <div className="font-semibold text-[16px] my-1 mx-2">
+                    {order.price.toLocaleString()}원
+                  </div>
+                </div>
+                <div className="flex justify-start items-center">
+                  <div className="font-medium text-[16px] text-[#999999] my-1 mr-3 w-[80px]">
+                    주문 상태
+                  </div>
+                  <div className="font-semibold text-[16px] my-1 mx-2">
+                    {order.delivery}
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     );
   }
 
   return (
-    <div className="w-[650px] min-w-[650px] max-w-[650px] rounded-2xl bg-white">
-      <div className="flex justify-between my-0 mx-5 pt-[25px] px-0 pb-5 border-b-2 border-solid border-[#333333]">
-        <div className="flex items-end">
-          <h2 className="font-medium text-xl">주문 내역</h2>
-          <span className="pl-2 text-[13px] text-[#999999] leading-5">
-            최대 지난 3년간의 주문내역까지 확인할 수 있어요
-          </span>
+    <div className="w-[650px] min-w-[650px] max-w-[650px] rounded-2xl overflow-hidden ">
+      <div className="bg-white">
+        <div className="flex justify-between my-0 mx-5 pt-[25px] px-0 pb-5 border-b-2 border-solid border-[#333333]">
+          <div className="flex items-end">
+            <h2 className="font-medium text-xl">주문 내역</h2>
+            <span className="pl-2 text-[13px] text-[#999999] leading-5">
+              최대 지난 3년간의 주문내역까지 확인할 수 있어요
+            </span>
+          </div>
         </div>
       </div>
       <div className="m-0">

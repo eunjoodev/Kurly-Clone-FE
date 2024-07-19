@@ -13,7 +13,7 @@ const WishList = () => {
       </div>
       <div className="m-0 px-5">
         <div className="flex flex-col items-center justify-center text-center leading-normal w-full h-[700px]">
-          <img src="assets/heartGray.svg" className="overflow-hidden" alt="" />
+          <img src="/assets/heartGray.svg" className="overflow-hidden" alt="" />
           <p className="block mx-0 mb-5 text-base text-[#b5b5b5] text-center font-normal">
             찜한 상품이 없습니다.
           </p>

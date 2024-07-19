@@ -3,26 +3,32 @@ import React, { useState } from "react";
 import UserInfo from "../UserprofileItems/UserInfo";
 import Favorites from "../UserprofileItems/Favorites";
 import OtherMenus from "../UserprofileItems/OtherMenus";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import OrderList from "../UserprofileItems/OrderList";
 import WishList from "../UserprofileItems/WishList";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const UserProfile = () => {
   const [datas, setDatas] = useState([
     {
-      title: "테스트1",
-      date: new Date(2024, 2, 20),
+      title: "[루스티켈라] 파스타면 7종 외 1건",
+      date: new Date(2024, 2, 20, 12, 23),
+      payment: "카카오페이",
+      price: 30000,
+      delivery: "배송 완료",
     },
     {
-      title: "테스트2",
-      date: new Date(2023, 10, 11),
+      title: "[기획특가] 1+등급 무항생제 백색 대란 20구(벚꽃에디션) 외 2건",
+      date: new Date(2023, 10, 11, 19, 48),
+      payment: "신용카드",
+      price: 1700,
+      delivery: "배송 완료",
     },
   ]);
 
   const location = useLocation();
 
-  if (location.pathname === "/") {
-    return <Navigate to="/orders" />;
+  if (location.pathname === "/userprofile") {
+    return <Navigate to="/userprofile/orders" />;
   }
 
   return (
