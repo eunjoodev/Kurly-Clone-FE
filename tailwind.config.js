@@ -1,8 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./UserProfile/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      width: {
+        1050: "65.625rem",
+        742: "46.375rem",
+        284: "17.75rem",
+      },
+      height: {
+        1075: "67.1875rem",
+        942: "58.875rem",
+      },
+      minWidth: {
+        1050: "65.625rem",
+        742: "46.375rem",
+        284: "17.75rem",
+        "50%": "50%",
+      },
+      minHeight: {
+        1075: "67.1875rem",
+        942: "58.875rem",
+      },
       padding: {
         "50px": "50px",
       },
@@ -31,9 +50,6 @@ module.exports = {
         "#b5b5b5": "#b5b5b5",
         "#5f0080": "#5f0080",
         "#dddddd80": "#dddddd80",
-      },
-      minWidth: {
-        "50%": "50%",
       },
     },
     letterSpacing: {
