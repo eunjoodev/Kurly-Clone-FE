@@ -39,7 +39,7 @@ function Header() {
               <a className="text-xs" href="/login" style={{ fontSize: "12px" }}>
                 로그인
               </a>
-              )}
+
               <span className="" aria-hidden="true">
                 ㅣ
               </span>
