@@ -14,10 +14,8 @@ const Favorites = () => {
         자주찾는 메뉴
       </div>
       <div className="flex-col items-start">
-        {/* <Link
-          to="/userprofile/orders" */}
-        <a
-          href="/userprofile/orders"
+        <Link
+          to="/userprofile/orders"
           className={`flex flex-row items-center relative min-w-full font-medium h-[54px] py-4 text-base cursor-pointer ${
             checkPath("/userprofile/orders") ? "text-purple-700" : "text-black"
           }`}
@@ -32,8 +30,7 @@ const Favorites = () => {
             alt=""
           />
           <div className="gap-0.5 text-base">주문 내역</div>
-        </a>
-        {/* </Link> */}
+        </Link>
         <div className="flex flex-row items-center relative min-w-full font-medium h-[54px] py-4 text-base cursor-pointer">
           <img src="/assets/coupon.svg" className="my-0 mr-2 w-7 h-7" alt="" />
           <div className="gap-0.5 text-base">
@@ -43,10 +40,8 @@ const Favorites = () => {
             </span>
           </div>
         </div>
-        {/* <Link
-          to="/userprofile/wishlist" */}
-        <a
-          href="/userprofile/wishlist"
+        <Link
+          to="/userprofile/wishlist"
           className={`flex flex-row items-center relative min-w-full font-medium h-[54px] py-4 text-base cursor-pointer ${
             checkPath("/userprofile/wishlist")
               ? "text-purple-700"
@@ -68,8 +63,7 @@ const Favorites = () => {
               0
             </span>
           </div>
-        </a>
-        {/* </Link> */}
+        </Link>
         <div className="flex flex-row items-center relative min-w-full font-medium h-[54px] py-4 text-base cursor-pointer">
           <img src="/assets/often.svg" className="my-0 mr-2 w-7 h-7" alt="" />
           <div className="gap-0.5 text-base">자주 구매</div>

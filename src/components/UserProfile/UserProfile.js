@@ -4,8 +4,6 @@ import UserInfo from "../UserprofileItems/UserInfo";
 import Favorites from "../UserprofileItems/Favorites";
 import OtherMenus from "../UserprofileItems/OtherMenus";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import OrderList from "../UserprofileItems/OrderList";
-import WishList from "../UserprofileItems/WishList";
 
 const UserProfile = () => {
   const [datas, setDatas] = useState([
