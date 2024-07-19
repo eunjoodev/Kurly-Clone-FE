@@ -12,12 +12,4 @@
     }
   }
 
-
-  @font-face {
-    font-family: 'Malgun Gothic';
-    src: local('Malgun Gothic'), local('맑은 고딕'),
-         url('https://example.com/path/to/malgun-gothic.woff2') format('woff2'),
-         url('https://example.com/path/to/malgun-gothic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+  

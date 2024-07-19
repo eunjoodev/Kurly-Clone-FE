@@ -50,9 +50,6 @@ module.exports = {
       radioButton : {
         radioColor: '#dddddd',
       },
-      fontFamily: {
-        malgun: ['Malgun Gothic', 'sans-serif'],
-      },
     },
   },
   plugins: [],

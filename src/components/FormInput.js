@@ -9,6 +9,9 @@ const FormInput = () => {
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userNumber, setUserNumber] = useState("");
+    const [year, setYear] = useState("");
+    const [month, setMonth] = useState("");
+    const [day, setDay] = useState("");
 
 
     const [userIdValid, setUserIdValid] = useState(false);
@@ -25,10 +28,9 @@ const FormInput = () => {
 
 
     //onChangeHandler
-    
     const userIdHandler = (e) => {
         setUserId(e.target.value);
-        const userIdRegex = /^[a-z0-9!~@#$%^&*()?+=\/]{6,16}$/; 
+        const userIdRegex = /^[a-z0-9!~@#$%^&*()?+=/]{6,16}$/; 
         if(userIdRegex.test(userId)){
             setUserIdValid(true);
         }else {
@@ -112,6 +114,21 @@ const FormInput = () => {
         }
     };
 
+   
+
+    const DateChangeHandler = (e, setValue, maxLength) => {
+        const value = e.target.value;
+        // 숫자만 허용하고 최대 길이 제한
+        const NewValue = value.replace(/[^0-9]/g, '').slice(0, maxLength);
+        setValue(NewValue);
+    };
+
+      const KeyDownHandler = (e) => {
+        // 숫자, 백스페이스, 삭제, 왼쪽/오른쪽 화살표 키만 허용
+        if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+          e.preventDefault();
+        }
+      };
     
 
     
@@ -245,7 +262,19 @@ const FormInput = () => {
                             maxLength="11"
                             placeholder="숫자만 입력해주세요" 
                             onChange={userNumberHandler}
-                            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+                            onKeyDown={(e) => {
+                                // 숫자, 백스페이스, 삭제, 왼쪽/오른쪽 화살표 키만 허용
+                                if (
+                                    !/[0-9]/.test(e.key) &&
+                                    !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)
+                                ) {
+                                    e.preventDefault();
+                                }
+                            }}
+                            onInput={(e) => {
+                                // 입력된 값에서 숫자가 아닌 문자는 모두 제거
+                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            }}
                         />
                          {userNumberTouched && !userNumberValid && (<div class="text-red w-w7 h-h3 py-2.5 text-xs">
                             휴대폰 번호를 입력해주세요
@@ -309,22 +338,31 @@ const FormInput = () => {
                     <div class="inline-block border border-lightGray rounded w-w3 h-h1 text-sm">
                         <input 
                             class="h-10 w-w5 pr-p1 pl-p2 text-center mt-1 ml-2 placeholder-middleGray focus:outline-none" 
-                            type="number" 
+                            type="text"
+                            value={year}
+                            maxLength="4"
                             placeholder="YYYY" 
-                            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+                            onChange={(e) => DateChangeHandler(e, setYear, 4)}
+                            onKeyDown={KeyDownHandler}
                         />
                         <span class="text-center text-lightGray">/</span>
                         <input 
                             class="h-10 w-w5 pr-p1 pl-p2 text-center mt-1 placeholder-middleGray focus:outline-none" 
                             type="number" 
+                            value={month}
+                            maxLength="2"
                             placeholder="MM" 
-                            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+                            onChange={(e) => DateChangeHandler(e, setMonth, 2)}
+                            onKeyDown={KeyDownHandler}
                         />
                         <span class="text-center text-lightGray">/</span> 
                         <input class="h-10 w-w5 pr-p1 pl-p2 text-center mt-1 placeholder-middleGray focus:outline-none" 
-                            type="number" 
+                            type="number"
+                            value={day}
+                            maxLength="2"
                             placeholder="DD" 
-                            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+                            onChange={(e) => DateChangeHandler(e, setDay, 2)}
+                            onKeyDown={KeyDownHandler}
                         />
                     </div>
                 </div>
