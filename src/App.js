@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import CreateAccount from "./components/CreateAccount";
 import HeaderLayout from "./pages/HeaderLayout.js";
 import Main from "./pages/Main/Main.js";
 import ShoppingCart from "./components/ShoppingCart";
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Main /> },
       { path: "/cart", element: <ShoppingCart /> },
+      { path: "/account", element: <CreateAccount /> },
       {
         path: "userprofile",
         element: <UserProfile />,
@@ -39,6 +41,11 @@ const router = createBrowserRouter([
 
 function App() {
   return <RouterProvider router={router} />;
+  return (
+    <>
+      <CreateAccount/>
+    </>
+  );
 }
 
 export default App;

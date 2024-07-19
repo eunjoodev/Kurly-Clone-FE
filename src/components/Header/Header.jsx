@@ -18,7 +18,7 @@ function Header() {
             <div className="flex-grow"></div>
             <div className="flex space-x-2 items-center ">
               <div className="text-xs" style={{ fontSize: "12px" }}>
-                <a href="#">회원가입</a>
+                <a href="/account">회원가입</a>
               </div>
               <span className="" aria-hidden="true">
                 ㅣ

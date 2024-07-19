@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -7,10 +8,24 @@ module.exports = {
         1050: "65.625rem",
         742: "46.375rem",
         284: "17.75rem",
+        w1: '65.625rem',
+        w2: '40rem',
+        w3: '20.813rem',
+        w4: '7.5rem',
+        w5: '6.056rem',
+        w6: '8.688rem',
+        w7: '20.813rem',
+        w8: '3.86rem',
       },
       height: {
         1075: "67.1875rem",
         942: "58.875rem",
+        h1: '2.875rem',
+        h2: '2.75rem',
+        h3: '1.934rem',
+        h4: '4.934rem',  
+        h5: '6.184rem',
+        h6: '8.542rem',
       },
       minWidth: {
         1050: "65.625rem",
@@ -23,13 +38,13 @@ module.exports = {
         942: "58.875rem",
       },
       padding: {
-        "50px": "50px",
+        p1: '0.688rem',
+        p2: '0.938rem',
       },
       gap: {
         "5px": "5px",
       },
       spacing: {
-        "13px": "13px",
         "13px": "13px",
         "16px": "16px",
         "18px": "18px",
@@ -41,15 +56,18 @@ module.exports = {
         "375px": "375px",
       },
       colors: {
-        "#f2f2f2": "#f2f2f2",
-        "#666666": "#666666",
-        "#333333": "#333333",
-        "#999999": "#999999",
-        "#e2e2e2": "#e2e2e2",
-        "#eeeeee": "#eeeeee",
-        "#b5b5b5": "#b5b5b5",
-        "#5f0080": "#5f0080",
-        "#dddddd80": "#dddddd80",
+        transparent: 'transparent',
+        current: 'currentColor',
+        purple: '#5F0080',
+        red: '#EE6A7B',
+        darkGray: '#333333',
+        middleGray: '#666666',
+        lightGray: '#dddddd',
+        white: '#FFFFFF',
+      },
+      fontSize: {
+        mySize: '1.75rem',
+        t1: '0.813rem',
       },
     },
     letterSpacing: {
@@ -63,3 +81,4 @@ module.exports = {
   },
   plugins: [],
 };
+
