@@ -33,7 +33,7 @@ function Header() {
               <span className="" aria-hidden="true">
                 ㅣ
               </span>
-              <a className="text-xs" href="#" style={{ fontSize: "12px" }}>
+              <a className="text-xs" href="/userprofile" style={{ fontSize: "12px" }}>
                 고객센터
               </a>
             </div>
