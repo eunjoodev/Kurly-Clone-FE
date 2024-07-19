@@ -108,7 +108,7 @@ const FormInput = () => {
 
         // 입력값이 비워졌을 때 오류 메시지 표시 여부
         if (e.target.value === '') {
-            setUserNumberValid(false); // 입력값이 비워져 있으면 오류 메시지 표시
+            setUserNumberValid(false); 
         }
     };
 
@@ -119,14 +119,14 @@ const FormInput = () => {
     //회원가입 UI 구현
         <form>
             <div>
-                <div class="flex w-w2 h-h5 py-2.5 px-5 text-sm">
+                <div class={`flex w-w2 py-2.5 px-5 text-sm ${!userIdValid && userId.length > 0 ? 'h-auto' : 'h-16'}`}>
                     <div class="w-w6 h-h4 mt-4 inline-block">
                         <label class="text-darkGray font-bold">아이디</label>
                         <span class="text-red">*</span>
                     </div>
                     <div class="inline-block">
                         <input 
-                            class="w-w3 h-h1 pl-3.5 border border-lightGray focus:outline rounded text-sm placeholder-middleGray" 
+                            class="w-w3 h-h1 pl-3.5 border border-lightGray focus:outline rounded text-base placeholder-middleGray" 
                             name="userId" 
                             type="text"
                             maxLength="16"
@@ -143,13 +143,13 @@ const FormInput = () => {
                     </div>             
                 </div>
 
-                <div class="flex w-w2 h-h5 py-2.5 px-5 text-sm"> 
+                <div class={`flex w-w2 py-2.5 px-5 text-sm ${(!userPasswordLengthValid && userPassword.length > 0) || (userPasswordLengthValid && !userPasswordValid) ? 'h-auto' : 'h-16'}`}>
                     <div class="w-w6 h-h4 mt-4 inline-block">
                         <label class="text-darkGray font-bold">비밀번호</label>
                         <span class="text-red">*</span>
                     </div>
                     <div class="inline-block">
-                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
+                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray" 
                             name="userPassword" 
                             type="password"
                             value={userPassword}
@@ -166,13 +166,13 @@ const FormInput = () => {
                     </div>
                 </div>
 
-                <div class="flex w-w2 h-h5 py-2.5 px-5 text-sm">
+                <div class={`flex w-w2 py-2.5 px-5 text-sm ${(!confirmPasswordValid && confirmPassword.length > 0) || (confirmPassword.length === 0 && userPassword.length) > 0 ? 'h-auto' : 'h-16'}`}>
                     <div class="inline-block w-w6 mt-4">
                         <label class="text-darkGray font-bold">비밀번호확인</label>
                         <span class="text-red">*</span>
                     </div>
                     <div class="inline-block">
-                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
+                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray" 
                             name="confirmPassword" 
                             type="password" 
                             value={confirmPassword}
@@ -188,13 +188,13 @@ const FormInput = () => {
                     </div>
                 </div>
 
-                <div class="flex w-w2 h-h5 py-2.5 px-5 text-sm">
+                <div class={`flex w-w2 py-2.5 px-5 text-sm ${!userNameValid ? 'h-auto' : 'h-16'}`}>
                     <div class="inline-block w-w6 mt-4">
                         <label class="text-darkGray font-bold">이름</label>
                             <span class="text-red">*</span>
                     </div>
                     <div class="inline-block">
-                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
+                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray" 
                             name="userName" 
                             type="text"
                             maxLength="20"
@@ -208,13 +208,13 @@ const FormInput = () => {
                     </div>
                 </div>
 
-                <div class="flex w-w2 h-h5 py-2.5 px-5 text-sm">
+                <div class={`flex w-w2 py-2.5 px-5 text-sm ${(userEmailTouched && !userEmailValid) || (userEmailTouched && !userEmailFormatValid) ? 'h-auto' : 'h-16'}`}>
                     <div class="inline-block w-w6 mt-4">
                         <label class="text-darkGray font-bold">이메일</label>
                         <span class="text-red">*</span>
                     </div>
                     <div class="inline-block">
-                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
+                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray" 
                             type="email"
                             value={userEmail}
                             onChange={userEmailHandler}
@@ -232,13 +232,13 @@ const FormInput = () => {
                     </div>
                 </div>
 
-                <div class="flex w-w2 h-h5 py-2.5 px-5 text-sm"> 
+                <div class={`flex w-w2 py-2.5 px-5 text-sm ${userNumberTouched && !userNumberValid ? 'h-auto' : 'h-16'}`}>
                     <div class="inline-block w-w6 mt-4">
                         <label class="text-darkGray font-bold">휴대폰</label>
                         <span class="text-red">*</span>
                     </div>
                     <div class="inline-block">
-                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-sm placeholder-middleGray" 
+                        <input class="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray" 
                             name="userNumber" 
                             type="text" 
                             value={userNumber}

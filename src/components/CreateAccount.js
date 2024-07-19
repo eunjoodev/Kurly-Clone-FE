@@ -14,8 +14,8 @@ const CreateAccount = () => {
             </div>
             <div class="grid place-items-center">
                 <div class="border-b-2 w-w2 border-darkGray text-right text-xs pb-2.5">
-                    <span class="text-red">*</span>
-                    <span class="text-middleGray">필수입력사항</span>
+                    <span class="text-red mr-1">*</span>
+                    <span class="text-middleGray ">필수입력사항</span>
                 </div>
                 <FormInput/>
             </div>
