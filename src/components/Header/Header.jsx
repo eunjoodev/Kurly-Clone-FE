@@ -1,39 +1,53 @@
-import React from "react";
+import React, { useContext } from "react";
+// import { AuthContext } from "../../context/AuthContext";
 import {
   burger,
   cart,
   heart,
   logo,
   magnifyingGlass,
-  map
+  map,
 } from "../../assets/images";
 
 function Header() {
+  // const { auth } = useContext(AuthContext);
   return (
     <>
       <header className="bg-white">
         <div className="container mx-auto max-w-[1050px] mt-2">
-          {/* 상단 회원가입, 로그인, 고객센터 */}
           <div className="flex justify-between items-center mt-2 mb-3">
             <div className="flex-grow"></div>
             <div className="flex space-x-2 items-center ">
               <div className="text-xs" style={{ fontSize: "12px" }}>
-                <a href="#">회원가입</a>
+                <a
+                  className="text-xs"
+                  href="/createaccount"
+                  style={{ fontSize: "12px" }}
+                >
+                  회원가입
+                </a>
               </div>
+              <span className="" aria-hidden="true">
+                ㅣ
+              </span>
+              {/* /{* {auth.token ? (
+                <span className="text-xs" style={{ fontSize: "12px" }}>
+                  ㅎㅇㅎㅇ
+                </span>
+              ) : ( *}/
+                //이 부분이 로그인시 조건부 렌더링 로직 입니다*/}
+              <a className="text-xs" href="/login" style={{ fontSize: "12px" }}>
+                로그인
+              </a>
+              )}
               <span className="" aria-hidden="true">
                 ㅣ
               </span>
               <a
                 className="text-xs"
-                href="/login.html"
+                href="/userprofile"
                 style={{ fontSize: "12px" }}
               >
-                로그인
-              </a>
-              <span className="" aria-hidden="true">
-                ㅣ
-              </span>
-              <a className="text-xs" href="/userprofile" style={{ fontSize: "12px" }}>
                 고객센터
               </a>
             </div>
@@ -89,7 +103,7 @@ function Header() {
                     marginLeft: "5rem",
                     borderColor: "#5E0080",
                     borderWidth: "1.8px",
-                    height: "48px"
+                    height: "48px",
                   }}
                 >
                   <input

@@ -1,0 +1,20 @@
+body,
+input,
+button {
+  font-family: "Noto Sans KR", "malgun gothic", AppleGothic, dotum, sans-serif;
+}
+
+.min-h-screen {
+  border: none;
+}
+
+/* Contrast adjusted styles */
+.bg-indigo-700 {
+  background-color: #4B0082;
+  /* Indigo */
+}
+
+.text-indigo-700 {
+  color: #4B0082;
+  /* Indigo */
+}
