@@ -20,7 +20,7 @@ import {
   mustItem02,
   mustItem03,
   mustItem04,
-  side
+  side,
 } from "../../assets/images";
 import Timer from "./Timer";
 
@@ -57,7 +57,7 @@ function Main() {
     verticalSwiping: false,
     initialSlide: 0,
     cssEase: "cubic-bezier(0.7, 0, 0.3, 1)",
-    variableWidth: false
+    variableWidth: false,
   };
 
   return (
