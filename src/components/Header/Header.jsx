@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import {
   burger,
   cart,
   heart,
   logo,
   magnifyingGlass,
-  map
+  map,
 } from "../../assets/images";
 
 function Header() {
+  const context = useContext(AuthContext);
   return (
     <>
       <header className="bg-white">
@@ -17,23 +19,39 @@ function Header() {
           <div className="flex justify-between items-center mt-2 mb-3">
             <div className="flex-grow"></div>
             <div className="flex space-x-2 items-center ">
-              <div className="text-xs" style={{ fontSize: "12px" }}>
-                <a href="/account">회원가입</a>
-              </div>
+              {context.isLoggedIn ? (
+                <button
+                  onClick={context.onLogout}
+                  className="text-xs"
+                  style={{ fontSize: "12px" }}
+                >
+                  로그아웃
+                </button>
+              ) : (
+                <>
+                  <div className="text-xs" style={{ fontSize: "12px" }}>
+                    <a href="/account">회원가입</a>
+                  </div>
+                  <span className="" aria-hidden="true">
+                    ㅣ
+                  </span>
+                  <a
+                    className="text-xs"
+                    href="/login"
+                    style={{ fontSize: "12px" }}
+                  >
+                    로그인
+                  </a>
+                </>
+              )}
               <span className="" aria-hidden="true">
                 ㅣ
               </span>
               <a
                 className="text-xs"
-                href="/login.html"
+                href="/userprofile"
                 style={{ fontSize: "12px" }}
               >
-                로그인
-              </a>
-              <span className="" aria-hidden="true">
-                ㅣ
-              </span>
-              <a className="text-xs" href="/userprofile" style={{ fontSize: "12px" }}>
                 고객센터
               </a>
             </div>
@@ -89,7 +107,7 @@ function Header() {
                     marginLeft: "5rem",
                     borderColor: "#5E0080",
                     borderWidth: "1.8px",
-                    height: "48px"
+                    height: "48px",
                   }}
                 >
                   <input
