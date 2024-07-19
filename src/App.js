@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import { AuthProvider } from "./context/AuthContext";
 import CreateAccount from "./components/CreateAccount";
 import HeaderLayout from "./pages/HeaderLayout.js";
 import Main from "./pages/Main/Main.js";
@@ -8,6 +9,7 @@ import ShoppingCart from "./components/ShoppingCart";
 import UserProfile from "./components/UserProfile/UserProfile.js";
 import OrderList from "./components/UserprofileItems/OrderList.js";
 import WishList from "./components/UserprofileItems/WishList.js";
+import Login from "./components/login/Login";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,7 @@ const router = createBrowserRouter([
       { index: true, element: <Main /> },
       { path: "/cart", element: <ShoppingCart /> },
       { path: "/account", element: <CreateAccount /> },
+      { path: "/login", element: <Login /> },
       {
         path: "userprofile",
         element: <UserProfile />,
@@ -40,11 +43,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
   return (
-    <>
-      <CreateAccount/>
-    </>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 
