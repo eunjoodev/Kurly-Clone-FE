@@ -5,9 +5,10 @@ import {
   mustItem01,
   mustItem02,
   mustItem03,
-  mustItem04
+  mustItem04,
 } from "../../assets/images";
 
+//메인 페이지 지금 가장 많이 담는 특가 구현 로직
 const MainBest = () => {
   return (
     <section className="my-8">

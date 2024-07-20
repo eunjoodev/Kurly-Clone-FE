@@ -31,9 +31,9 @@ const Popup = ({ onClose }) => {
     <div
       style={{
         position: "absolute",
-        top: "26%",
+        top: "200px",
         left: "50%",
-        transform: "translate(-50%, -16%)",
+        transform: "translateX(-50%)",
         width: "100%",
         maxWidth: "1050px",
         zIndex: 1000,
