@@ -6,7 +6,7 @@ import {
   heart,
   logo,
   magnifyingGlass,
-  map
+  map,
 } from "../../assets/images";
 
 function Header() {
@@ -15,7 +15,7 @@ function Header() {
   return (
     <>
       <header className="bg-white">
-        <div className="container mx-auto max-w-[1050px] mt-2">
+        <div className="container mx-auto max-w-[1050px] mt-1">
           {/* 상단 회원가입, 로그인, 고객센터 */}
           <div className="flex justify-between items-center mt-2 mb-3">
             <div className="flex-grow"></div>
@@ -67,23 +67,27 @@ function Header() {
               </div>
 
               <div>
-                <ul className="flex items-center space-x-2">
+                <ul className="flex items-center space-x-1">
                   <li>
                     <a
                       style={{ color: "#5E0080" }}
-                      className="text-lg font-bold"
+                      className="text-lg font-semibold"
                       href="#"
                     >
                       마켓컬리
                     </a>
                   </li>
                   <li className="flex items-center">
-                    <span className="mx-2" aria-hidden="true">
+                    <span
+                      style={{ color: "#B5B5B5" }}
+                      className="mx-1"
+                      aria-hidden="true"
+                    >
                       ㅣ
                     </span>
                     <a
                       style={{ color: "#B5B5B5" }}
-                      className="text-lg font-semibold"
+                      className="text-lg "
                       href="#"
                     >
                       뷰티컬리
@@ -109,7 +113,7 @@ function Header() {
                     marginRight: "3rem",
                     borderColor: "#5E0080",
                     borderWidth: "1.8px",
-                    height: "48px"
+                    height: "48px",
                   }}
                 >
                   <input
