@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { popup01 } from "../../assets/images";
 
 const Popup = ({ onClose }) => {
+  useEffect(() => {
+    // 로컬 스토리지에서 'hidePopup' 값을 확인
+    const hidePopup = localStorage.getItem("hidePopup");
+    if (hidePopup === "true") {
+      onClose(); // 팝업을 닫음
+    }
+  }, [onClose]);
+
+  const handleHideToday = () => {
+    // 로컬 스토리지에 'hidePopup' 값을 저장
+    localStorage.setItem("hidePopup", "true");
+    onClose(); // 팝업을 닫음
+  };
+
   return ReactDOM.createPortal(
     <div
       style={{
@@ -12,7 +26,7 @@ const Popup = ({ onClose }) => {
         transform: "translate(-50%, -16%)",
         width: "100%",
         maxWidth: "1050px",
-        zIndex: 1000
+        zIndex: 1000,
       }}
     >
       <div
@@ -21,7 +35,7 @@ const Popup = ({ onClose }) => {
           backgroundColor: "white",
           borderRadius: "8px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         <div>
@@ -30,7 +44,7 @@ const Popup = ({ onClose }) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              padding: "12px 50px"
+              padding: "12px 50px",
             }}
           >
             <button
@@ -39,9 +53,9 @@ const Popup = ({ onClose }) => {
                 background: "none",
                 border: "none",
                 padding: "0",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
-              onClick={onClose}
+              onClick={handleHideToday}
             >
               오늘 하루 안보기
             </button>
@@ -51,7 +65,7 @@ const Popup = ({ onClose }) => {
                 background: "none",
                 border: "none",
                 padding: "0",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
               onClick={onClose}
             >
