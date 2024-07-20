@@ -5,15 +5,25 @@ import { popup01 } from "../../assets/images";
 const Popup = ({ onClose }) => {
   useEffect(() => {
     // 로컬 스토리지에서 'hidePopup' 값을 확인
-    const hidePopup = localStorage.getItem("hidePopup");
-    if (hidePopup === "true") {
-      onClose(); // 팝업을 닫음
+    const hidePopupTimestamp = localStorage.getItem("hidePopupTimestamp");
+    if (hidePopupTimestamp) {
+      const currentTime = new Date().getTime();
+      const hidePopupTime = new Date(
+        parseInt(hidePopupTimestamp, 10)
+      ).getTime();
+
+      // 24시간(86400000 밀리초)이 지났는지 확인
+      if (currentTime - hidePopupTime < 86400000) {
+        onClose(); // 팝업을 닫음
+      } else {
+        localStorage.removeItem("hidePopupTimestamp");
+      }
     }
   }, [onClose]);
 
   const handleHideToday = () => {
-    // 로컬 스토리지에 'hidePopup' 값을 저장
-    localStorage.setItem("hidePopup", "true");
+    // 로컬 스토리지에 현재 시간을 타임스탬프로 저장
+    localStorage.setItem("hidePopupTimestamp", new Date().getTime().toString());
     onClose(); // 팝업을 닫음
   };
 
