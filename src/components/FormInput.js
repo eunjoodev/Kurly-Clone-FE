@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FormInput = () => {
     const [userId, setUserId] = useState("");
@@ -23,6 +24,8 @@ const FormInput = () => {
     const [userEmailTouched, setUserEmailTouched] = useState(false);
     const [userNumberValid, setUserNumberValid] = useState(true);
     const [userNumberTouched, setUserNumberTouched] = useState(false);
+
+    const navigate = useNavigate(); // useHistory 훅 사용
 
     const userIdHandler = (e) => {
         setUserId(e.target.value);
@@ -139,6 +142,7 @@ const FormInput = () => {
 
         localStorage.setItem("userData", JSON.stringify(userData));
         alert("회원가입 성공!");
+        navigate("/login"); // 가입성공 시 로그인 페이지로 리다이렉트
     };
 
     useEffect(() => {
