@@ -52,7 +52,7 @@ function Header() {
                 href="/userprofile"
                 style={{ fontSize: "12px" }}
               >
-                고객센터
+                마이페이지
               </a>
             </div>
           </div>
