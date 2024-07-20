@@ -1,6 +1,7 @@
 import React from "react";
 import { banner } from "../../assets/images";
 
+//메인페이지의 중간중간 위치하는 이벤트용 배너 이미지 입니다.
 const MainAd = () => {
   return (
     <section className="my-16 mb-28">

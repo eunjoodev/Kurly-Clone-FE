@@ -8,9 +8,10 @@ import {
   mainBanner03,
   mainBanner04,
   mainBanner05,
-  mainBanner06
+  mainBanner06,
 } from "../../assets/images";
 
+//메인페이지의 메인배너 슬라이더 세팅
 const sliderSettings = {
   dots: true,
   arrows: true,
@@ -33,7 +34,7 @@ const sliderSettings = {
   verticalSwiping: false,
   initialSlide: 0,
   cssEase: "cubic-bezier(0.7, 0, 0.3, 1)",
-  variableWidth: false
+  variableWidth: false,
 };
 
 const MainBanner = () => {

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import clock from "../../assets/images/clock.png"; // 시계 아이콘 경로를 맞춰주세요
+import clock from "../../assets/images/clock.png";
+
+//MainSpecial 컴포넌트 안에 들어갈 로직입니다.
+//특가 시간 카운트 다운, 24시간부터 초단위로 줄어듭니다.
 
 const timeInDay = 2;
 const currentTime = Date.parse(new Date());
@@ -15,7 +18,7 @@ const getTimeRemaining = (endtime) => {
     total,
     hours,
     minutes,
-    seconds
+    seconds,
   };
 };
 

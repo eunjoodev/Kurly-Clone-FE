@@ -6,6 +6,7 @@ const timeInDay = 2;
 const currentTime = Date.parse(new Date());
 const deadline1 = new Date(currentTime + timeInDay * 12 * 60 * 60 * 1000);
 
+//메인 페이지 특가 구현
 const MainSpecial = () => {
   return (
     <>
