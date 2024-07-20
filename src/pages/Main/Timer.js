@@ -34,7 +34,7 @@ function Timer({ deadline }) {
     <div className="flex items-center text-2xl md:text-4xl mb-8">
       <div className="mr-2">
         <img
-          className="w-10 h-10 md:w-10 md:h-10"
+          style={{ width: "28px", height: "28px" }}
           src={clock}
           alt="시계 아이콘"
         />

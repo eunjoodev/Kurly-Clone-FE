@@ -42,7 +42,7 @@ const Payment = ({ cartDetails }) => {
             <>
               <a
                 href="./login"
-                className="w-284 h-[56px] text-white bg-[#5f0080] rounded cursor-pointer text-center"
+                className="w-284 h-[56px] text-white bg-[#5f0080] rounded cursor-pointer flex items-center justify-center"
               >
                 로그인
               </a>
