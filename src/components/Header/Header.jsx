@@ -10,7 +10,8 @@ import {
 } from "../../assets/images";
 
 function Header() {
-  const context = useContext(AuthContext);
+  const { auth, logout } = useContext(AuthContext);
+  const isLoggedIn = !!auth.token;
   return (
     <>
       <header className="bg-white">
@@ -19,9 +20,9 @@ function Header() {
           <div className="flex justify-between items-center mt-2 mb-3">
             <div className="flex-grow"></div>
             <div className="flex space-x-2 items-center ">
-              {context.isLoggedIn ? (
+              {isLoggedIn ? (
                 <button
-                  onClick={context.onLogout}
+                  onClick={logout}
                   className="text-xs"
                   style={{ fontSize: "12px" }}
                 >
