@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { AuthContext } from "../../context/AuthContext";
 import {
   burger,
@@ -12,6 +14,13 @@ import {
 function Header() {
   const { auth, logout } = useContext(AuthContext);
   const isLoggedIn = !!auth.token;
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // 로그아웃 후 메인 페이지로 리다이렉션
+  };
+
   return (
     <>
       <header className="bg-white">
@@ -22,7 +31,7 @@ function Header() {
             <div className="flex space-x-2 items-center ">
               {isLoggedIn ? (
                 <button
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="text-xs"
                   style={{ fontSize: "12px" }}
                 >

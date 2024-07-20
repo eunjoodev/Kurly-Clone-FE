@@ -35,11 +35,10 @@ const router = createBrowserRouter([
         ],
       },
       // { path: "/detail", element: <Detail /> },
-      //  path 하고 큰 따옴표 다음에 경로, element 다음에 .js 이름 적어수면 돼요
+      // 추가 라우트 정의
     ],
   },
-  // { path: "login", element: <Loign/>}
-  // 추가 라우트 정의
+  // 추가 라우트 정의 가능
 ]);
 
 function App() {

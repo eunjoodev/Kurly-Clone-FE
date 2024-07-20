@@ -1,21 +1,26 @@
 import React, { createContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(() => {
-    const token = localStorage.getItem("token");
-    return { token: token ? token : null };
-  });
+const AuthProvider = ({ children }) => {
+  const [auth, setAuth] = useState({ token: null });
+
+  useEffect(() => {
+    // 애플리케이션 시작 시 세션 스토리지 확인
+    const token = sessionStorage.getItem("authToken");
+    if (token) {
+      setAuth({ token });
+    }
+  }, []);
 
   const login = (token) => {
-    localStorage.setItem("token", token);
     setAuth({ token });
+    sessionStorage.setItem("authToken", token);
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
     setAuth({ token: null });
+    sessionStorage.removeItem("authToken");
   };
 
   return (
@@ -24,3 +29,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export { AuthProvider, AuthContext };
