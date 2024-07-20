@@ -6,7 +6,7 @@ import {
   heart,
   logo,
   magnifyingGlass,
-  map,
+  map
 } from "../../assets/images";
 
 function Header() {
@@ -101,13 +101,14 @@ function Header() {
               <fieldset className="border-none w-full">
                 <legend className="sr-only">검색 폼</legend>
                 <div
-                  className="flex w-full items-center border rounded-md justify-between"
+                  className="flex items-center border rounded-md justify-between"
                   style={{
                     maxWidth: "400px",
                     marginLeft: "5rem",
+                    marginRight: "3rem",
                     borderColor: "#5E0080",
                     borderWidth: "1.8px",
-                    height: "48px",
+                    height: "48px"
                   }}
                 >
                   <input
@@ -115,11 +116,11 @@ function Header() {
                     id="search"
                     name="search"
                     required
-                    className="font-semibold"
+                    className="font-semibold flex-grow appearance-none outline-none"
                     placeholder="검색어를 입력해주세요"
-                    style={{ paddingLeft: "12px" }}
+                    style={{ paddingLeft: "12px", border: "none" }}
                   />
-                  <button type="submit" className="items-center">
+                  <button type="submit" className="flex items-center">
                     <img
                       className="w-8 h-6"
                       src={magnifyingGlass}
@@ -134,16 +135,24 @@ function Header() {
             {/* 아이콘들 */}
             <div className="flex items-center space-x-6">
               <a href="/">
-                <img src={map} alt="지도 아이콘" style={{ width: "30px" }} />
+                <img
+                  className="w-[30px] h-[30px]"
+                  src={map}
+                  alt="지도 아이콘"
+                />
               </a>
               <a href="/">
-                <img src={heart} alt="하트 아이콘" style={{ width: "30px" }} />
+                <img
+                  className="w-[30px] h-[30px]"
+                  src={heart}
+                  alt="하트 아이콘"
+                />
               </a>
               <a href="/cart">
                 <img
+                  className="w-[30px] h-[30px]"
                   src={cart}
                   alt="장바구니 아이콘"
-                  style={{ width: "30px" }}
                 />
               </a>
             </div>
