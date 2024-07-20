@@ -6,7 +6,7 @@ import {
   heart,
   logo,
   magnifyingGlass,
-  map,
+  map
 } from "../../assets/images";
 
 function Header() {
@@ -107,7 +107,7 @@ function Header() {
                     marginLeft: "5rem",
                     borderColor: "#5E0080",
                     borderWidth: "1.8px",
-                    height: "48px",
+                    height: "48px"
                   }}
                 >
                   <input
