@@ -1,18 +1,26 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import PaymentAddress from "./PaymentAddress";
 import PaymentAmount from "./PaymentAmount";
 import { AuthContext } from "../../context/AuthContext";
 
 const Payment = ({ cartDetails }) => {
-  const context = useContext(AuthContext);
+  const { auth, logout } = useContext(AuthContext); // AuthContext에서 로그인 상태와 로그아웃 함수 가져오기
+  const isLoggedIn = !!auth.token;
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // 초기 화면으로 리다이렉션
+  };
 
   return (
     <div className="w-284 h-942 absolute right-0">
       <div className="h-[753px] pt-[60px] sticky top-[60px]">
-        {context.isLoggedIn && <PaymentAddress />}
+        {isLoggedIn && <PaymentAddress />}
         <PaymentAmount cartDetails={cartDetails} />
         <div className="w-284 h-[256px] pt-5 flex flex-col">
-          {context.isLoggedIn ? (
+          {isLoggedIn ? (
             <>
               <button className="w-284 h-[56px] text-white bg-[#5f0080] rounded">
                 주문하기
@@ -42,7 +50,7 @@ const Payment = ({ cartDetails }) => {
             <>
               <a
                 href="./login"
-                className="w-284 h-[56px] text-white bg-[#5f0080] rounded cursor-pointer flex items-center justify-center"
+                className="w-284 h-[56px] text-white bg-[#5f0080] rounded flex items-center justify-center"
               >
                 로그인
               </a>
@@ -56,6 +64,16 @@ const Payment = ({ cartDetails }) => {
                 </li>
               </ul>
             </>
+          )}
+
+          {/* 로그인 상태에 따라 로그아웃 버튼 추가 */}
+          {isLoggedIn && (
+            <button
+              className="w-284 h-[56px] text-white bg-[#5f0080] rounded flex items-center justify-center mt-4"
+              onClick={handleLogout}
+            >
+              로그아웃
+            </button>
           )}
         </div>
       </div>
