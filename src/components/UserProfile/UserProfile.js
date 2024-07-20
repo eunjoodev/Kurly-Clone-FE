@@ -30,7 +30,7 @@ const UserProfile = () => {
   }
 
   return (
-    <>
+    <div className="relative min-w-[1050px] bg-[#f2f5f8]">
       <div className="flex items-start justify-center gap-5 pt-[50px] pb-20">
         <div className="overflow-hidden min-w-[375px] max-w-[375px] rounded-2xl">
           <UserInfo />
@@ -39,7 +39,7 @@ const UserProfile = () => {
         </div>
         <Outlet context={{ orders: datas }} />
       </div>
-    </>
+    </div>
   );
 };
 
