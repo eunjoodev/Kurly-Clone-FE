@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import {
   burger,
   cart,
   heart,
   logo,
   magnifyingGlass,
-  map
+  map,
 } from "../../assets/images";
+import { AuthContext } from "../../context/AuthContext";
 
 function Header() {
-  const { auth, logout } = useContext(AuthContext);
-  const isLoggedIn = !!auth.token;
+  const context = useContext(AuthContext);
+
   return (
     <>
       <header className="bg-white">
@@ -20,9 +20,9 @@ function Header() {
           <div className="flex justify-between items-center mt-2 mb-3">
             <div className="flex-grow"></div>
             <div className="flex space-x-2 items-center ">
-              {isLoggedIn ? (
+              {context.isLoggedIn ? (
                 <button
-                  onClick={logout}
+                  onClick={context.onLogout}
                   className="text-xs"
                   style={{ fontSize: "12px" }}
                 >
@@ -109,7 +109,7 @@ function Header() {
                     marginRight: "3rem",
                     borderColor: "#5E0080",
                     borderWidth: "1.8px",
-                    height: "48px"
+                    height: "48px",
                   }}
                 >
                   <input
