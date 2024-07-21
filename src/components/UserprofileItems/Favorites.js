@@ -17,7 +17,7 @@ const Favorites = () => {
         <Link
           to="/userprofile/orders"
           className={`flex flex-row items-center relative min-w-full font-medium h-[54px] py-4 text-base cursor-pointer ${
-            checkPath("/userprofile/orders") ? "text-purple-700" : "text-black"
+            checkPath("/userprofile/orders") ? "text-purple" : "text-black"
           }`}
         >
           <img
@@ -43,9 +43,7 @@ const Favorites = () => {
         <Link
           to="/userprofile/wishlist"
           className={`flex flex-row items-center relative min-w-full font-medium h-[54px] py-4 text-base cursor-pointer ${
-            checkPath("/userprofile/wishlist")
-              ? "text-purple-700"
-              : "text-black"
+            checkPath("/userprofile/wishlist") ? "text-purple" : "text-black"
           }`}
         >
           <img
