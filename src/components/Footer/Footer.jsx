@@ -11,7 +11,7 @@ function Footer() {
                 style={{
                   fontSize: "20px",
                   fontWeight: "bold",
-                  marginBottom: "16px"
+                  marginBottom: "16px",
                 }}
               >
                 고객행복센터
@@ -21,7 +21,7 @@ function Footer() {
                   className="font-semibold"
                   style={{
                     fontSize: "28px",
-                    marginRight: "10px"
+                    marginRight: "10px",
                   }}
                 >
                   1644-1107
@@ -40,7 +40,7 @@ function Footer() {
                       height: "40px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center"
+                      justifyContent: "center",
                     }}
                   >
                     <span>카카오톡 문의</span>
@@ -51,7 +51,7 @@ function Footer() {
                     className="block"
                     style={{
                       fontSize: "14px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                   >
                     월~토요일 | 오전 7시 - 오후 6시
@@ -59,7 +59,7 @@ function Footer() {
                   <span
                     style={{
                       fontSize: "14px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                     className="block"
                   >
@@ -78,7 +78,7 @@ function Footer() {
                       height: "40px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center"
+                      justifyContent: "center",
                     }}
                   >
                     <span>1:1 문의</span>
@@ -88,7 +88,7 @@ function Footer() {
                   <span
                     style={{
                       fontSize: "14px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                     className="block"
                   >
@@ -97,7 +97,7 @@ function Footer() {
                   <span
                     style={{
                       fontSize: "14px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                     className="block"
                   >
@@ -116,7 +116,7 @@ function Footer() {
                       height: "40px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center"
+                      justifyContent: "center",
                     }}
                   >
                     <span>대량주문 문의</span>
@@ -126,7 +126,7 @@ function Footer() {
                   <span
                     style={{
                       fontSize: "14px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                     className="block"
                   >
@@ -135,7 +135,7 @@ function Footer() {
                   <span
                     style={{
                       fontSize: "14px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                     className="block"
                   >
@@ -148,7 +148,7 @@ function Footer() {
                 <span
                   style={{
                     fontSize: "12px",
-                    color: "#999999"
+                    color: "#999999",
                   }}
                 >
                   비회원 문의:{" "}
@@ -156,7 +156,7 @@ function Footer() {
                     href="mailto:help@karlycorp.com"
                     style={{
                       fontSize: "12px",
-                      color: "#999999"
+                      color: "#999999",
                     }}
                     className=""
                   >
@@ -168,96 +168,89 @@ function Footer() {
 
             <div role="complementary" className="">
               <ul className="flex flex-row mb-6">
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     칼리소개
                   </a>
                 </li>
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     칼리소개영상
                   </a>
                 </li>
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     투자정보
                   </a>
                 </li>
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     인재채용
                   </a>
                 </li>
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     이용약관
                   </a>
                 </li>
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     개인정보처리방침
                   </a>
                 </li>
-                <li style={{ margin: "0 1rem 0 0" }}>
+                <li style={{ margin: "0 0.8rem 0 0" }}>
                   <a
                     href="#"
                     style={{
                       fontSize: "14px",
-                      color: "#333333"
+                      color: "#333333",
                     }}
-                    className="font-semibold"
                   >
                     이용안내
                   </a>
                 </li>
               </ul>
 
-              <address
+              <div
                 style={{
                   fontSize: "12px",
-                  color: "#999999"
+                  color: "#999999",
                 }}
               >
                 <p>
@@ -265,15 +258,14 @@ function Footer() {
                   <span>사업자등록번호 : 261-81-23567</span> |{" "}
                   <span
                     style={{
-                      color: "#5F0080"
+                      color: "#5F0080",
                     }}
                   >
                     <a href="#">사업자정보 확인</a>
                   </span>
                 </p>
                 <p>
-                  <span>통신판매업 : 제 2018-서울강남-01646 호</span> |{" "}
-                  <span>개인정보보호책임자 : 이원준</span>
+                  <span>통신판매업 : 제 2018-서울강남-01646 호</span>
                 </p>
                 <p>
                   <span>
@@ -283,22 +275,10 @@ function Footer() {
                 </p>
                 <p>
                   <span>
-                    입점문의 : <span>입점문의하기</span>
-                  </span>{" "}
-                  |{" "}
-                  <span>
-                    제휴문의 :{" "}
-                    <a href="mailto:business@karlycorp.com">
-                      business@karlycorp.com
-                    </a>
-                  </span>
-                </p>
-                <p>
-                  <span>
                     채용문의 :{" "}
                     <a
                       style={{
-                        color: "#5F0080"
+                        color: "#5F0080",
                       }}
                       href="mailto:recruit@karlycorp.com"
                     >
@@ -309,7 +289,7 @@ function Footer() {
                 <p>
                   <span>팩스 : 070 - 7500 - 6098</span>
                 </p>
-              </address>
+              </div>
             </div>
           </div>
         </div>
@@ -319,7 +299,7 @@ function Footer() {
           width: "100%",
           backgroundColor: "#F6F7F7",
           color: "#999999", // Tailwind CSS의 text-gray-600 색상 코드
-          fontSize: "12px"
+          fontSize: "12px",
         }}
       >
         <div className="container mx-auto text-center py-4 ">

@@ -183,22 +183,22 @@ function Header() {
             </div>
             <ul className="flex space-x-24">
               <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
+                <a href="#" className="text-gray text-base font-medium">
                   신상품
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
+                <a href="#" className="text-gray text-base font-medium">
                   베스트
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
+                <a href="#" className="text-gray text-base font-medium">
                   알뜰쇼핑
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-800 text-base font-bold">
+                <a href="#" className="text-gray text-base font-medium">
                   특가/혜택
                 </a>
               </li>
