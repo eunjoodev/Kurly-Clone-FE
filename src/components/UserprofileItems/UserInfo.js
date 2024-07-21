@@ -9,7 +9,7 @@ const UserInfo = () => {
             반가워요!
           </div>
           <div className="font-medium text-xl text-ellipsis whitespace-nowrap ">
-            사용자님
+            &nbsp;사용자님
           </div>
         </div>
       </div>

@@ -52,7 +52,7 @@ const MainBest = () => {
               <dt className="sr-only">정상가</dt>
               <dd className="text-sm line-through text-gray-400">9,000 원</dd>
               <div className="flex">
-                <dd className="text-lg font-semibold text-red-500">20%</dd>
+                <dd className="text-lg font-semibold text-red">20%</dd>
                 <dd className="text-xl font-semibold text-500">
                   &nbsp;7,920 원
                 </dd>
@@ -100,7 +100,7 @@ const MainBest = () => {
               <dt className="sr-only">정상가</dt>
               <dd className="text-sm line-through text-gray-400">7,980 원</dd>
               <div className="flex">
-                <dd className="text-lg font-semibold text-red-500">30%</dd>
+                <dd className="text-lg font-semibold text-red">30%</dd>
                 <dd className="text-xl font-semibold text-500">
                   &nbsp;5,586 원
                 </dd>
@@ -148,7 +148,7 @@ const MainBest = () => {
               <dt className="sr-only">정상가</dt>
               <dd className="text-sm line-through text-gray-400">9,900 원</dd>
               <div className="flex">
-                <dd className="text-lg font-semibold text-red-500">20%</dd>
+                <dd className="text-lg font-semibold text-red">20%</dd>
                 <dd className="text-xl font-semibold text-500">
                   &nbsp;7,920 원
                 </dd>
@@ -196,7 +196,7 @@ const MainBest = () => {
               <dt className="sr-only">정상가</dt>
               <dd className="text-sm line-through text-gray-400">7,390 원</dd>
               <div className="flex">
-                <dd className="text-lg font-semibold text-red-500">20%</dd>
+                <dd className="text-lg font-semibold text-red">20%</dd>
                 <dd className="text-xl font-semibold text-500">
                   &nbsp;5,394 원
                 </dd>
