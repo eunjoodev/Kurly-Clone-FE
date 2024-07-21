@@ -47,12 +47,23 @@ const Payment = ({ cartDetails }) => {
               </ul>
             </>
           ) : (
-            <a
-              href="./login"
-              className="w-284 h-[56px] text-white bg-[#5f0080] rounded flex items-center justify-center"
-            >
-              로그인
-            </a>
+            <>
+              <a
+                href="./login"
+                className="w-284 h-[56px] text-white bg-[#5f0080] rounded flex items-center justify-center"
+              >
+                로그인
+              </a>
+              <ul className="py-4 w-284 h-[180px] list-none text-[#666]">
+                <li className="text-xs pt-1 pl-1.5 before:overflow-hidden before:absolute before:w-px before:h-px before:mt-1.5 before:-ml-1.5 before:bg-[#999999] before:align-top before:rounded-[50%] before:content-['']">
+                  [주문완료]상태일 경우에만 주문 취소 가능합니다.
+                </li>
+                <li className="text-xs pt-1 pl-1.5 before:overflow-hidden before:absolute before:w-px before:h-px before:mt-1.5 before:-ml-1.5 before:bg-[#999999] before:align-top before:rounded-[50%] before:content-['']">
+                  [마이컬리 &gt; 주문내역 상세페이지]에서 직접 취소하실 수
+                  있습니다.
+                </li>
+              </ul>
+            </>
           )}
         </div>
       </div>
