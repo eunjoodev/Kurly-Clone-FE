@@ -92,8 +92,8 @@ const ShoppingList = ({ setCartDetails }) => {
   const itemsCount = items.length;
 
   useEffect(() => {
-    setCartDetails({ totalPrice, totalDiscount, hasCheckedItems });
-  }, [totalPrice, totalDiscount, hasCheckedItems, setCartDetails]);
+    setCartDetails({ totalPrice, totalDiscount, hasCheckedItems, itemsCount });
+  }, [totalPrice, totalDiscount, hasCheckedItems, itemsCount, setCartDetails]);
 
   const groupedItems = items.reduce((acc, item) => {
     if (!acc[item.title]) {
