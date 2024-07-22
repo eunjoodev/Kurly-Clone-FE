@@ -46,6 +46,8 @@ const ShoppingListItem = ({
         <button
           className="w-7 h-7 flex justify-center items-center"
           onClick={decrementQuantity}
+          style={{ cursor: quantity === 1 ? "default" : "pointer" }}
+          disabled={quantity === 1}
         >
           {quantity === 1 ? (
             <img src={minusGrey} alt="minusgrey" />
