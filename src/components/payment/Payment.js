@@ -1,17 +1,32 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import PaymentAddress from "./PaymentAddress";
 import PaymentAmount from "./PaymentAmount";
 import { AuthContext } from "../../context/AuthContext";
 
 const Payment = ({ cartDetails }) => {
-  const { auth, logout } = useContext(AuthContext); // AuthContext에서 로그인 상태와 로그아웃 함수 가져오기
+  const { auth } = useContext(AuthContext);
   const isLoggedIn = !!auth.token;
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/"); // 로그아웃 후 초기 화면으로 리다이렉션
+  const getOrderButton = () => {
+    if (cartDetails.itemsCount === 0) {
+      return (
+        <div className="w-284 h-[56px] text-white bg-[#dddddd] rounded flex items-center justify-center">
+          상품을 담아주세요
+        </div>
+      );
+    }
+    if (!cartDetails.hasCheckedItems) {
+      return (
+        <div className="w-284 h-[56px] text-white bg-[#dddddd] rounded flex items-center justify-center">
+          상품을 선택해주세요
+        </div>
+      );
+    }
+    return (
+      <button className="w-284 h-[56px] text-white bg-[#5f0080] rounded ">
+        주문하기
+      </button>
+    );
   };
 
   return (
@@ -22,9 +37,7 @@ const Payment = ({ cartDetails }) => {
         <div className="w-284 h-[256px] pt-5 flex flex-col">
           {isLoggedIn ? (
             <>
-              <button className="w-284 h-[56px] text-white bg-[#5f0080] rounded">
-                주문하기
-              </button>
+              {getOrderButton()}
               <ul className="py-4 w-284 h-[180px] list-none text-[#666]">
                 <li className="text-xs pt-1 pl-1.5 before:overflow-hidden before:absolute before:w-px before:h-px before:mt-1.5 before:-ml-1.5 before:bg-[#999999] before:align-top before:rounded-[50%] before:content-['']">
                   쿠폰/적립금은 주문서에서 사용 가능합니다.
