@@ -54,6 +54,9 @@ const FormInput = () => {
         } else {
             setUserPasswordValid(false);
         }
+
+         // 비밀번호가 변경될 때마다 확인 비밀번호 상태를 초기화
+         setConfirmPasswordValid(e.target.value === confirmPassword);
     };
 
     const confirmPasswordHandler = (e) => {
@@ -62,10 +65,6 @@ const FormInput = () => {
         if (userPassword && e.target.value !== userPassword) {
             setConfirmPasswordValid(false);
         } else {
-            setConfirmPasswordValid(true);
-        }
-
-        if (e.target.value.length === 0) {
             setConfirmPasswordValid(true);
         }
     };
