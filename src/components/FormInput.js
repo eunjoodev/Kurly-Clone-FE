@@ -15,9 +15,10 @@ const FormInput = () => {
 
     const [userIdValid, setUserIdValid] = useState(false);
     const [userPasswordValid, setUserPasswordValid] = useState(false);
-    const [userPasswordLengthValid, setUserPasswordLengthValid] =
-        useState(false);
+    const [userPasswordLengthValid, setUserPasswordLengthValid] = useState(false);
+    const [userPasswordTouched, setUserPasswordTouched] = useState(false);
     const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
+    const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false); 
     const [userNameValid, setUserNameValid] = useState(true);
     const [userEmailValid, setUserEmailValid] = useState(false);
     const [userEmailFormatValid, setUserEmailFormatValid] = useState(true);
@@ -37,8 +38,10 @@ const FormInput = () => {
         }
     };
 
+   
     const userPasswordHandler = (e) => {
         setUserPassword(e.target.value);
+        setUserPasswordTouched(true);
 
         if (e.target.value.length >= 10) {
             setUserPasswordLengthValid(true);
@@ -46,28 +49,21 @@ const FormInput = () => {
             setUserPasswordLengthValid(false);
         }
 
-        // 수정된 정규표현식
         const userPasswordRegex =
-            /^(?![A-Za-z]{1,9}$)(?![~!@#$%^&*()_+=]{1,9}$)(?!\d{1,9}$)[A-Za-z\d~!@#$%^&*()_+=]{9,16}$/;
-        if (userPasswordRegex.test(e.target.value)) {
-            setUserPasswordValid(true);
-        } else {
-            setUserPasswordValid(false);
-        }
+            /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{9,16}$/;
+        setUserPasswordValid(userPasswordRegex.test(e.target.value));
 
-         // 비밀번호가 변경될 때마다 확인 비밀번호 상태를 초기화
-         setConfirmPasswordValid(e.target.value === confirmPassword);
+        if (confirmPasswordTouched) {
+            setConfirmPasswordValid(e.target.value === confirmPassword);
+        }
     };
 
     const confirmPasswordHandler = (e) => {
         setConfirmPassword(e.target.value);
-
-        if (userPassword && e.target.value !== userPassword) {
-            setConfirmPasswordValid(false);
-        } else {
-            setConfirmPasswordValid(true);
-        }
+        setConfirmPasswordTouched(true);
+        setConfirmPasswordValid(e.target.value === userPassword);
     };
+
 
     const userNameHandler = (e) => {
         setUserName(e.target.value);
@@ -254,14 +250,12 @@ const FormInput = () => {
                             onChange={confirmPasswordHandler}
                             placeholder="비밀번호를 한번 더 입력해주세요"
                         />
-                        {confirmPassword.length === 0 &&
-                            userPassword.length > 0 && (
+                        {confirmPasswordTouched && confirmPassword.length === 0 && userPassword.length > 0 && (
                                 <div class="text-red w-w7 h-h3 py-2.5 text-xs">
                                     비밀번호를 한번 더 입력해주세요
                                 </div>
                             )}
-                        {!confirmPasswordValid &&
-                            confirmPassword.length > 0 && (
+                        {!confirmPasswordValid && confirmPassword.length > 0 && (
                                 <div class="text-red w-w7 h-h3 py-2.5 text-xs">
                                     동일한 비밀번호를 입력
                                 </div>
