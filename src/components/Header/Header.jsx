@@ -136,10 +136,14 @@ function Header() {
                   />
                   <button type="submit" className="flex items-center">
                     <img
-                      className="w-8 h-6"
+                      className=""
                       src={magnifyingGlass}
                       alt="검색 아이콘"
-                      style={{ paddingRight: "12px" }}
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                        marginRight: "12px",
+                      }}
                     />
                   </button>
                 </div>
