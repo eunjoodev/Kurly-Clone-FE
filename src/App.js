@@ -39,6 +39,7 @@ const router = createBrowserRouter([
     ],
   },
   // 추가 라우트 정의 가능
+  //이게 바뀌는걸까요? 은주님꺼에도 바뀔까요?
 ]);
 
 function App() {
