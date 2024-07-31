@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function FindLogin() {
+function FindPassword() {
   const [activeTab, setActiveTab] = useState("phone");
 
   const changeTab = (tabName) => {
@@ -72,4 +72,4 @@ phone"
   );
 }
 
-export default FindLogin;
+export default FindPassword;

@@ -1,16 +1,24 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { useSetRecoilState } from "recoil"; // Recoil 상태 세터를 가져옴
-import { authState } from "../../state/authAtom"; // Recoil 상태 정의 파일
+import { useSetRecoilState } from "recoil";
+import { authState } from "../../state/authAtom";
 import Swal from "sweetalert2";
+import "./Login.css"; // CSS 파일을 임포트합니다.
+
+function generateCaptcha() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}
 
 function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [captcha, setCaptcha] = useState(generateCaptcha());
+  const [captchaInput, setCaptchaInput] = useState("");
   const { login } = useContext(AuthContext);
-  const setAuth = useSetRecoilState(authState); // Recoil 상태 세터 가져오기
+  const setAuth = useSetRecoilState(authState);
   const navigate = useNavigate();
 
   const handleFindLogin = () => {
@@ -27,17 +35,33 @@ function Login() {
 
   const handleLogin = async () => {
     try {
+      if (loginAttempts >= 2) {
+        // 캡차 검증 단계
+        if (captchaInput !== captcha) {
+          Swal.fire({
+            icon: "error",
+            title: "인증 실패",
+            text: "인증번호를 정확하게 입력해주세요!",
+            confirmButtonText: "확인",
+          });
+          return; // 검증 실패 시 로그인 로직을 진행하지 않음
+        }
+      }
+
       const storedUserData = localStorage.getItem("userData");
+
       if (storedUserData) {
         const { userId: storedUserId, userPassword } =
           JSON.parse(storedUserData);
+
         if (userId === storedUserId && password === userPassword) {
           alert("로그인 성공!");
           setError(null);
           login(storedUserId);
-          setAuth({ token: storedUserId }); // Recoil 상태 업데이트
+          setAuth({ token: storedUserId });
           navigate("/");
         } else {
+          setLoginAttempts((prev) => prev + 1);
           Swal.fire({
             icon: "error",
             title: "로그인 실패",
@@ -98,6 +122,23 @@ function Login() {
             비밀번호 찾기
           </button>
         </div>
+
+        {loginAttempts >= 2 && (
+          <div className="captcha-container">
+            <div className="captcha-header">인증번호를 입력하세요</div>
+            <div className="captcha-box">
+              <span className="captcha-code">{captcha}</span>
+            </div>
+            <input
+              type="text"
+              placeholder="인증번호 입력"
+              value={captchaInput}
+              onChange={(e) => setCaptchaInput(e.target.value)}
+              className="captcha-input"
+            />
+          </div>
+        )}
+
         <button
           onClick={handleLogin}
           className="mb-3 w-full h-14 bg-[#5f0080] text-white text-base rounded font-bold"
