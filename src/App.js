@@ -10,6 +10,8 @@ import UserProfile from "./components/UserProfile/UserProfile.js";
 import OrderList from "./components/UserprofileItems/OrderList.js";
 import WishList from "./components/UserprofileItems/WishList.js";
 import Login from "./components/login/Login";
+import Info from "./components/UserprofileItems/OtherMenusItem/Info.js";
+import Address from "./components/UserprofileItems/OtherMenusItem/Address.js";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
           {
             path: "wishlist",
             element: <WishList />,
+          },
+          {
+            path: "info",
+            element: <Info />,
+          },
+          {
+            path: "address",
+            element: <Address />,
           },
         ],
       },

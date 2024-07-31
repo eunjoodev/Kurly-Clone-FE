@@ -96,7 +96,8 @@ const FormInput = () => {
 
   const navigate = useNavigate();
 
-  const [userAddress, setUserAddress] = useState("");
+  // const [userAddress, setUserAddress] = useState("");
+  const [userAddress, setUserAddress] = useState([]);
 
   const loadDaumPostcodeScript = (callback) => {
     const script = document.createElement("script");
@@ -111,7 +112,8 @@ const FormInput = () => {
       new window.daum.Postcode({
         oncomplete: (data) => {
           const fullAddress = data.roadAddress || data.jibunAddress;
-          setUserAddress(fullAddress);
+          // setUserAddress(fullAddress);
+          setUserAddress((prevAddress) => [...prevAddress, fullAddress]);
         },
       }).open();
     });
