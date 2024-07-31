@@ -3,16 +3,13 @@ import FormInput from "./FormInput";
 
 const CreateAccount = () => {
   return (
-    <div class="m-m2">
-      <div>
-        <h1 class="text-mySize font-bold text-darkGray mb-12 text-3xl my-14 grid place-items-center">
-          회원가입
-        </h1>
+    <div class="mt-12">
+      <div class="text-[28px] font-medium text-darkGray mb-12 leading-9 grid place-items-center tracking-[-1px]">
+        회원가입
       </div>
-      <div class="grid place-items-center">
-        <div class="border-b-2 w-w2 border-darkGray text-right text-xs pb-2.5">
-          <span class="text-red mr-1">*</span>
-          <span class="text-middleGray">필수입력사항</span>
+      <div class="grid w-[640px] mx-auto box-border">
+        <div class="text-right text-xs text-middleGray pb-2.5 border-b-2 border-darkGray">
+          <span class="text-red mr-1">*</span>필수입력사항
         </div>
         <FormInput />
       </div>
