@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { useRecoilState } from "recoil"; // Recoil state 사용
-
+import { useSetRecoilState } from "recoil"; // Recoil 상태 세터를 가져옴
+import { authState } from "../../state/authAtom"; // Recoil 상태 정의 파일
 import Swal from "sweetalert2";
 
 function Login() {
@@ -10,27 +10,21 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const { login } = useContext(AuthContext);
+  const setAuth = useSetRecoilState(authState); // Recoil 상태 세터 가져오기
   const navigate = useNavigate();
 
   const handleFindLogin = () => {
-    navigate("/reset-username"); // Redirect to FindLogin.js
+    navigate("/reset-username");
   };
+
   const handleFindPassword = () => {
-    navigate("/reset-password"); // Redirect to FindPassword.js
-
-    const handleSignUp = async () => {
-      // Navigate to the Sign Up page
-      navigate("/account"); // Change "/signup" to the actual path to your Sign Up component
-    };
-
-    // Update the Sign Up button onClick event
-    <button
-      onClick={handleSignUp}
-      className="mt-1 w-full h-14 bg-white text-[#5f0080] border border-[#5f0080] text-base rounded"
-    >
-      회원가입
-    </button>;
+    navigate("/reset-password");
   };
+
+  const handleSignUp = async () => {
+    navigate("/account");
+  };
+
   const handleLogin = async () => {
     try {
       const storedUserData = localStorage.getItem("userData");
@@ -41,10 +35,9 @@ function Login() {
           alert("로그인 성공!");
           setError(null);
           login(storedUserId);
-          setAuth({ token: storedUserId }); // `login` 함수에 userId 전달 (원하는 대로 커스터마이징 가능)
-          navigate("/"); // 로그인 후 메인 페이지로 리디렉션
+          setAuth({ token: storedUserId }); // Recoil 상태 업데이트
+          navigate("/");
         } else {
-          // 로그인 정보가 일치하지 않는 경우
           Swal.fire({
             icon: "error",
             title: "로그인 실패",
@@ -53,7 +46,6 @@ function Login() {
           });
         }
       } else {
-        // 로컬 스토리지에 데이터가 없는 경우
         Swal.fire({
           icon: "warning",
           title: "경고",
@@ -66,7 +58,7 @@ function Login() {
       Swal.fire({
         icon: "error",
         title: "오류",
-        text: "일어났습니다. 다시 시도해주세요!",
+        text: "일어났습니다. 다시 시도해주세요! " + error.message,
         confirmButtonText: "확인",
       });
     }
@@ -113,7 +105,7 @@ function Login() {
           로그인
         </button>
         <button
-          onClick={handleLogin}
+          onClick={handleSignUp}
           className="mt-1 w-full h-14 bg-white text-[#5f0080] border border-[#5f0080] text-base rounded"
         >
           회원가입
