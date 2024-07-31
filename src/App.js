@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RecoilRoot } from "recoil"; // RecoilRoot 추가
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import CreateAccount from "./components/CreateAccount";
@@ -10,6 +11,8 @@ import UserProfile from "./components/UserProfile/UserProfile.js";
 import OrderList from "./components/UserprofileItems/OrderList.js";
 import WishList from "./components/UserprofileItems/WishList.js";
 import Login from "./components/login/Login";
+import FindLogin from "./components/login/FindLogin";
+import FindPassword from "./components/login/FindPassword";
 
 const router = createBrowserRouter([
   {
@@ -32,21 +35,30 @@ const router = createBrowserRouter([
             path: "wishlist",
             element: <WishList />,
           },
+          {},
         ],
       },
-      // { path: "/detail", element: <Detail /> },
-      // 추가 라우트 정의
+      {
+        path: "reset-username",
+        element: <FindLogin />,
+      },
+      {
+        path: "reset-password",
+        element: <FindPassword />,
+      },
     ],
   },
-  // 추가 라우트 정의 가능
-  //이게 바뀌는걸까요? 은주님꺼에도 바뀔까요?
 ]);
 
 function App() {
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RecoilRoot>
+      {" "}
+      {/* RecoilRoot로 애플리케이션 감싸기 */}
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </RecoilRoot>
   );
 }
 
