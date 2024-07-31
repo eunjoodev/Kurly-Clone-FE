@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import OauthGoogle from "./OauthGoogle";
 
 function Login() {
   const [userId, setUserId] = useState("");
@@ -77,6 +78,7 @@ function Login() {
         >
           회원가입
         </button>
+        <OauthGoogle></OauthGoogle>
       </div>
     </main>
   );
