@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useInput from "../hooks/useInput";
+import useInput from "../../hooks/useInput";
 import FormField from "./FormField";
 
 const FormInput = () => {
