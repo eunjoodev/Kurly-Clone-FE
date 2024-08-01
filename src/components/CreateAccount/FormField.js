@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorMessage from "./ErrorMessage";
 
 const FormField = ({
   label,
@@ -37,11 +38,7 @@ const FormField = ({
           placeholder={placeholder}
           {...props}
         />
-        {hasError && (
-          <div className="text-red w-w7 h-h3 py-2.5 text-xs">
-            {errorMessage}
-          </div>
-        )}
+        <ErrorMessage hasError={hasError} errorMessage={errorMessage} />
       </div>
       {additionalContent && (
         <div className="inline-block ml-2">{additionalContent}</div>
