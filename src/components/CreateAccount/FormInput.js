@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import FormField from "./FormField";
+import AddressField from "./AddressField";
+import DateOfBirthField from "./DateOfBirthField";
+import GenderField from "./GenderField";
 
 const FormInput = () => {
   const {
@@ -46,7 +49,7 @@ const FormInput = () => {
     valueInputChangeHandler: userNameChangeHandler,
     valueInputBlurHandler: userNameBlurHandler,
     reset: resetUserName,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput((value) => value.trim().length > 1);
 
   const {
     value: userEmail,
@@ -74,39 +77,39 @@ const FormInput = () => {
     valueInputChangeHandler: userNumberChangeHandler,
     valueInputBlurHandler: userNumberBlurHandler,
     reset: resetUserNumber,
-  } = useInput((value) => /^[0-9]*$/.test(value) && value !== "");
+  } = useInput((value) => /^[0-9]{10,11}$/.test(value));
 
   const {
     value: year,
     valueInputChangeHandler: yearChangeHandler,
     valueInputBlurHandler: yearBlurHandler,
-  } = useInput((value) => value.length === 4);
+  } = useInput((value) => /^[0-9]{4}$/.test(value));
 
   const {
     value: month,
     valueInputChangeHandler: monthChangeHandler,
     valueInputBlurHandler: monthBlurHandler,
-  } = useInput((value) => value.length === 2);
+  } = useInput((value) => /^(0?[1-9]|1[012])$/.test(value));
 
   const {
     value: day,
     valueInputChangeHandler: dayChangeHandler,
     valueInputBlurHandler: dayBlurHandler,
-  } = useInput((value) => value.length === 2);
+  } = useInput((value) => /^(0?[1-9]|[12][0-9]|3[01])$/.test(value));
 
   const navigate = useNavigate();
 
   const [userAddress, setUserAddress] = useState("");
 
-  const loadDaumPostcodeScript = (callback) => {
-    const script = document.createElement("script");
-    script.src =
-      "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    script.onload = callback;
-    document.head.appendChild(script);
-  };
-
   const handleAddressSearch = () => {
+    const loadDaumPostcodeScript = (callback) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+      script.onload = callback;
+      document.head.appendChild(script);
+    };
+
     loadDaumPostcodeScript(() => {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -170,32 +173,34 @@ const FormInput = () => {
         onBlur={userIdBlurHandler}
         placeholder="아이디를 입력해주세요"
         maxLength="16"
-        hasError={userIdHasError}
-        errorMessage="6자 이상 16자 이하의 영문 혹은 영문과 숫자를 조합"
         isRequired
+        hasError={userIdHasError}
+        errorMessage="6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요."
         additionalContent={
           <button className="w-w4 h-h2 border font-medium border-purple text-purple rounded">
             중복확인
           </button>
         }
       />
+
       <FormField
         label="비밀번호"
-        type="password"
         name="userPassword"
+        type="password"
         value={userPassword}
         onChange={userPasswordChangeHandler}
         onBlur={userPasswordBlurHandler}
-        placeholder="비밀번호를 입력해주세요"
+        placeholder="비밀번호를 입력해주세요."
         maxLength="16"
+        isRequired
         hasError={userPasswordHasError}
         errorMessage={
           !userPasswordLengthValid && userPassword.length > 0
             ? "최소 10자 이상 입력"
             : "영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합"
         }
-        isRequired
       />
+
       <FormField
         label="비밀번호확인"
         type="password"
@@ -216,25 +221,28 @@ const FormInput = () => {
         }
         isRequired
       />
+
       <FormField
         label="이름"
         name="userName"
         value={userName}
         onChange={userNameChangeHandler}
         onBlur={userNameBlurHandler}
-        placeholder="이름을 입력해주세요"
-        hasError={userNameHasError}
-        errorMessage="이름을 입력해주세요"
+        placeholder="이름을 입력해주세요."
         isRequired
+        hasError={userNameHasError}
+        errorMessage="이름을 입력해주세요."
       />
+
       <FormField
         label="이메일"
-        type="email"
         name="userEmail"
+        type="email"
         value={userEmail}
         onChange={userEmailChangeHandler}
         onBlur={userEmailBlurHandler}
         placeholder="예: marketkurly@kurly.com"
+        isRequired
         hasError={
           userEmailHasError || (!userEmailFormatValid && userEmailIsTouched)
         }
@@ -243,25 +251,25 @@ const FormInput = () => {
             ? "이메일을 입력해주세요"
             : "이메일 형식으로 입력해주세요"
         }
-        isRequired
         additionalContent={
           <button className="w-w4 h-h2 border font-medium border-purple text-purple rounded">
             중복확인
           </button>
         }
       />
+
       <FormField
         label="휴대폰"
-        type="tel"
         name="userNumber"
+        type="tel"
         value={userNumber}
         onChange={userNumberChangeHandler}
         onBlur={userNumberBlurHandler}
-        placeholder="숫자만 입력해주세요"
+        placeholder="숫자만 입력해주세요."
         maxLength="11"
-        hasError={userNumberHasError}
-        errorMessage="휴대폰 번호를 입력해주세요"
         isRequired
+        hasError={userNumberHasError}
+        errorMessage="휴대폰 번호를 입력해주세요."
         onKeyDown={(e) => {
           if (
             !/[0-9]/.test(e.key) &&
@@ -274,119 +282,33 @@ const FormInput = () => {
           e.target.value = e.target.value.replace(/[^0-9]/g, "");
         }}
       />
-      <div className="flex w-w2 py-2.5 px-5 text-sm">
-        <div className="inline-block w-w6 mt-4">
-          <label className="text-darkGray font-medium">주소</label>
-          <span class="text-red">*</span>
-        </div>
-        <div className="inline-block">
-          {userAddress ? (
-            <div>
-              <input
-                className="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray"
-                name="userAddress"
-                type="text"
-                value={userAddress}
-                required
-              />
-              <div className="inline-block ml-2">
-                <button
-                  type="button"
-                  onClick={handleAddressSearch}
-                  className="w-w4 h-h2 border font-medium border-purple text-purple rounded"
-                >
-                  재검색
-                </button>
-              </div>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={handleAddressSearch}
-              className="w-w3 h-h1 border font-medium border-purple text-purple rounded"
-            >
-              주소검색
-            </button>
-          )}
-          <div class="w-w7 h-h3 py-2.5 text-middleGray text-xs">
-            배송지에 따라 상품 정보가 달라질 수 있습니다
-          </div>
-        </div>
-      </div>
 
-      <div class="flex py-2.5 px-5 text-sm">
-        <div class="inline-block w-w6 h-h1">
-          <label class="text-darkGray font-medium">성별</label>
-        </div>
-        <div>
-          <div class="flex">
-            <div class="flex mr-14">
-              <input
-                class="w-6 h-6 accent-purple outline-radioColor"
-                name="check"
-                type="radio"
-              />
-              <span class="ml-3 mt-1">남자</span>
-            </div>
-            <div class="flex mr-14">
-              <input class="w-6 h-6 accent-purple" name="check" type="radio" />
-              <span class="ml-3 mt-1">여자</span>
-            </div>
-            <div class="flex">
-              <input class="w-6 h-6 accent-purple" name="check" type="radio" />
-              <span class="ml-3 mt-1">선택안함</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AddressField
+        userAddress={userAddress}
+        handleAddressSearch={handleAddressSearch}
+      />
 
-      <div className="flex w-w2 py-2.5 px-5 text-sm">
-        <div className="inline-block w-w6 mt-4">
-          <label className="text-darkGray font-medium">생년월일</label>
-        </div>
-        <div className="inline-block border border-lightGray rounded w-w3 h-h1 text-sm">
-          <input
-            className="h-10 w-w5 pr-p1 pl-p2 text-center mt-1 ml-2 placeholder-middleGray focus:outline-none"
-            name="year"
-            type="text"
-            maxLength="4"
-            value={year}
-            onChange={yearChangeHandler}
-            onBlur={yearBlurHandler}
-            placeholder="YYYY"
-          />
-          <span class="text-center text-lightGray">/</span>
-          <input
-            className="h-10 w-w5 pr-p1 pl-p2 text-center mt-1 placeholder-middleGray focus:outline-none"
-            name="month"
-            type="text"
-            maxLength="2"
-            value={month}
-            onChange={monthChangeHandler}
-            onBlur={monthBlurHandler}
-            placeholder="MM"
-          />
-          <span class="text-center text-lightGray">/</span>
-          <input
-            className="h-10 w-w5 pr-p1 pl-p2 text-center mt-1 placeholder-middleGray focus:outline-none"
-            name="day"
-            type="text"
-            maxLength="2"
-            value={day}
-            onChange={dayChangeHandler}
-            onBlur={dayBlurHandler}
-            placeholder="DD"
-          />
-        </div>
-      </div>
+      <GenderField />
+
+      <DateOfBirthField
+        year={year}
+        month={month}
+        day={day}
+        yearChangeHandler={yearChangeHandler}
+        monthChangeHandler={monthChangeHandler}
+        dayChangeHandler={dayChangeHandler}
+        yearBlurHandler={yearBlurHandler}
+        monthBlurHandler={monthBlurHandler}
+        dayBlurHandler={dayBlurHandler}
+      />
 
       <div className="py-2.5"></div>
 
       <div className="grid place-items-center w-w2 h-h6 py-10 px-5 mb-[60px] border-t border-darkGray">
         <button
+          className="w-60 h-14 rounded bg-purple text-white text-center"
           type="submit"
           disabled={!formIsValid}
-          className="w-60 h-14 rounded bg-purple text-white text-center"
         >
           가입하기
         </button>
