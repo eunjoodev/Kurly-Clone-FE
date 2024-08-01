@@ -12,7 +12,7 @@ const OauthGoogle = () => {
       const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: response.credential })
+        body: JSON.stringify({ token: response.credential }),
       });
 
       if (!res.ok) {
@@ -42,7 +42,7 @@ const OauthGoogle = () => {
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   return (
-    <div className="flex flex-col mt-6 h-screen items-center">
+    <div className="flex flex-col mt-6 mb-3 items-center">
       <div className="flex items-center w-full max-w-sm mb-6">
         <hr className="flex-grow border-gray-300" />
         <span className="mx-2 text-gray-400 text-sm">또는</span>
