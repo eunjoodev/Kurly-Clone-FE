@@ -54,13 +54,19 @@ function Login() {
       if (storedUserData) {
         const { userId: storedUserId, userPassword } =
           JSON.parse(storedUserData);
-
         if (userId === storedUserId && password === userPassword) {
-          alert("로그인 성공!");
           setError(null);
           login(storedUserId);
           setAuth({ token: storedUserId });
-          navigate("/");
+
+          Swal.fire({
+            icon: "success",
+            title: "로그인 성공",
+            text: "로그인에 성공하였습니다!",
+            confirmButtonText: "확인",
+          }).then(() => {
+            navigate("/");
+          });
         } else {
           setLoginAttempts((prev) => prev + 1);
           Swal.fire({
