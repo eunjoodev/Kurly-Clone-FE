@@ -9,6 +9,7 @@ import "./Login.css"; // CSS 파일을 임포트합니다.
 function generateCaptcha() {
   return Math.floor(1000 + Math.random() * 9000).toString();
 }
+import OauthGoogle from "./OauthGoogle";
 
 function Login() {
   const [userId, setUserId] = useState("");
@@ -89,7 +90,7 @@ function Login() {
   };
 
   return (
-    <main className="min-h-screen flex items-start justify-center font-sans mt-20">
+    <main className="flex items-start justify-center my-20">
       <div className="p-8 bg-white w-96">
         <h2 className="font-bold text-2xl text-center mb-4 text-black-800">
           로그인
@@ -151,6 +152,7 @@ function Login() {
         >
           회원가입
         </button>
+        <OauthGoogle></OauthGoogle>
       </div>
     </main>
   );

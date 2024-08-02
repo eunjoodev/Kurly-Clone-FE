@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil"; // RecoilRoot 추가
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
-import CreateAccount from "./components/CreateAccount";
+import CreateAccount from "./components/CreateAccount/CreateAccount.js";
 import HeaderLayout from "./pages/HeaderLayout.js";
 import Main from "./pages/Main/Main.js";
-import ShoppingCart from "./components/ShoppingCart";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart.js";
 import UserProfile from "./components/UserProfile/UserProfile.js";
 import OrderList from "./components/UserprofileItems/OrderList.js";
 import WishList from "./components/UserprofileItems/WishList.js";
