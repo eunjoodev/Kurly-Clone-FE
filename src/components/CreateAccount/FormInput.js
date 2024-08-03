@@ -1,12 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
+import useHttp from "../../hooks/useHttp";
 import FormField from "./FormField";
 import AddressField from "./AddressField";
 import DateOfBirthField from "./DateOfBirthField";
 import GenderField from "./GenderField";
+import Modal from "./CA-Modal/Modal";
 
 const FormInput = () => {
+  const [modalMessage, setModalMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isUserIdChecked, setIsUserIdChecked] = useState(false);
+  const [isUserEmailChecked, setIsUserEmailChecked] = useState(false);
+
+  const openModal = (message) => {
+    setModalMessage(message);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalMessage("");
+  };
+
   const {
     value: userId,
     isValid: userIdIsValid,
@@ -99,6 +117,8 @@ const FormInput = () => {
 
   const navigate = useNavigate();
 
+  const { isLoading, error, sendRequest: sendUserData } = useHttp();
+
   const [userAddress, setUserAddress] = useState("");
 
   const handleAddressSearch = () => {
@@ -128,7 +148,9 @@ const FormInput = () => {
     confirmPasswordIsValid &&
     userNameIsValid &&
     userEmailIsValid &&
-    userNumberIsValid
+    userNumberIsValid &&
+    isUserIdChecked &&
+    isUserEmailChecked
   ) {
     formIsValid = true;
   }
@@ -136,184 +158,294 @@ const FormInput = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!formIsValid) return;
+    if (!isUserIdChecked || !isUserEmailChecked) {
+      openModal("아이디 또는 이메일 중복 체크를 해주세요");
+      return;
+    }
+
+    if (isUserIdChecked && isUserEmailChecked && !formIsValid) {
+      openModal("필수입력사항을 모두 작성해주세요");
+      return;
+    }
+
+    const birthday = `${year}-${month.padStart(2, "0")}-${day.padStart(
+      2,
+      "0"
+    )}`;
 
     const userData = {
-      userId,
-      userPassword,
-      confirmPassword,
-      userName,
-      userEmail,
-      userNumber,
-      year,
-      month,
-      day,
-      userAddress,
+      id: userId,
+      password: userPassword,
+      password_check: confirmPassword,
+      name: userName,
+      email: userEmail,
+      phone_number: parseInt(userNumber, 10),
+      address: userAddress,
+      birthday,
     };
 
-    localStorage.setItem("userData", JSON.stringify(userData));
-    alert("회원가입 성공!");
-    navigate("/login");
+    // localStorage.setItem("userData", JSON.stringify(userData));
+    // alert("회원가입 성공!");
+    // navigate("/login");
 
-    resetUserId();
-    resetUserPassword();
-    resetConfirmPassword();
-    resetUserName();
-    resetUserEmail();
-    resetUserNumber();
+    // resetUserId();
+    // resetUserPassword();
+    // resetConfirmPassword();
+    // resetUserName();
+    // resetUserEmail();
+    // resetUserNumber();
+
+    const applyData = (data) => {
+      if (data.success) {
+        alert("회원가입 성공!");
+        navigate("/login");
+        resetUserId();
+        resetUserPassword();
+        resetConfirmPassword();
+        resetUserName();
+        resetUserEmail();
+        resetUserNumber();
+      } else {
+        openModal(data.message);
+      }
+    };
+
+    if (error) {
+      openModal(error);
+      return;
+    }
+
+    sendUserData(
+      {
+        url: "/auth/signup",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      },
+      applyData
+    );
+  };
+
+  const handleUserIdCheck = async () => {
+    if (!userIdIsValid) {
+      openModal("6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/auth/id?id=${userId}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.isAvailable) {
+          openModal("사용 할 수 있는 아이디 입니다");
+          setIsUserIdChecked(true);
+        } else {
+          openModal("이미 사용 중인 아이디 입니다");
+        }
+      } else {
+        openModal("아이디 중복 체크에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      openModal("서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  const handleUserEmailCheck = async () => {
+    if (userEmail.trim() === "") {
+      openModal("이메일을 입력해주세요");
+      return;
+    }
+    if (!userEmailIsValid) {
+      openModal("이메일 형식으로 입력해주세요");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/auth/email?email=${userEmail}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.isAvailable) {
+          openModal("사용 가능한 이메일 입니다.");
+          setIsUserEmailChecked(true);
+        } else {
+          openModal("이미 사용 중인 이메일 입니다.");
+        }
+      } else {
+        openModal("이메일 중복 체크에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      openModal("서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormField
-        label="아이디"
-        name="userId"
-        value={userId}
-        onChange={userIdChangeHandler}
-        onBlur={userIdBlurHandler}
-        placeholder="아이디를 입력해주세요"
-        maxLength="16"
-        isRequired
-        hasError={userIdHasError}
-        errorMessage="6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요."
-        additionalContent={
-          <button className="w-w4 h-h2 border font-medium border-purple text-purple rounded">
-            중복확인
-          </button>
-        }
-      />
-
-      <FormField
-        label="비밀번호"
-        name="userPassword"
-        type="password"
-        value={userPassword}
-        onChange={userPasswordChangeHandler}
-        onBlur={userPasswordBlurHandler}
-        placeholder="비밀번호를 입력해주세요."
-        maxLength="16"
-        isRequired
-        hasError={userPasswordHasError}
-        errorMessage={
-          !userPasswordLengthValid && userPassword.length > 0
-            ? "최소 10자 이상 입력"
-            : "영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합"
-        }
-      />
-
-      <FormField
-        label="비밀번호확인"
-        type="password"
-        name="confirmPassword"
-        value={confirmPassword}
-        onChange={confirmPasswordChangeHandler}
-        onBlur={confirmPasswordBlurHandler}
-        placeholder="비밀번호를 한번 더 입력해주세요"
-        maxLength="16"
-        hasError={
-          confirmPasswordHasError ||
-          (!confirmPasswordIsValid && confirmPassword.length > 0)
-        }
-        errorMessage={
-          confirmPassword.length === 0
-            ? "비밀번호를 한번 더 입력해주세요"
-            : "동일한 비밀번호를 입력"
-        }
-        isRequired
-      />
-
-      <FormField
-        label="이름"
-        name="userName"
-        value={userName}
-        onChange={userNameChangeHandler}
-        onBlur={userNameBlurHandler}
-        placeholder="이름을 입력해주세요."
-        isRequired
-        hasError={userNameHasError}
-        errorMessage="이름을 입력해주세요."
-      />
-
-      <FormField
-        label="이메일"
-        name="userEmail"
-        type="email"
-        value={userEmail}
-        onChange={userEmailChangeHandler}
-        onBlur={userEmailBlurHandler}
-        placeholder="예: marketkurly@kurly.com"
-        isRequired
-        hasError={
-          userEmailHasError || (!userEmailFormatValid && userEmailIsTouched)
-        }
-        errorMessage={
-          userEmail.length === 0
-            ? "이메일을 입력해주세요"
-            : "이메일 형식으로 입력해주세요"
-        }
-        additionalContent={
-          <button className="w-w4 h-h2 border font-medium border-purple text-purple rounded">
-            중복확인
-          </button>
-        }
-      />
-
-      <FormField
-        label="휴대폰"
-        name="userNumber"
-        type="tel"
-        value={userNumber}
-        onChange={userNumberChangeHandler}
-        onBlur={userNumberBlurHandler}
-        placeholder="숫자만 입력해주세요."
-        maxLength="11"
-        isRequired
-        hasError={userNumberHasError}
-        errorMessage="휴대폰 번호를 입력해주세요."
-        onKeyDown={(e) => {
-          if (
-            !/[0-9]/.test(e.key) &&
-            !["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(e.key)
-          ) {
-            e.preventDefault();
+    <>
+      {isModalOpen && <Modal message={modalMessage} onClose={closeModal} />}
+      <form onSubmit={handleSubmit} className={isModalOpen ? "blurred" : ""}>
+        <FormField
+          label="아이디"
+          name="userId"
+          value={userId}
+          onChange={userIdChangeHandler}
+          onBlur={userIdBlurHandler}
+          placeholder="아이디를 입력해주세요"
+          maxLength="16"
+          isRequired
+          hasError={userIdHasError}
+          errorMessage="6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요"
+          additionalContent={
+            <button
+              type="button"
+              className="w-w4 h-h2 border font-medium border-purple text-purple rounded"
+              onClick={handleUserIdCheck}
+            >
+              중복확인
+            </button>
           }
-        }}
-        onInput={(e) => {
-          e.target.value = e.target.value.replace(/[^0-9]/g, "");
-        }}
-      />
+        />
 
-      <AddressField
-        userAddress={userAddress}
-        handleAddressSearch={handleAddressSearch}
-      />
+        <FormField
+          label="비밀번호"
+          name="userPassword"
+          type="password"
+          value={userPassword}
+          onChange={userPasswordChangeHandler}
+          onBlur={userPasswordBlurHandler}
+          placeholder="비밀번호를 입력해주세요"
+          maxLength="16"
+          isRequired
+          hasError={userPasswordHasError}
+          errorMessage={
+            !userPasswordLengthValid && userPassword.length > 0
+              ? "최소 10자 이상 입력"
+              : "영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합"
+          }
+        />
 
-      <GenderField />
+        <FormField
+          label="비밀번호확인"
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={confirmPasswordChangeHandler}
+          onBlur={confirmPasswordBlurHandler}
+          placeholder="비밀번호를 한번 더 입력해주세요"
+          maxLength="16"
+          hasError={
+            confirmPasswordHasError ||
+            (!confirmPasswordIsValid && confirmPassword.length > 0)
+          }
+          errorMessage={
+            confirmPassword.length === 0
+              ? "비밀번호를 한번 더 입력해주세요"
+              : "동일한 비밀번호를 입력"
+          }
+          isRequired
+        />
 
-      <DateOfBirthField
-        year={year}
-        month={month}
-        day={day}
-        yearChangeHandler={yearChangeHandler}
-        monthChangeHandler={monthChangeHandler}
-        dayChangeHandler={dayChangeHandler}
-        yearBlurHandler={yearBlurHandler}
-        monthBlurHandler={monthBlurHandler}
-        dayBlurHandler={dayBlurHandler}
-      />
+        <FormField
+          label="이름"
+          name="userName"
+          value={userName}
+          onChange={userNameChangeHandler}
+          onBlur={userNameBlurHandler}
+          placeholder="이름을 입력해주세요"
+          isRequired
+          hasError={userNameHasError}
+          errorMessage="이름을 입력해주세요"
+        />
 
-      <div className="py-2.5"></div>
+        <FormField
+          label="이메일"
+          name="userEmail"
+          type="email"
+          value={userEmail}
+          onChange={userEmailChangeHandler}
+          onBlur={userEmailBlurHandler}
+          placeholder="예: marketkurly@kurly.com"
+          isRequired
+          hasError={
+            userEmailHasError || (!userEmailFormatValid && userEmailIsTouched)
+          }
+          errorMessage={
+            userEmail.length === 0
+              ? "이메일을 입력해주세요"
+              : "이메일 형식으로 입력해주세요"
+          }
+          additionalContent={
+            <button
+              type="button"
+              className="w-w4 h-h2 border font-medium border-purple text-purple rounded"
+              onClick={handleUserEmailCheck}
+            >
+              중복확인
+            </button>
+          }
+        />
 
-      <div className="grid place-items-center w-w2 h-h6 py-10 px-5 mb-[60px] border-t border-darkGray">
-        <button
-          className="w-60 h-14 rounded bg-purple text-white text-center"
-          type="submit"
-          disabled={!formIsValid}
-        >
-          가입하기
-        </button>
-      </div>
-    </form>
+        <FormField
+          label="휴대폰"
+          name="userNumber"
+          type="tel"
+          value={userNumber}
+          onChange={userNumberChangeHandler}
+          onBlur={userNumberBlurHandler}
+          placeholder="숫자만 입력해주세요"
+          maxLength="11"
+          isRequired
+          hasError={userNumberHasError}
+          errorMessage="휴대폰 번호를 입력해주세요"
+          onKeyDown={(e) => {
+            if (
+              !/[0-9]/.test(e.key) &&
+              !["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(
+                e.key
+              )
+            ) {
+              e.preventDefault();
+            }
+          }}
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+          }}
+        />
+
+        <AddressField
+          userAddress={userAddress}
+          handleAddressSearch={handleAddressSearch}
+        />
+
+        <GenderField />
+
+        <DateOfBirthField
+          year={year}
+          month={month}
+          day={day}
+          yearChangeHandler={yearChangeHandler}
+          monthChangeHandler={monthChangeHandler}
+          dayChangeHandler={dayChangeHandler}
+          yearBlurHandler={yearBlurHandler}
+          monthBlurHandler={monthBlurHandler}
+          dayBlurHandler={dayBlurHandler}
+        />
+
+        <div className="py-2.5"></div>
+
+        <div className="grid place-items-center w-w2 h-h6 py-10 px-5 mb-[60px] border-t border-darkGray">
+          <button
+            className="w-60 h-14 rounded bg-purple text-white text-center"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "가입 중..." : "가입하기"}
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
