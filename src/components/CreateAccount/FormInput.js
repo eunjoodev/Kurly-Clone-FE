@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
+import useHttp from "../../hooks/useHttp";
 import FormField from "./FormField";
 import AddressField from "./AddressField";
 import DateOfBirthField from "./DateOfBirthField";
@@ -116,6 +117,8 @@ const FormInput = () => {
 
   const navigate = useNavigate();
 
+  const { isLoading, error, sendRequest: sendUserData } = useHttp();
+
   const [userAddress, setUserAddress] = useState("");
 
   const handleAddressSearch = () => {
@@ -165,7 +168,10 @@ const FormInput = () => {
       return;
     }
 
-    if (!formIsValid) return;
+    const birthday = `${year}-${month.padStart(2, "0")}-${day.padStart(
+      2,
+      "0"
+    )}`;
 
     const userData = {
       id: userId,
@@ -173,23 +179,53 @@ const FormInput = () => {
       password_check: confirmPassword,
       name: userName,
       email: userEmail,
-      phone_number: userNumber,
+      phone_number: parseInt(userNumber, 10),
       address: userAddress,
-      year,
-      month,
-      day,
+      birthday,
     };
 
-    localStorage.setItem("userData", JSON.stringify(userData));
-    alert("회원가입 성공!");
-    navigate("/login");
+    // localStorage.setItem("userData", JSON.stringify(userData));
+    // alert("회원가입 성공!");
+    // navigate("/login");
 
-    resetUserId();
-    resetUserPassword();
-    resetConfirmPassword();
-    resetUserName();
-    resetUserEmail();
-    resetUserNumber();
+    // resetUserId();
+    // resetUserPassword();
+    // resetConfirmPassword();
+    // resetUserName();
+    // resetUserEmail();
+    // resetUserNumber();
+
+    const applyData = (data) => {
+      if (data.success) {
+        alert("회원가입 성공!");
+        navigate("/login");
+        resetUserId();
+        resetUserPassword();
+        resetConfirmPassword();
+        resetUserName();
+        resetUserEmail();
+        resetUserNumber();
+      } else {
+        openModal(data.message);
+      }
+    };
+
+    if (error) {
+      openModal(error);
+      return;
+    }
+
+    sendUserData(
+      {
+        url: "/auth/signup",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      },
+      applyData
+    );
   };
 
   const handleUserIdCheck = async () => {
@@ -199,10 +235,7 @@ const FormInput = () => {
     }
 
     try {
-      const response = await fetch(`/auth/id?id=${userId}`, {
-        method: "GET",
-      });
-
+      const response = await fetch(`/auth/id?id=${userId}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -231,10 +264,7 @@ const FormInput = () => {
     }
 
     try {
-      const response = await fetch(`/auth/email?email=${userEmail}`, {
-        method: "GET",
-      });
-
+      const response = await fetch(`/auth/email?email=${userEmail}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -266,7 +296,7 @@ const FormInput = () => {
           maxLength="16"
           isRequired
           hasError={userIdHasError}
-          errorMessage="6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요."
+          errorMessage="6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요"
           additionalContent={
             <button
               type="button"
@@ -285,7 +315,7 @@ const FormInput = () => {
           value={userPassword}
           onChange={userPasswordChangeHandler}
           onBlur={userPasswordBlurHandler}
-          placeholder="비밀번호를 입력해주세요."
+          placeholder="비밀번호를 입력해주세요"
           maxLength="16"
           isRequired
           hasError={userPasswordHasError}
@@ -323,10 +353,10 @@ const FormInput = () => {
           value={userName}
           onChange={userNameChangeHandler}
           onBlur={userNameBlurHandler}
-          placeholder="이름을 입력해주세요."
+          placeholder="이름을 입력해주세요"
           isRequired
           hasError={userNameHasError}
-          errorMessage="이름을 입력해주세요."
+          errorMessage="이름을 입력해주세요"
         />
 
         <FormField
@@ -364,11 +394,11 @@ const FormInput = () => {
           value={userNumber}
           onChange={userNumberChangeHandler}
           onBlur={userNumberBlurHandler}
-          placeholder="숫자만 입력해주세요."
+          placeholder="숫자만 입력해주세요"
           maxLength="11"
           isRequired
           hasError={userNumberHasError}
-          errorMessage="휴대폰 번호를 입력해주세요."
+          errorMessage="휴대폰 번호를 입력해주세요"
           onKeyDown={(e) => {
             if (
               !/[0-9]/.test(e.key) &&
@@ -409,8 +439,9 @@ const FormInput = () => {
           <button
             className="w-60 h-14 rounded bg-purple text-white text-center"
             type="submit"
+            disabled={isLoading}
           >
-            가입하기
+            {isLoading ? "가입 중..." : "가입하기"}
           </button>
         </div>
       </form>
