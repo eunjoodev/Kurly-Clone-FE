@@ -11,6 +11,9 @@ const FormInput = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isUserIdChecked, setIsUserIdChecked] = useState(false);
+  const [isUserEmailChecked, setIsUserEmailChecked] = useState(false);
+
   const openModal = (message) => {
     setModalMessage(message);
     setIsModalOpen(true);
@@ -142,7 +145,9 @@ const FormInput = () => {
     confirmPasswordIsValid &&
     userNameIsValid &&
     userEmailIsValid &&
-    userNumberIsValid
+    userNumberIsValid &&
+    isUserIdChecked &&
+    isUserEmailChecked
   ) {
     formIsValid = true;
   }
@@ -150,19 +155,29 @@ const FormInput = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!isUserIdChecked || !isUserEmailChecked) {
+      openModal("아이디 또는 이메일 중복 체크를 해주세요");
+      return;
+    }
+
+    if (isUserIdChecked && isUserEmailChecked && !formIsValid) {
+      openModal("필수입력사항을 모두 작성해주세요");
+      return;
+    }
+
     if (!formIsValid) return;
 
     const userData = {
-      userId,
-      userPassword,
-      confirmPassword,
-      userName,
-      userEmail,
-      userNumber,
+      id: userId,
+      password: userPassword,
+      password_check: confirmPassword,
+      name: userName,
+      email: userEmail,
+      phone_number: userNumber,
+      address: userAddress,
       year,
       month,
       day,
-      userAddress,
     };
 
     localStorage.setItem("userData", JSON.stringify(userData));
@@ -177,21 +192,63 @@ const FormInput = () => {
     resetUserNumber();
   };
 
-  const handleUserIdCheck = () => {
+  const handleUserIdCheck = async () => {
     if (!userIdIsValid) {
       openModal("6자 이상의 영문 혹은 영문과 숫자를 조합하여 입력해주세요");
-    } else {
-      openModal("사용 할 수 있는 아이디 입니다");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/auth/id?id=${userId}`, {
+        method: "GET",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.isAvailable) {
+          openModal("사용 할 수 있는 아이디 입니다");
+          setIsUserIdChecked(true);
+        } else {
+          openModal("이미 사용 중인 아이디 입니다");
+        }
+      } else {
+        openModal("아이디 중복 체크에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      openModal("서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
-  const handleUserEmailCheck = () => {
-    if (!userEmail) {
+  const handleUserEmailCheck = async () => {
+    if (userEmail.trim() === "") {
       openModal("이메일을 입력해주세요");
-    } else if (!userEmailIsValid) {
+      return;
+    }
+    if (!userEmailIsValid) {
       openModal("이메일 형식으로 입력해주세요");
-    } else {
-      openModal("사용 가능한 이메일 입니다.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/auth/email?email=${userEmail}`, {
+        method: "GET",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.isAvailable) {
+          openModal("사용 가능한 이메일 입니다.");
+          setIsUserEmailChecked(true);
+        } else {
+          openModal("이미 사용 중인 이메일 입니다.");
+        }
+      } else {
+        openModal("이메일 중복 체크에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      openModal("서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -352,7 +409,6 @@ const FormInput = () => {
           <button
             className="w-60 h-14 rounded bg-purple text-white text-center"
             type="submit"
-            disabled={!formIsValid}
           >
             가입하기
           </button>
