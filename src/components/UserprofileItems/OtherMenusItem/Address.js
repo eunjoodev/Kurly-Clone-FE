@@ -21,7 +21,7 @@ const Address = () => {
   const handleAddressSearch = () => {
     loadDaumPostcodeScript(() => {
       new window.daum.Postcode({
-        oncomplete: (data) => {
+        oncomplete: async (data) => {
           const fullAddress = data.roadAddress || data.jibunAddress;
           const newAddresses = [...addresses, fullAddress];
           setAddresses(newAddresses);
@@ -37,43 +37,53 @@ const Address = () => {
   const addressDatas = (
     <div className="py-0 px-5 text-sm text-[#333] list-none">
       <ul className=" list-none">
-        {addresses.map((addressItem, index) => (
-          <div
-            key={index}
-            className="flex items-center w-full py-5 px-0 border-b border-solid border-[#f4f4f4]"
-          >
-            <div className="basis-9">
-              <label>
-                <input
-                  type="checkbox"
-                  className="overflow-hidden absolute w-[1px] h-[1px]"
-                  checked
-                />
-                <div className="mr-3">
-                  <img src="/assets/check.svg" alt="check" />
+        {addresses && addresses.length > 0 ? (
+          addresses.map((addressItem, index) => (
+            <div
+              key={index}
+              className="flex items-center w-full py-5 px-0 border-b border-solid border-[#f4f4f4]"
+            >
+              <div className="basis-9">
+                <label>
+                  <input
+                    type="checkbox"
+                    className="overflow-hidden absolute w-[1px] h-[1px]"
+                    checked
+                  />
+                  <div className="mr-3">
+                    <img src="/assets/check.svg" alt="check" />
+                  </div>
+                </label>
+              </div>
+              <div className="flex-1">
+                <div className="inline-block py-[2px] px-2 mb-[10px] rounded-[11px] bg-[#f7f7f7] text-[#666666] font-semibold text-[12px] text-center">
+                  기본 배송지
                 </div>
-              </label>
+                <p className="text-[16px] leading-5 text-[#333] break-all">
+                  {addressItem}
+                </p>
+                <div className="pt-[10px] font-medium">
+                  <span className="text-[12px] text-[#5f0080]">샛별배송</span>
+                </div>
+              </div>
+              <div className="inline-flex pl-4">
+                <img
+                  src="/assets/edit.svg"
+                  className="overflow-hidden w-[48px] h-[48px]"
+                  alt="edit"
+                />
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="flex items-center w-full py-5 px-0 border-b border-solid border-[#f4f4f4]">
             <div className="flex-1">
-              <div className="inline-block py-[2px] px-2 mb-[10px] rounded-[11px] bg-[#f7f7f7] text-[#666666] font-semibold text-[12px] text-center">
-                기본 배송지
-              </div>
               <p className="text-[16px] leading-5 text-[#333] break-all">
-                {addressItem}
+                주소가 없습니다 로그인 해주세요
               </p>
-              <div className="pt-[10px] font-medium">
-                <span className="text-[12px] text-[#5f0080]">샛별배송</span>
-              </div>
-            </div>
-            <div className="inline-flex pl-4">
-              <img
-                src="/assets/edit.svg"
-                className="overflow-hidden w-[48px] h-[48px]"
-                alt="edit"
-              />
             </div>
           </div>
-        ))}
+        )}
       </ul>
     </div>
   );

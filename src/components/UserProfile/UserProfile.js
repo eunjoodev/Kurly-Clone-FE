@@ -22,11 +22,6 @@ const UserProfile = () => {
       delivery: "배송 완료",
     },
   ]);
-  const [address, setAddress] = useState([
-    {
-      address: "경기 성남시",
-    },
-  ]);
 
   const location = useLocation();
 
@@ -42,7 +37,7 @@ const UserProfile = () => {
           <Favorites />
           <OtherMenus />
         </div>
-        <Outlet context={{ orders: datas, addresses: address }} />
+        <Outlet context={{ orders: datas }} />
       </div>
     </div>
   );
