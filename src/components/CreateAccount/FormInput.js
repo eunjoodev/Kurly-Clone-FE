@@ -8,12 +8,18 @@ import DateOfBirthField from "./DateOfBirthField";
 import GenderField from "./GenderField";
 import Modal from "./CA-Modal/Modal";
 
-const FormInput = () => {
+const API_URL = "http://43.202.22.78:8080/";
+
+function FormInput() {
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [navigateToLogin, setNavigateToLogin] = useState(false);
 
   const [isUserIdChecked, setIsUserIdChecked] = useState(false);
   const [isUserEmailChecked, setIsUserEmailChecked] = useState(false);
+
+  const navigate = useNavigate();
+  const { isLoading, error, sendRequest: sendUserData } = useHttp();
 
   const openModal = (message) => {
     setModalMessage(message);
@@ -23,6 +29,9 @@ const FormInput = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setModalMessage("");
+    if (navigateToLogin) {
+      navigate("/login");
+    }
   };
 
   const {
@@ -115,10 +124,6 @@ const FormInput = () => {
     valueInputBlurHandler: dayBlurHandler,
   } = useInput((value) => /^(0?[1-9]|[12][0-9]|3[01])$/.test(value));
 
-  const navigate = useNavigate();
-
-  const { isLoading, error, sendRequest: sendUserData } = useHttp();
-
   const [userAddress, setUserAddress] = useState("");
 
   const handleAddressSearch = () => {
@@ -140,9 +145,7 @@ const FormInput = () => {
     });
   };
 
-  let formIsValid = false;
-
-  if (
+  const formIsValid =
     userIdIsValid &&
     userPasswordIsValid &&
     confirmPasswordIsValid &&
@@ -150,10 +153,7 @@ const FormInput = () => {
     userEmailIsValid &&
     userNumberIsValid &&
     isUserIdChecked &&
-    isUserEmailChecked
-  ) {
-    formIsValid = true;
-  }
+    isUserEmailChecked;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -184,29 +184,16 @@ const FormInput = () => {
       birthday,
     };
 
-    // localStorage.setItem("userData", JSON.stringify(userData));
-    // alert("회원가입 성공!");
-    // navigate("/login");
-
-    // resetUserId();
-    // resetUserPassword();
-    // resetConfirmPassword();
-    // resetUserName();
-    // resetUserEmail();
-    // resetUserNumber();
-
     const applyData = (data) => {
+      openModal(data.message);
       if (data.success) {
-        alert("회원가입 성공!");
-        navigate("/login");
+        setNavigateToLogin(true);
         resetUserId();
         resetUserPassword();
         resetConfirmPassword();
         resetUserName();
         resetUserEmail();
         resetUserNumber();
-      } else {
-        openModal(data.message);
       }
     };
 
@@ -217,7 +204,7 @@ const FormInput = () => {
 
     sendUserData(
       {
-        url: "/auth/signup",
+        url: `${API_URL}/auth/sign-up`,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -235,49 +222,61 @@ const FormInput = () => {
     }
 
     try {
-      const response = await fetch(`/auth/id?id=${userId}`);
+      const response = await fetch(`${API_URL}auth/id`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: userId }),
+      });
       const data = await response.json();
 
       if (response.ok) {
-        if (data.isAvailable) {
-          openModal("사용 할 수 있는 아이디 입니다");
-          setIsUserIdChecked(true);
-        } else {
-          openModal("이미 사용 중인 아이디 입니다");
-        }
+        openModal(
+          data.data.check
+            ? "이미 사용 중인 아이디 입니다"
+            : "사용 할 수 있는 아이디 입니다"
+        );
+        if (data.data.check === false) setIsUserIdChecked(true);
       } else {
         openModal("아이디 중복 체크에 실패했습니다. 다시 시도해주세요.");
       }
-    } catch (error) {
+    } catch {
       openModal("서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
   const handleUserEmailCheck = async () => {
-    if (userEmail.trim() === "") {
-      openModal("이메일을 입력해주세요");
-      return;
-    }
     if (!userEmailIsValid) {
-      openModal("이메일 형식으로 입력해주세요");
+      openModal(
+        userEmail.trim() === ""
+          ? "이메일을 입력해주세요"
+          : "이메일 형식으로 입력해주세요"
+      );
       return;
     }
 
     try {
-      const response = await fetch(`/auth/email?email=${userEmail}`);
+      const response = await fetch(`${API_URL}auth/email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: userEmail }),
+      });
       const data = await response.json();
 
       if (response.ok) {
-        if (data.isAvailable) {
-          openModal("사용 가능한 이메일 입니다.");
-          setIsUserEmailChecked(true);
-        } else {
-          openModal("이미 사용 중인 이메일 입니다.");
-        }
+        openModal(
+          data.data.check
+            ? "이미 사용 중인 이메일 입니다."
+            : "사용 가능한 이메일 입니다."
+        );
+        if (data.data.check === false) setIsUserEmailChecked(true);
       } else {
         openModal("이메일 중복 체크에 실패했습니다. 다시 시도해주세요.");
       }
-    } catch (error) {
+    } catch {
       openModal("서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
@@ -447,6 +446,6 @@ const FormInput = () => {
       </form>
     </>
   );
-};
+}
 
 export default FormInput;
