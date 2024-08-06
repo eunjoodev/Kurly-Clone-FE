@@ -5,11 +5,11 @@ import { useSetRecoilState } from "recoil";
 import { authState } from "../../state/authAtom";
 import Swal from "sweetalert2";
 import "./Login.css"; // CSS 파일을 임포트합니다.
+import OauthGoogle from "./OauthGoogle";
 
 function generateCaptcha() {
   return Math.floor(1000 + Math.random() * 9000).toString();
 }
-import OauthGoogle from "./OauthGoogle";
 
 function Login() {
   const [userId, setUserId] = useState("");
