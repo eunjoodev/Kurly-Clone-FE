@@ -2,16 +2,19 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useSetRecoilState } from "recoil";
-import { authState } from "../../state/authAtom";
 import Swal from "sweetalert2";
 import "./Login.css"; // CSS 파일을 임포트합니다.
 import OauthGoogle from "./OauthGoogle";
+import { authState } from "../../state/authAtom";
+
+const API_URL = "http://43.202.22.78:8080/";
 
 function generateCaptcha() {
   return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
 function Login() {
+  // State 선언
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -22,6 +25,7 @@ function Login() {
   const setAuth = useSetRecoilState(authState);
   const navigate = useNavigate();
 
+  // 이벤트 핸들러 함수
   const handleFindLogin = () => {
     navigate("/reset-username");
   };
@@ -32,6 +36,10 @@ function Login() {
 
   const handleSignUp = async () => {
     navigate("/account");
+  };
+
+  const handleCaptchaChange = (e) => {
+    setCaptchaInput(e.target.value);
   };
 
   const handleLogin = async () => {
@@ -49,47 +57,43 @@ function Login() {
         }
       }
 
-      const storedUserData = localStorage.getItem("userData");
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: userId, password: password }),
+      });
 
-      if (storedUserData) {
-        const { userId: storedUserId, userPassword } =
-          JSON.parse(storedUserData);
-        if (userId === storedUserId && password === userPassword) {
-          setError(null);
-          login(storedUserId);
-          setAuth({ token: storedUserId });
-
-          Swal.fire({
-            icon: "success",
-            title: "로그인 성공",
-            text: "로그인에 성공하였습니다!",
-            confirmButtonText: "확인",
-          }).then(() => {
-            navigate("/");
-          });
+      if (!response.ok) {
+        if (response.status === 500) {
+          throw new Error("서버 내부 오류가 발생했습니다.");
         } else {
-          setLoginAttempts((prev) => prev + 1);
-          Swal.fire({
-            icon: "error",
-            title: "로그인 실패",
-            text: "아이디 또는 비밀번호가 잘못되었습니다!",
-            confirmButtonText: "확인",
-          });
+          throw new Error("로그인에 실패했습니다.");
         }
-      } else {
-        Swal.fire({
-          icon: "warning",
-          title: "경고",
-          text: "저장된 사용자 데이터가 없습니다!",
-          confirmButtonText: "확인",
-        });
       }
+
+      const data = await response.json();
+      const token = response.headers.get("Token");
+
+      // 로그인 성공 시
+      login(userId);
+      setAuth({ token: token });
+      Swal.fire({
+        icon: "success",
+        title: "로그인 성공",
+        text: "로그인에 성공하였습니다!",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate("/");
+      });
     } catch (error) {
       console.error("로그인 중 오류 발생:", error);
+      setLoginAttempts((prev) => prev + 1);
       Swal.fire({
         icon: "error",
-        title: "오류",
-        text: "일어났습니다. 다시 시도해주세요! " + error.message,
+        title: "로그인 실패",
+        text: error.message,
         confirmButtonText: "확인",
       });
     }
@@ -140,7 +144,7 @@ function Login() {
               type="text"
               placeholder="인증번호 입력"
               value={captchaInput}
-              onChange={(e) => setCaptchaInput(e.target.value)}
+              onChange={handleCaptchaChange}
               className="captcha-input"
             />
           </div>
@@ -158,7 +162,7 @@ function Login() {
         >
           회원가입
         </button>
-        <OauthGoogle></OauthGoogle>
+        <OauthGoogle />
       </div>
     </main>
   );

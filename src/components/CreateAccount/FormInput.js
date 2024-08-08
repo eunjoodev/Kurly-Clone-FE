@@ -54,8 +54,8 @@ function FormInput() {
     (value) =>
       value.length >= 10 &&
       /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{9,16}$/.test(
-        value
-      )
+        value,
+      ),
   );
 
   const userPasswordLengthValid = userPassword.length >= 10;
@@ -170,7 +170,7 @@ function FormInput() {
 
     const birthday = `${year}-${month.padStart(2, "0")}-${day.padStart(
       2,
-      "0"
+      "0",
     )}`;
 
     const userData = {
@@ -211,7 +211,7 @@ function FormInput() {
         },
         body: JSON.stringify(userData),
       },
-      applyData
+      applyData,
     );
   };
 
@@ -235,7 +235,7 @@ function FormInput() {
         openModal(
           data.data.check
             ? "이미 사용 중인 아이디 입니다"
-            : "사용 할 수 있는 아이디 입니다"
+            : "사용 할 수 있는 아이디 입니다",
         );
         if (data.data.check === false) setIsUserIdChecked(true);
       } else {
@@ -251,7 +251,7 @@ function FormInput() {
       openModal(
         userEmail.trim() === ""
           ? "이메일을 입력해주세요"
-          : "이메일 형식으로 입력해주세요"
+          : "이메일 형식으로 입력해주세요",
       );
       return;
     }
@@ -270,7 +270,7 @@ function FormInput() {
         openModal(
           data.data.check
             ? "이미 사용 중인 이메일 입니다."
-            : "사용 가능한 이메일 입니다."
+            : "사용 가능한 이메일 입니다.",
         );
         if (data.data.check === false) setIsUserEmailChecked(true);
       } else {
@@ -402,7 +402,7 @@ function FormInput() {
             if (
               !/[0-9]/.test(e.key) &&
               !["Backspace", "Delete", "ArrowLeft", "ArrowRight"].includes(
-                e.key
+                e.key,
               )
             ) {
               e.preventDefault();
