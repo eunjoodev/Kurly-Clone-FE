@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 const Address = () => {
   const [addresses, setAddresses] = useState([]);
 
-<<<<<<< HEAD
   //로컬스토리지
   // useEffect(() => {
   //   const userData = JSON.parse(localStorage.getItem("userData")) || {
@@ -43,13 +42,6 @@ const Address = () => {
     };
 
     getData();
-=======
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("userData")) || {
-      userAddress: [],
-    };
-    setAddresses(userData.userAddress);
->>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
   }, []);
 
   const loadDaumPostcodeScript = (callback) => {
@@ -68,7 +60,6 @@ const Address = () => {
           const newAddresses = [...addresses, fullAddress];
           setAddresses(newAddresses);
 
-<<<<<<< HEAD
           //로컬에 새로 저장
           // const userData = JSON.parse(localStorage.getItem("userData")) || {};
           // userData.userAddress = newAddresses;
@@ -99,11 +90,6 @@ const Address = () => {
           } catch (error) {
             console.error("배송지 저장중 에러가 발생했습니다.:", error);
           }
-=======
-          const userData = JSON.parse(localStorage.getItem("userData")) || {};
-          userData.userAddress = newAddresses;
-          localStorage.setItem("userData", JSON.stringify(userData));
->>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
         },
       }).open();
     });
