@@ -13,11 +13,8 @@ import WishList from "./components/UserprofileItems/WishList.js";
 import Login from "./components/login/Login";
 import FindLogin from "./components/login/FindLogin";
 import FindPassword from "./components/login/FindPassword";
-<<<<<<< HEAD
 import Info from "./components/UserprofileItems/OtherMenusItem/Info.js";
 import Address from "./components/UserprofileItems/OtherMenusItem/Address.js";
-=======
->>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
 
 const router = createBrowserRouter([
   {
