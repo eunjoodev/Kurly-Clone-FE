@@ -3,11 +3,53 @@ import React, { useState, useEffect } from "react";
 const Address = () => {
   const [addresses, setAddresses] = useState([]);
 
+<<<<<<< HEAD
+  //로컬스토리지
+  // useEffect(() => {
+  //   const userData = JSON.parse(localStorage.getItem("userData")) || {
+  //     userAddress: [],
+  //   };
+  //   setAddresses(userData.userAddress);
+  // }, []);
+
+  //백엔드
+  useEffect(() => {
+    const getData = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("토큰이 없습니다.");
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          "http://43.203.234.84:8080/mypage/address",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const userData = await response.json();
+          setAddresses(userData.userAddress || []);
+        } else {
+          console.error("userData를 가져오는데 실패했습니다");
+        }
+      } catch (error) {
+        console.error("userData를 가져오는중 에러가 발생했습니다:", error);
+      }
+    };
+
+    getData();
+=======
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData")) || {
       userAddress: [],
     };
     setAddresses(userData.userAddress);
+>>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
   }, []);
 
   const loadDaumPostcodeScript = (callback) => {
@@ -26,9 +68,42 @@ const Address = () => {
           const newAddresses = [...addresses, fullAddress];
           setAddresses(newAddresses);
 
+<<<<<<< HEAD
+          //로컬에 새로 저장
+          // const userData = JSON.parse(localStorage.getItem("userData")) || {};
+          // userData.userAddress = newAddresses;
+          // localStorage.setItem("userData", JSON.stringify(userData));
+
+          //백엔드에 저장
+          const token = localStorage.getItem("token");
+          if (!token) {
+            console.error("토큰이 없습니다.");
+            return;
+          }
+          try {
+            const response = await fetch(
+              "http://43.203.234.84:8080/mypage/address",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ address: newAddresses }),
+              }
+            );
+
+            if (!response.ok) {
+              console.error("배송지 저장에 실패했습니다");
+            }
+          } catch (error) {
+            console.error("배송지 저장중 에러가 발생했습니다.:", error);
+          }
+=======
           const userData = JSON.parse(localStorage.getItem("userData")) || {};
           userData.userAddress = newAddresses;
           localStorage.setItem("userData", JSON.stringify(userData));
+>>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
         },
       }).open();
     });

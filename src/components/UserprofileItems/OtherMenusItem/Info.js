@@ -6,6 +6,44 @@ const Info = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userNumber, setUserNumber] = useState("");
 
+<<<<<<< HEAD
+  useEffect(async () => {
+    //로컬스토리지
+    // const userData = JSON.parse(localStorage.getItem("userData")) || {};
+    // setUserId(userData.userId || "");
+    // setUserName(userData.userName || "");
+    // setUserEmail(userData.userEmail || "");
+    // setUserNumber(userData.userNumber || "");
+
+    //백엔드
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("토큰이 없습니다.");
+      return;
+    }
+    try {
+      const response = await fetch("http://43.203.234.84:8080/mypage/info", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const userData = await response.json();
+        setUserId(userData.userId || "");
+        setUserName(userData.userName || "");
+        setUserEmail(userData.userEmail || "");
+        setUserNumber(userData.userNumber || "");
+      } else {
+        console.error("userData를 가져오는데 실패했습니다");
+      }
+    } catch (error) {
+      console.error("userData를 가져오는중 에러가 발생했습니다:", error);
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
+=======
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData")) || {};
     setUserId(userData.userId || "");
@@ -15,6 +53,7 @@ const Info = () => {
   }, []);
 
   const handleSubmit = (e) => {
+>>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
     e.preventDefault();
     const updatedUserData = {
       userId,
@@ -23,8 +62,42 @@ const Info = () => {
       userNumber,
     };
 
+<<<<<<< HEAD
+    //로컬스토리지
+    // localStorage.setItem("userData", JSON.stringify(updatedUserData));
+    // alert("회원 정보가 수정되었습니다.");
+
+    //백엔드
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("토큰이 없습니다.");
+        return;
+      }
+
+      const response = await fetch("http://43.203.234.84:8080/mypage/info", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedUserData),
+      });
+
+      if (response.ok) {
+        alert("회원 정보가 수정되었습니다.");
+        // 필요한 경우 로컬 스토리지의 token을 업데이트할 수 있습니다.
+      } else {
+        alert("회원 정보 수정에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("회원 정보 수정 중 오류가 발생했습니다:", error);
+      alert("오류가 발생했습니다. 다시 시도해 주세요.");
+    }
+=======
     localStorage.setItem("userData", JSON.stringify(updatedUserData));
     alert("회원 정보가 수정되었습니다.");
+>>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
   };
 
   return (
