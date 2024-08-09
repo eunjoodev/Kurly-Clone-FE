@@ -6,6 +6,7 @@ const Info = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userNumber, setUserNumber] = useState("");
 
+<<<<<<< HEAD
   useEffect(async () => {
     //로컬스토리지
     // const userData = JSON.parse(localStorage.getItem("userData")) || {};
@@ -42,6 +43,17 @@ const Info = () => {
   }, []);
 
   const handleSubmit = async (e) => {
+=======
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData")) || {};
+    setUserId(userData.userId || "");
+    setUserName(userData.userName || "");
+    setUserEmail(userData.userEmail || "");
+    setUserNumber(userData.userNumber || "");
+  }, []);
+
+  const handleSubmit = (e) => {
+>>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
     e.preventDefault();
     const updatedUserData = {
       userId,
@@ -50,6 +62,7 @@ const Info = () => {
       userNumber,
     };
 
+<<<<<<< HEAD
     //로컬스토리지
     // localStorage.setItem("userData", JSON.stringify(updatedUserData));
     // alert("회원 정보가 수정되었습니다.");
@@ -81,6 +94,10 @@ const Info = () => {
       console.error("회원 정보 수정 중 오류가 발생했습니다:", error);
       alert("오류가 발생했습니다. 다시 시도해 주세요.");
     }
+=======
+    localStorage.setItem("userData", JSON.stringify(updatedUserData));
+    alert("회원 정보가 수정되었습니다.");
+>>>>>>> c468749e013fc925d513cef2e19dfcc52e06c7ef
   };
 
   return (
