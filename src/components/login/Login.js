@@ -2,94 +2,96 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useSetRecoilState } from "recoil";
-import { authState } from "../../state/authAtom";
 import Swal from "sweetalert2";
-import "./Login.css"; // CSS 파일을 임포트합니다.
+import "./Login.css";
+import OauthGoogle from "./OauthGoogle";
+import { authState } from "../../state/authAtom";
+
+const API_URL = "http://43.202.22.78:8080";
 
 function generateCaptcha() {
   return Math.floor(1000 + Math.random() * 9000).toString();
 }
-import OauthGoogle from "./OauthGoogle";
 
 function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loginAttempts, setLoginAttempts] = useState(0);
-  const [captcha, setCaptcha] = useState(generateCaptcha());
+  const [captcha, setCaptcha] = useState("");
   const [captchaInput, setCaptchaInput] = useState("");
   const { login } = useContext(AuthContext);
   const setAuth = useSetRecoilState(authState);
   const navigate = useNavigate();
 
-  const handleFindLogin = () => {
-    navigate("/reset-username");
-  };
-
-  const handleFindPassword = () => {
-    navigate("/reset-password");
-  };
-
-  const handleSignUp = async () => {
-    navigate("/account");
-  };
+  const handleFindLogin = () => navigate("/reset-username");
+  const handleFindPassword = () => navigate("/reset-password");
+  const handleSignUp = async () => navigate("/account");
+  const handleCaptchaChange = (e) => setCaptchaInput(e.target.value);
 
   const handleLogin = async () => {
     try {
-      if (loginAttempts >= 2) {
-        // 캡차 검증 단계
-        if (captchaInput !== captcha) {
-          Swal.fire({
-            icon: "error",
-            title: "인증 실패",
-            text: "인증번호를 정확하게 입력해주세요!",
-            confirmButtonText: "확인",
-          });
-          return; // 검증 실패 시 로그인 로직을 진행하지 않음
-        }
-      }
-
-      const storedUserData = localStorage.getItem("userData");
-
-      if (storedUserData) {
-        const { userId: storedUserId, userPassword } =
-          JSON.parse(storedUserData);
-        if (userId === storedUserId && password === userPassword) {
-          setError(null);
-          login(storedUserId);
-          setAuth({ token: storedUserId });
-
-          Swal.fire({
-            icon: "success",
-            title: "로그인 성공",
-            text: "로그인에 성공하였습니다!",
-            confirmButtonText: "확인",
-          }).then(() => {
-            navigate("/");
-          });
-        } else {
-          setLoginAttempts((prev) => prev + 1);
-          Swal.fire({
-            icon: "error",
-            title: "로그인 실패",
-            text: "아이디 또는 비밀번호가 잘못되었습니다!",
-            confirmButtonText: "확인",
-          });
-        }
-      } else {
+      if (loginAttempts >= 2 && captchaInput !== captcha) {
         Swal.fire({
-          icon: "warning",
-          title: "경고",
-          text: "저장된 사용자 데이터가 없습니다!",
+          icon: "error",
+          title: "인증 실패",
+          text: "인증번호를 정확하게 입력해주세요!",
           confirmButtonText: "확인",
         });
+        return;
       }
+
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: userId, password }),
+      });
+
+      console.log("Response status:", response.status); // HTTP 응답 상태 코드 로깅
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.log("Error response:", errorMessage); // 에러 메시지를 콘솔에 출력
+        setLoginAttempts((prev) => prev + 1); // 실패 시 로그인 시도 횟수 증가
+        if (loginAttempts >= 1) {
+          setCaptcha(generateCaptcha());
+        }
+        throw new Error(errorMessage || "로그인에 실패했습니다.");
+      }
+
+      const data = await response.json();
+      const token = response.headers.get("Token"); // 예상되는 토큰 헤더 이름
+
+      login(userId);
+      setAuth({ token });
+
+      Swal.fire({
+        icon: "success",
+        title: "로그인 성공",
+        text: "로그인에 성공하였습니다!",
+        confirmButtonText: "확인",
+      }).then(() => navigate("/"));
     } catch (error) {
       console.error("로그인 중 오류 발생:", error);
+
+      let errorMessage =
+        "요청을 처리하는 도중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.";
+      if (
+        error.message === "Failed to fetch" ||
+        error.message === "NetworkError when attempting to fetch resource."
+      ) {
+        errorMessage =
+          "서버와의 연결에 문제가 발생했습니다. 네트워크 상태를 확인하거나 잠시 후 다시 시도해주세요.";
+      } else {
+        errorMessage = error.message;
+      }
+
       Swal.fire({
         icon: "error",
-        title: "오류",
-        text: "일어났습니다. 다시 시도해주세요! " + error.message,
+        title: "네트워크 오류",
+        text: errorMessage,
         confirmButtonText: "확인",
       });
     }
@@ -130,7 +132,7 @@ function Login() {
           </button>
         </div>
 
-        {loginAttempts >= 2 && (
+        {loginAttempts >= 2 && captcha && (
           <div className="captcha-container">
             <div className="captcha-header">인증번호를 입력하세요</div>
             <div className="captcha-box">
@@ -140,7 +142,7 @@ function Login() {
               type="text"
               placeholder="인증번호 입력"
               value={captchaInput}
-              onChange={(e) => setCaptchaInput(e.target.value)}
+              onChange={handleCaptchaChange}
               className="captcha-input"
             />
           </div>
@@ -158,7 +160,7 @@ function Login() {
         >
           회원가입
         </button>
-        <OauthGoogle></OauthGoogle>
+        <OauthGoogle />
       </div>
     </main>
   );

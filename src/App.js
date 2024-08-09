@@ -35,7 +35,14 @@ const router = createBrowserRouter([
             path: "wishlist",
             element: <WishList />,
           },
-          {},
+          // {
+          //   path: "info",
+          //   element: <Info />,
+          // },
+          // {
+          //   path: "address",
+          //   element: <Address />,
+          // },
         ],
       },
       {
