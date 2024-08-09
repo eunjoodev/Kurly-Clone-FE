@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PaymentAddress from "./PaymentAddress";
 import PaymentAmount from "./PaymentAmount";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Payment = ({ cartDetails }) => {
   const { auth } = useContext(AuthContext);
