@@ -13,6 +13,7 @@ const GenderField = () => {
               className="w-6 h-6 accent-purple outline-radioColor"
               name="check"
               type="radio"
+              defaultChecked
             />
             <span className="ml-3 mt-1">남자</span>
           </div>
