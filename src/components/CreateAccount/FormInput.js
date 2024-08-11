@@ -17,6 +17,7 @@ function FormInput() {
 
   const [isUserIdChecked, setIsUserIdChecked] = useState(false);
   const [isUserEmailChecked, setIsUserEmailChecked] = useState(false);
+  const [userAddressIsValid, setUserAddressIsValid] = useState(false);
 
   const navigate = useNavigate();
   const { isLoading, error, sendRequest: sendUserData } = useHttp();
@@ -106,6 +107,28 @@ function FormInput() {
     reset: resetUserNumber,
   } = useInput((value) => /^[0-9]{10,11}$/.test(value));
 
+  const [userAddress, setUserAddress] = useState("");
+
+  const handleAddressSearch = () => {
+    const loadDaumPostcodeScript = (callback) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+      script.onload = callback;
+      document.head.appendChild(script);
+    };
+
+    loadDaumPostcodeScript(() => {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          const fullAddress = data.roadAddress || data.jibunAddress;
+          setUserAddress(fullAddress);
+          setUserAddressIsValid(true);
+        },
+      }).open();
+    });
+  };
+
   const {
     value: year,
     valueInputChangeHandler: yearChangeHandler,
@@ -124,27 +147,6 @@ function FormInput() {
     valueInputBlurHandler: dayBlurHandler,
   } = useInput((value) => /^(0?[1-9]|[12][0-9]|3[01])$/.test(value));
 
-  const [userAddress, setUserAddress] = useState("");
-
-  const handleAddressSearch = () => {
-    const loadDaumPostcodeScript = (callback) => {
-      const script = document.createElement("script");
-      script.src =
-        "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-      script.onload = callback;
-      document.head.appendChild(script);
-    };
-
-    loadDaumPostcodeScript(() => {
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          const fullAddress = data.roadAddress || data.jibunAddress;
-          setUserAddress(fullAddress);
-        },
-      }).open();
-    });
-  };
-
   const formIsValid =
     userIdIsValid &&
     userPasswordIsValid &&
@@ -152,6 +154,7 @@ function FormInput() {
     userNameIsValid &&
     userEmailIsValid &&
     userNumberIsValid &&
+    userAddressIsValid &&
     isUserIdChecked &&
     isUserEmailChecked;
 
@@ -163,15 +166,15 @@ function FormInput() {
       return;
     }
 
-    if (isUserIdChecked && isUserEmailChecked && !formIsValid) {
+    if (!formIsValid) {
       openModal("필수입력사항을 모두 작성해주세요");
       return;
     }
 
-    const birthday = `${year}-${month.padStart(2, "0")}-${day.padStart(
-      2,
-      "0"
-    )}`;
+    let birthday = null;
+    if (year.trim() !== "" && month.trim() !== "" && day.trim() !== "") {
+      birthday = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    }
 
     const userData = {
       id: userId,
@@ -179,14 +182,16 @@ function FormInput() {
       password_check: confirmPassword,
       name: userName,
       email: userEmail,
-      phone_number: parseInt(userNumber, 10),
+      phone_number: userNumber.toString(),
       address: userAddress,
       birthday,
     };
 
+    console.log(userData);
+
     const applyData = (data) => {
       openModal(data.message);
-      if (data.success) {
+      if (data.code === 200) {
         setNavigateToLogin(true);
         resetUserId();
         resetUserPassword();
@@ -194,6 +199,8 @@ function FormInput() {
         resetUserName();
         resetUserEmail();
         resetUserNumber();
+        setUserAddress("");
+        setUserAddressIsValid(false);
       }
     };
 
@@ -204,7 +211,7 @@ function FormInput() {
 
     sendUserData(
       {
-        url: `${API_URL}/auth/sign-up`,
+        url: `${API_URL}auth/sign-up`,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -414,7 +421,10 @@ function FormInput() {
         />
 
         <AddressField
-          userAddress={userAddress}
+          label="주소"
+          name="userAddress"
+          type="text"
+          value={userAddress}
           handleAddressSearch={handleAddressSearch}
         />
 

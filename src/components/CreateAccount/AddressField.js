@@ -1,20 +1,20 @@
 import React from "react";
 
-const AddressField = ({ userAddress, handleAddressSearch }) => {
+const AddressField = ({ label, name, type, value, handleAddressSearch }) => {
   return (
     <div className="flex w-w2 py-2.5 px-5 text-sm">
       <div className="inline-block w-w6 mt-4">
-        <label className="text-darkGray font-medium">주소</label>
+        <label className="text-darkGray font-medium">{label}</label>
         <span className="text-red">*</span>
       </div>
       <div className="inline-block">
-        {userAddress ? (
+        {value ? (
           <div>
             <input
               className="border border-lightGray focus:outline w-w3 h-h1 pl-3.5 rounded text-base placeholder-middleGray"
-              name="userAddress"
-              type="text"
-              value={userAddress}
+              name={name}
+              type={type}
+              value={value}
               readOnly
               required
             />
