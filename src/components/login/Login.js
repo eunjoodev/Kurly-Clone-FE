@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useSetRecoilState } from "recoil";
 import { authState } from "../../state/authAtom";
 import Swal from "sweetalert2";
-import "./Login.css"; // CSS 파일을 임포트합니다.
+import "./Login.css"; 
 import OauthGoogle from "./OauthGoogle";
 
 const API_URL = "http://43.202.22.78:8080";
@@ -39,7 +39,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       if (loginAttempts >= 2) {
-        // 캡차 검증 단계
+    
         if (captchaInput !== captcha) {
           Swal.fire({
             icon: "error",
@@ -47,7 +47,7 @@ function Login() {
             text: "인증번호를 정확하게 입력해주세요!",
             confirmButtonText: "확인",
           });
-          return; // 검증 실패 시 로그인 로직을 진행하지 않음
+          return; 
         }
       }
 
@@ -61,21 +61,18 @@ function Login() {
         throw new Error("로그인 실패!");
       }
 
-      // Assuming the backend returns a token in the 'Token' header
       const token = response.headers.get("Token");
 
       if (!token) {
         throw new Error("토큰을 찾을 수 없습니다");
       }
 
-      // Store the token in localStorage
       localStorage.setItem("authToken", token);
-      
-      // Update recoil state with token and set isAuthenticated to true
+  
       setAuth({
         isAuthenticated: true,
         token,
-        user: { id: userId }, // 필요한 정보로 변경
+        user: { id: userId }, 
       });
 
       Swal.fire({

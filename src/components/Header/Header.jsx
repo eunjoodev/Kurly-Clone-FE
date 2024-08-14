@@ -10,14 +10,14 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // 로그아웃 시 상태를 초기화
+   
     setAuth({
       isAuthenticated: false,
       token: null,
       user: null,
     });
     localStorage.removeItem("authToken");
-    navigate("/"); // 로그아웃 후 메인 페이지로 리다이렉션
+    navigate("/"); 
   };
 
   return (
