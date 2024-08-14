@@ -1,23 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
-import { AuthContext } from "../../context/AuthContext";
-import {
-  burger,
-  cart,
-  heart,
-  logo,
-  magnifyingGlass,
-  map,
-} from "../../assets/images";
+import { useRecoilState } from "recoil";
+import { authState } from "../../state/authAtom";
+import { burger, cart, heart, logo, magnifyingGlass, map } from "../../assets/images";
 
 function Header() {
-  const { auth, logout } = useContext(AuthContext);
-  const isLoggedIn = !!auth.token;
+  const [auth, setAuth] = useRecoilState(authState);
+  const isLoggedIn = auth.isAuthenticated;
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    // 로그아웃 시 상태를 초기화
+    setAuth({
+      isAuthenticated: false,
+      token: null,
+      user: null,
+    });
+    localStorage.removeItem("authToken");
     navigate("/"); // 로그아웃 후 메인 페이지로 리다이렉션
   };
 
@@ -28,15 +27,27 @@ function Header() {
           {/* 상단 회원가입, 로그인, 고객센터 */}
           <div className="flex justify-between items-center mt-2 mb-3">
             <div className="flex-grow"></div>
-            <div className="flex space-x-2 items-center ">
+            <div className="flex space-x-2 items-center">
               {isLoggedIn ? (
-                <button
-                  onClick={handleLogout}
-                  className="text-xs"
-                  style={{ fontSize: "12px" }}
-                >
-                  로그아웃
-                </button>
+                <>
+                  <button
+                    onClick={handleLogout}
+                    className="text-xs"
+                    style={{ fontSize: "12px" }}
+                  >
+                    로그아웃
+                  </button>
+                  <span className="" aria-hidden="true">
+                    ㅣ
+                  </span>
+                  <a
+                    className="text-xs"
+                    href="/userprofile"
+                    style={{ fontSize: "12px" }}
+                  >
+                    마이페이지
+                  </a>
+                </>
               ) : (
                 <>
                   <div className="text-xs" style={{ fontSize: "12px" }}>
@@ -52,18 +63,18 @@ function Header() {
                   >
                     로그인
                   </a>
+                  <span className="" aria-hidden="true">
+                    ㅣ
+                  </span>
+                  <a
+                    className="text-xs"
+                    href="/userprofile"
+                    style={{ fontSize: "12px" }}
+                  >
+                    마이페이지
+                  </a>
                 </>
               )}
-              <span className="" aria-hidden="true">
-                ㅣ
-              </span>
-              <a
-                className="text-xs"
-                href="/userprofile"
-                style={{ fontSize: "12px" }}
-              >
-                마이페이지
-              </a>
             </div>
           </div>
 

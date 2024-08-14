@@ -1,6 +1,8 @@
-import React from "react";
+// src/App.js
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RecoilRoot } from "recoil"; // RecoilRoot 추가
+import { RecoilRoot, useSetRecoilState } from "recoil";
+import { authState } from "./state/authAtom"; // 미리 정의된 Recoil 상태
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import CreateAccount from "./components/CreateAccount/CreateAccount.js";
@@ -59,13 +61,29 @@ const router = createBrowserRouter([
   },
 ]);
 
+const AppInitializer = () => {
+  const setAuth = useSetRecoilState(authState);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    const user = JSON.parse(localStorage.getItem("user")); // user 데이터 가져오기
+    if (token && user) {
+      setAuth({
+        isAuthenticated: true,
+        token,
+        user,
+      });
+    }
+  }, [setAuth]);
+
+  return <RouterProvider router={router} />;
+};
+
 function App() {
   return (
     <RecoilRoot>
-      {" "}
-      {/* RecoilRoot로 애플리케이션 감싸기 */}
       <AuthProvider>
-        <RouterProvider router={router} />
+        <AppInitializer />
       </AuthProvider>
     </RecoilRoot>
   );
