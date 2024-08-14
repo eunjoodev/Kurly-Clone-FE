@@ -1,10 +1,10 @@
-
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
 export const authState = atom({
-  key: 'authState',
+  key: "authState",
   default: {
     isAuthenticated: false,
-    user: null,
-  },
+    token: null,
+    user: null
+  }
 });

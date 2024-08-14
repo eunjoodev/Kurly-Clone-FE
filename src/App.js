@@ -33,32 +33,32 @@ const router = createBrowserRouter([
         children: [
           {
             path: "orders",
-            element: <OrderList />,
+            element: <OrderList />
           },
           {
             path: "wishlist",
-            element: <WishList />,
+            element: <WishList />
           },
           {
             path: "info",
-            element: <Info />,
+            element: <Info />
           },
           {
             path: "address",
-            element: <Address />,
-          },
-        ],
+            element: <Address />
+          }
+        ]
       },
       {
         path: "reset-username",
-        element: <FindLogin />,
+        element: <FindLogin />
       },
       {
         path: "reset-password",
-        element: <FindPassword />,
-      },
-    ],
-  },
+        element: <FindPassword />
+      }
+    ]
+  }
 ]);
 
 const AppInitializer = () => {
@@ -71,7 +71,7 @@ const AppInitializer = () => {
       setAuth({
         isAuthenticated: true,
         token,
-        user,
+        user
       });
     }
   }, [setAuth]);
@@ -82,9 +82,7 @@ const AppInitializer = () => {
 function App() {
   return (
     <RecoilRoot>
-      <AuthProvider>
-        <AppInitializer />
-      </AuthProvider>
+      <AppInitializer />
     </RecoilRoot>
   );
 }
