@@ -4,8 +4,10 @@ import { AuthContext } from "../../context/AuthContext";
 import { useSetRecoilState } from "recoil";
 import { authState } from "../../state/authAtom";
 import Swal from "sweetalert2";
-import "./Login.css"; // CSS 파일을 임포트합니다.
+import "./Login.css"; 
 import OauthGoogle from "./OauthGoogle";
+
+const API_URL = "http://43.202.22.78:8080";
 
 function generateCaptcha() {
   return Math.floor(1000 + Math.random() * 9000).toString();
@@ -37,7 +39,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       if (loginAttempts >= 2) {
-        // 캡차 검증 단계
+    
         if (captchaInput !== captcha) {
           Swal.fire({
             icon: "error",
@@ -45,51 +47,50 @@ function Login() {
             text: "인증번호를 정확하게 입력해주세요!",
             confirmButtonText: "확인",
           });
-          return; // 검증 실패 시 로그인 로직을 진행하지 않음
+          return; 
         }
       }
 
-      const storedUserData = localStorage.getItem("userData");
+      const response = await fetch(API_URL + "/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: userId, password }),
+      });
 
-      if (storedUserData) {
-        const { userId: storedUserId, userPassword } =
-          JSON.parse(storedUserData);
-        if (userId === storedUserId && password === userPassword) {
-          setError(null);
-          login(storedUserId);
-          setAuth({ token: storedUserId });
-
-          Swal.fire({
-            icon: "success",
-            title: "로그인 성공",
-            text: "로그인에 성공하였습니다!",
-            confirmButtonText: "확인",
-          }).then(() => {
-            navigate("/");
-          });
-        } else {
-          setLoginAttempts((prev) => prev + 1);
-          Swal.fire({
-            icon: "error",
-            title: "로그인 실패",
-            text: "아이디 또는 비밀번호가 잘못되었습니다!",
-            confirmButtonText: "확인",
-          });
-        }
-      } else {
-        Swal.fire({
-          icon: "warning",
-          title: "경고",
-          text: "저장된 사용자 데이터가 없습니다!",
-          confirmButtonText: "확인",
-        });
+      if (!response.ok) {
+        throw new Error("로그인 실패!");
       }
+
+      const token = response.headers.get("Token");
+
+      if (!token) {
+        throw new Error("토큰을 찾을 수 없습니다");
+      }
+
+      localStorage.setItem("authToken", token);
+  
+      setAuth({
+        isAuthenticated: true,
+        token,
+        user: { id: userId }, 
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "로그인 성공",
+        text: "로그인에 성공하였습니다!",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate("/");
+      });
+
     } catch (error) {
       console.error("로그인 중 오류 발생:", error);
+      setLoginAttempts((prev) => prev + 1);
       Swal.fire({
         icon: "error",
         title: "오류",
-        text: "일어났습니다. 다시 시도해주세요! " + error.message,
+        text: "로그인 중 오류가 발생했습니다. 다시 시도해주세요! " + error.message,
         confirmButtonText: "확인",
       });
     }
@@ -158,7 +159,7 @@ function Login() {
         >
           회원가입
         </button>
-        <OauthGoogle></OauthGoogle>
+        <OauthGoogle />
       </div>
     </main>
   );
